@@ -8,22 +8,17 @@ import {
 import { Button } from '@/app/ui/button';
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/app/lib/actions';
-import { urbanist } from '@/app/ui/fonts';
 
 export default function LoginForm() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
 
   return (
     <form action={dispatch}>
-      <div className="flex w-[420px] flex-col rounded-2xl bg-white px-7 py-12 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]">
+      <div className="flex w-[400px] flex-col rounded-2xl bg-white px-7 py-12 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]">
         <div className="mb-12 flex flex-col gap-0 text-center text-[#393939]">
-          <p
-            className={`${urbanist.className} text-lg font-semibold text-blue-600`}
-          >
-            Selamat Datang
-          </p>
-          <p className={`${urbanist.className} text-3xl font-bold `}>
-            Masuk untuk Melakukan Rekam Medis
+          <p className="text-lg font-semibold">Selamat Datang</p>
+          <p className="text-3xl font-bold">
+            Masuk untuk Melihat Rekam Medis Anda
           </p>
         </div>
         <div className="flex w-full flex-col gap-2">
@@ -73,7 +68,7 @@ export default function LoginForm() {
           Belum punya akun?{' '}
           <a
             href="/register"
-            className="font-bold text-blue-600 hover:underline hover:underline-offset-2"
+            className="font-bold text-[#1479FF] hover:underline hover:underline-offset-2"
           >
             Buat Akun
           </a>

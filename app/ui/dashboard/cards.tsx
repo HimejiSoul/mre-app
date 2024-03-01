@@ -5,7 +5,7 @@ import {
   InboxIcon,
 } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/ui/fonts';
-import { fetchCardData } from '@/app/lib/data';
+import { fetchCardData, fetchPatientData } from '@/app/lib/data';
 
 const iconMap = {
   collected: BanknotesIcon,
@@ -21,25 +21,41 @@ export default async function CardWrapper() {
     totalPaidInvoices,
     totalPendingInvoices,
   } = await fetchCardData();
+  const jumlah_pasienKB = await fetchPatientData('0');
+  const jumlah_pasienHamil = await fetchPatientData('1');
+  const jumlah_pasienImun = await fetchPatientData('2');
+  const jumlah_pasienIbu = await fetchPatientData('3');
+  const jumlah_pasienAnak = await fetchPatientData('4');
   return (
     <>
-      <Card
-        title="Keluarga Berencana"
-        value={totalPaidInvoices}
-        type="collected"
-      />
-      <Card
-        title="Periksa Kehamilan"
-        value={totalPendingInvoices}
-        type="pending"
-      />
-      <Card
-        title="Layanan Imunisasi"
-        value={numberOfInvoices}
-        type="invoices"
-      />
-      <Card title="Layanan Ibu" value={numberOfCustomers} type="customers" />
-      <Card title="Layanan Anak" value={numberOfCustomers} type="customers" />
+      <div className="col-span-2">
+        <Card
+          title="Keluarga Berencana"
+          value={jumlah_pasienKB}
+          type="collected"
+        />
+      </div>
+      <div className="col-span-2">
+        <Card
+          title="Periksa Kehamilan"
+          value={jumlah_pasienHamil}
+          type="pending"
+        />
+      </div>
+
+      <div className="col-span-2">
+        <Card
+          title="Layanan Imunisasi"
+          value={jumlah_pasienImun}
+          type="invoices"
+        />
+      </div>
+      <div className="col-span-3">
+        <Card title="Layanan Ibu" value={jumlah_pasienIbu} type="customers" />
+      </div>
+      <div className="col-span-3">
+        <Card title="Layanan Anak" value={jumlah_pasienAnak} type="customers" />
+      </div>
     </>
   );
 }

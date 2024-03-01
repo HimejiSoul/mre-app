@@ -1,23 +1,23 @@
-import Form from '@/app/ui/invoices/create-form';
+import KBForm from '@/app/ui/invoices/create-form';
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
 import { fetchCustomers } from '@/app/lib/data';
+import { ChevronLeft, Link } from 'lucide-react';
+import { urbanist } from '@/app/ui/fonts';
 
 export default async function Page() {
   const customers = await fetchCustomers();
 
   return (
-    <main>
-      <Breadcrumbs
-        breadcrumbs={[
-          { label: 'Invoices', href: '/dashboard/invoices' },
-          {
-            label: 'Create Invoice',
-            href: '/dashboard/invoices/create',
-            active: true,
-          },
-        ]}
-      />
-      <Form customers={customers} />
-    </main>
+    <>
+      <div
+        className={`${urbanist.className} flex items-center py-3 text-xl font-bold`}
+      >
+        <a href="/dashboard/invoices">
+          <ChevronLeft className="mr-3 h-5 w-5" />
+        </a>
+        <span>Tambah Pasien Layanan Keluarga Berencana</span>
+      </div>
+      <KBForm />
+    </>
   );
 }

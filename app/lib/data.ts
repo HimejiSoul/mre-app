@@ -10,6 +10,7 @@ import {
 } from './definitions';
 import { formatCurrency } from './utils';
 import { unstable_noStore as noStore } from 'next/cache';
+import axios, { AxiosResponse } from 'axios';
 
 export async function fetchRevenue() {
   // Add noStore() here to prevent the response from being cached.
@@ -48,6 +49,21 @@ export async function fetchLatestInvoices() {
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch the latest invoices.');
+  }
+}
+
+export async function fetchPatientData(id_layanan: string) {
+  const apiEndpoint = process.env.API_ENDPOINT;
+  try {
+    const response: AxiosResponse<any> = await axios.get(
+      `${apiEndpoint}?id_layanan=${id_layanan}`,
+    );
+    const jumlah_pasien = response.data.jumlah;
+    // console.log(jumlah_pasien);
+    return jumlah_pasien;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch card data.');
   }
 }
 
