@@ -14,7 +14,7 @@ const links = [
     icon: Icon.KB,
   },
   {
-    name: 'Periksa Kehamilan',
+    name: 'Loh Kehamilan',
     href: '/dashboard/periksa-kehamilan',
     icon: Icon.Kehamilan,
   },
