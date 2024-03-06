@@ -15,7 +15,7 @@ const links = [
   },
   {
     name: 'Periksa Kehamilan',
-    href: '/dashboard/periksa-kehamilan',
+    href: '/dashboard/periksa-kehamilan/create',
     icon: Icon.Kehamilan,
   },
 ];
