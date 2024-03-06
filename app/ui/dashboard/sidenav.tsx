@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import NavLinks from '@/app/ui/dashboard/nav-links';
 import AcmeLogo from '@/app/ui/acme-logo';
-import { PowerIcon } from '@heroicons/react/24/outline';
 import { signOut } from '@/auth';
+import { LogOut } from '../icons';
 
 export default function SideNav() {
+  const LogOutIcon = LogOut;
   return (
     <div className="flex h-full flex-col p-4">
       <Link
@@ -24,8 +25,8 @@ export default function SideNav() {
             await signOut();
           }}
         >
-          <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">
-            <PowerIcon className="w-5 text-[#DF645F]" />
+          <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-[#F9E0DF] hover:text-[#DF645F] md:flex-none md:justify-start md:p-2 md:px-3">
+            <LogOutIcon className="h-8 w-6 text-[#DF645F]" />
             <div className="hidden text-[#DF645F] md:block">Log Out</div>
           </button>
         </form>
