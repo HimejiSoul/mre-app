@@ -1,5 +1,4 @@
-import KBForm from '@/app/ui/invoices/create-form';
-import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
+import KBForm from '@/app/ui/invoices/kb-form';
 import { fetchCustomers } from '@/app/lib/data';
 import { ChevronLeft, Link } from 'lucide-react';
 import { urbanist } from '@/app/ui/fonts';
