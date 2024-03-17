@@ -1,5 +1,6 @@
 'use client';
 
+import { useFormStatus } from 'react-dom';
 import { createKBPatient } from '@/app/lib/actions';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
@@ -34,6 +35,20 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button
+      type="submit"
+      aria-disabled={pending}
+      className="mt-5 w-fit bg-blue-600 hover:bg-blue-400"
+    >
+      Tambah Pasien
+    </Button>
+  );
+}
 
 const alatKontrasepsi = [
   {
@@ -344,7 +359,6 @@ export default function KBForm() {
   });
 
   function onSubmit(data: any) {
-    console.log(data);
     createKBPatient(data);
   }
 
@@ -360,13 +374,7 @@ export default function KBForm() {
           <Skrining form={form} />
           <Hasil form={form} />
           <PenapisanKB form={form} />
-
-          <Button
-            type="submit"
-            className="mt-5 w-fit bg-blue-600 hover:bg-blue-400"
-          >
-            Tambah Pasien
-          </Button>
+          <SubmitButton />
         </form>
       </Form>
     </div>
