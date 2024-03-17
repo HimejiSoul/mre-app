@@ -157,7 +157,7 @@ const FormSchema = z.object({
       haidTerakhir: z.date({
         required_error: 'Harap Diisi',
       }),
-      hamil: z.enum(['True', 'False'], {
+      hamil: z.enum(['true', 'false'], {
         required_error: 'Harap Diisi',
       }),
       jumlahGpa: z.object({
@@ -199,23 +199,23 @@ const FormSchema = z.object({
       posisiRahim: z.enum(['Retrofleksi', 'Anterfleksi'], {
         required_error: 'Harap Diisi',
       }),
-      tandaRadang: z.enum(['True', 'False'], {
+      tandaRadang: z.enum(['true', 'false'], {
         required_error: 'Harap Diisi',
       }),
-      tumor: z.enum(['True', 'False'], {
+      tumor: z.enum(['true', 'false'], {
         required_error: 'Harap Diisi',
       }),
       tambahan: z.object({
-        tandaDiabet: z.enum(['True', 'False'], {
+        tandaDiabet: z.enum(['true', 'false'], {
           required_error: 'Harap Diisi',
         }),
-        kelainanPembekuanDarah: z.enum(['True', 'False'], {
+        kelainanPembekuanDarah: z.enum(['true', 'false'], {
           required_error: 'Harap Diisi',
         }),
-        radangOrchild: z.enum(['True', 'False'], {
+        radangOrchild: z.enum(['true', 'false'], {
           required_error: 'Harap Diisi',
         }),
-        tumor: z.enum(['True', 'False'], {
+        tumor: z.enum(['true', 'false'], {
           required_error: 'Harap Diisi',
         }),
       }),
@@ -984,13 +984,13 @@ const Skrining = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value="True" />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value="False" />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -1078,13 +1078,13 @@ const Skrining = ({ form }: any) => {
                         >
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="True" />
+                              <RadioGroupItem value="true" />
                             </FormControl>
                             <FormLabel className="font-normal">Iya</FormLabel>
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="False" />
+                              <RadioGroupItem value="false" />
                             </FormControl>
                             <FormLabel className="font-normal">Tidak</FormLabel>
                           </FormItem>
@@ -1115,13 +1115,13 @@ const Skrining = ({ form }: any) => {
                         >
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="True" />
+                              <RadioGroupItem value="true" />
                             </FormControl>
                             <FormLabel className="font-normal">Iya</FormLabel>
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="False" />
+                              <RadioGroupItem value="false" />
                             </FormControl>
                             <FormLabel className="font-normal">Tidak</FormLabel>
                           </FormItem>
@@ -1150,13 +1150,13 @@ const Skrining = ({ form }: any) => {
                         >
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="True" />
+                              <RadioGroupItem value="true" />
                             </FormControl>
                             <FormLabel className="font-normal">Iya</FormLabel>
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="False" />
+                              <RadioGroupItem value="false" />
                             </FormControl>
                             <FormLabel className="font-normal">Tidak</FormLabel>
                           </FormItem>
@@ -1185,13 +1185,13 @@ const Skrining = ({ form }: any) => {
                         >
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="True" />
+                              <RadioGroupItem value="true" />
                             </FormControl>
                             <FormLabel className="font-normal">Iya</FormLabel>
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="False" />
+                              <RadioGroupItem value="false" />
                             </FormControl>
                             <FormLabel className="font-normal">Tidak</FormLabel>
                           </FormItem>
@@ -1355,13 +1355,13 @@ const Skrining = ({ form }: any) => {
                         >
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="True" />
+                              <RadioGroupItem value="true" />
                             </FormControl>
                             <FormLabel className="font-normal">Iya</FormLabel>
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="False" />
+                              <RadioGroupItem value="false" />
                             </FormControl>
                             <FormLabel className="font-normal">Tidak</FormLabel>
                           </FormItem>
@@ -1390,13 +1390,13 @@ const Skrining = ({ form }: any) => {
                         >
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="True" />
+                              <RadioGroupItem value="true" />
                             </FormControl>
                             <FormLabel className="font-normal">Iya</FormLabel>
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="False" />
+                              <RadioGroupItem value="false" />
                             </FormControl>
                             <FormLabel className="font-normal">Tidak</FormLabel>
                           </FormItem>
@@ -1445,13 +1445,13 @@ const Skrining = ({ form }: any) => {
                         >
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="True" />
+                              <RadioGroupItem value="true" />
                             </FormControl>
                             <FormLabel className="font-normal">Iya</FormLabel>
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="False" />
+                              <RadioGroupItem value="false" />
                             </FormControl>
                             <FormLabel className="font-normal">Tidak</FormLabel>
                           </FormItem>
@@ -1480,13 +1480,13 @@ const Skrining = ({ form }: any) => {
                         >
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="True" />
+                              <RadioGroupItem value="true" />
                             </FormControl>
                             <FormLabel className="font-normal">Iya</FormLabel>
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="False" />
+                              <RadioGroupItem value="false" />
                             </FormControl>
                             <FormLabel className="font-normal">Tidak</FormLabel>
                           </FormItem>
@@ -1515,13 +1515,13 @@ const Skrining = ({ form }: any) => {
                         >
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="True" />
+                              <RadioGroupItem value="true" />
                             </FormControl>
                             <FormLabel className="font-normal">Iya</FormLabel>
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="False" />
+                              <RadioGroupItem value="false" />
                             </FormControl>
                             <FormLabel className="font-normal">Tidak</FormLabel>
                           </FormItem>
@@ -1550,13 +1550,13 @@ const Skrining = ({ form }: any) => {
                         >
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="True" />
+                              <RadioGroupItem value="true" />
                             </FormControl>
                             <FormLabel className="font-normal">Iya</FormLabel>
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="False" />
+                              <RadioGroupItem value="false" />
                             </FormControl>
                             <FormLabel className="font-normal">Tidak</FormLabel>
                           </FormItem>
@@ -1851,13 +1851,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -1885,13 +1885,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -1917,13 +1917,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -1949,13 +1949,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -1981,13 +1981,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -2013,13 +2013,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -2047,13 +2047,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -2079,13 +2079,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -2113,13 +2113,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -2147,13 +2147,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -2179,13 +2179,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -2213,13 +2213,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -2245,13 +2245,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -2279,13 +2279,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -2311,13 +2311,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -2343,13 +2343,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -2375,13 +2375,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -2409,13 +2409,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -2443,13 +2443,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
@@ -2477,13 +2477,13 @@ const PenapisanKB = ({ form }: any) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={true} />
+                          <RadioGroupItem value="true" />
                         </FormControl>
                         <FormLabel className="font-normal">Iya</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value={false} />
+                          <RadioGroupItem value="false" />
                         </FormControl>
                         <FormLabel className="font-normal">Tidak</FormLabel>
                       </FormItem>
