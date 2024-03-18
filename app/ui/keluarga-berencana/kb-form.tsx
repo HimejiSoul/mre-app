@@ -1,5 +1,6 @@
 'use client';
 
+import { createKBPatient } from '@/app/lib/actions';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -342,8 +343,9 @@ export default function KBForm() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  function onSubmit(data: any) {
     console.log(data);
+    createKBPatient(data);
   }
 
   return (

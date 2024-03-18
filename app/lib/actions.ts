@@ -33,6 +33,11 @@ export type State = {
   message?: string | null;
 };
 
+export async function createKBPatient(formData: FormData) {
+  console.log(formData);
+  redirect('/dashboard/keluarga-berencana/create/soap');
+}
+
 export async function createInvoice(prevState: State, formData: FormData) {
   // Validate form using Zod
   const validatedFields = CreateInvoice.safeParse({

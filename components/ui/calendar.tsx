@@ -36,8 +36,8 @@ function Calendar({
         day: 'h-9 w-9 p-0 font-semibold aria-selected:opacity-100 hover:bg-[#D0E4FF] text-black rounded-full',
         day_range_end: 'day-range-end',
         day_selected:
-          'bg-neutral-900 text-neutral-50 hover:bg-neutral-900 hover:text-neutral-50 focus:bg-neutral-900 focus:text-neutral-50 dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-50 dark:hover:text-neutral-900 dark:focus:bg-neutral-50 dark:focus:text-neutral-900',
-        day_today: 'text-white bg-blue-600',
+          'bg-blue-500 text-neutral-50 hover:bg-neutral-900 hover:text-neutral-50 focus:bg-blue-500 focus:text-neutral-50 dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-50 dark:hover:text-neutral-900 dark:focus:bg-neutral-50 dark:focus:text-neutral-900',
+        day_today: 'text-black bg-blue-300',
         day_outside: 'day-outside text-black/50',
         day_disabled: 'text-neutral-500 opacity-50 dark:text-neutral-400',
         day_range_middle:

@@ -10,7 +10,7 @@ const links = [
   { name: 'Dashboard', href: '/dashboard', icon: Icon.Home },
   {
     name: 'Keluarga Berencana',
-    href: '/dashboard/invoices',
+    href: '/dashboard/keluarga-berencana',
     icon: Icon.KB,
   },
   {
