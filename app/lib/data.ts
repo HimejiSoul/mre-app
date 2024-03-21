@@ -53,7 +53,7 @@ export async function fetchLatestInvoices() {
 }
 
 export async function fetchPatientData(id_layanan: string) {
-  const apiEndpoint = process.env.API_ENDPOINT;
+  const apiEndpoint = `${process.env.API_ENDPOINT}/count_endpoint/count`;
   try {
     const response: AxiosResponse<any> = await axios.get(
       `${apiEndpoint}?id_layanan=${id_layanan}`,
