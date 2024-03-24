@@ -34,7 +34,7 @@ export default function Page() {
           <input
             className="peer block w-full rounded-md border border-gray-200 py-3 pl-10 text-sm outline-2 placeholder:text-rme-gray-300"
             id="email"
-            type="email"
+            // type="email"
             name="email"
             placeholder="Username"
             required
