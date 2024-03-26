@@ -24,14 +24,14 @@ function BackgroundAssets() {
         width={0}
         height={0}
         alt="Just an asset, doesn't matter"
-        className="absolute bottom-8 right-8 h-auto w-[250px]"
+        className="absolute bottom-5 right-5 h-auto w-[250px]"
       />
       <Image
         src="/svg/vector-1.svg"
         width={0}
         height={0}
         alt="Just an asset, doesn't matter"
-        className="absolute right-0 top-0 h-auto w-[600px]"
+        className="absolute right-0 top-0 h-auto w-[580px]"
       />
       <Image
         src="/svg/vector-2.svg"

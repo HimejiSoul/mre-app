@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
+import axios from 'axios';
 
 const FormSchema = z.object({
   id: z.string(),
@@ -34,7 +35,14 @@ export type State = {
 };
 
 export async function createKBPatient(formData: FormData) {
-  console.log(formData);
+  const KBData = { data: formData };
+  const apiEndpoint = `${process.env.API_ENDPOINT}/regist_kb/regist_kb`;
+  try {
+    const response = await axios.post(apiEndpoint, KBData);
+    console.log(response.data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
   redirect('/dashboard/keluarga-berencana/create/soap');
 }
 
