@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const kehamilanFormSchema = z.object({
   generalInformation: z.object({
-    noIbu: z.string().optional(),
+    noIbu: z.string().max(50).optional(),
     namaLengkap: z.string().min(2, {
       message: 'Nama lengkap harus lebih dari 2 karakter.',
     }),
