@@ -1,37 +1,11 @@
 'use client';
 
-import { format } from 'date-fns';
-import { CalendarIcon, Subtitles } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { urbanist } from '@/app/ui/fonts';
-import { cn } from '@/lib/utils';
-import { Calendar } from '@/components/ui/calendar';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
+import { Form } from '@/components/ui/form';
 import { ReactNode } from 'react';
 import {
   kehamilanFormSchema,
@@ -109,5 +83,5 @@ type RowProps = {
 };
 
 export function Row({ children }: RowProps) {
-  return <div className="grid grid-cols-3 gap-4">{children}</div>;
+  return <div className="grid grid-cols-12 gap-4">{children}</div>;
 }

@@ -12,11 +12,6 @@ import {
 } from '@/components/ui/popover';
 import { Input } from '@/components/ui/input';
 import { FormWrapper, Row, TitleSection } from '../create-form';
-import { CalendarIcon } from 'lucide-react';
-import { format } from 'date-fns';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { Calendar, CalendarLahir } from '@/components/ui/calendar';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   Select,
@@ -25,6 +20,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { cn } from '@/lib/utils';
+import { CalendarIcon } from 'lucide-react';
+import { Calendar } from '@/components/ui/calendar';
+import { Button } from '@/components/ui/button';
+import { format } from 'date-fns';
 
 export function Section2({ form }: any) {
   return (
@@ -36,10 +36,10 @@ export function Section2({ form }: any) {
             control={form.control}
             name="section2.posyandu"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Posyandu</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Posyandu" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -49,7 +49,7 @@ export function Section2({ form }: any) {
             control={form.control}
             name="section2.jamkesmas"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Jamkesmas</FormLabel>
                 <FormControl>
                   <RadioGroup
@@ -81,10 +81,10 @@ export function Section2({ form }: any) {
             control={form.control}
             name="section2.namaKader"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Nama Kader</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Nama kader" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -94,7 +94,7 @@ export function Section2({ form }: any) {
             control={form.control}
             name="section2.golDarah"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Gol. Darah</FormLabel>
                 <Select
                   onValueChange={field.onChange}
@@ -122,10 +122,10 @@ export function Section2({ form }: any) {
             control={form.control}
             name="section2.namaDukun"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Nama Dukun</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Nama dukun" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -135,10 +135,10 @@ export function Section2({ form }: any) {
             control={form.control}
             name="section2.noTelp"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Telp./HP</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Masukan no. telp" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -146,33 +146,64 @@ export function Section2({ form }: any) {
           />
         </Row>
         <Row>
-          <h1 className="pt-6 font-semibold">RIWAYAT OBSTETRIK</h1>
-          <h1 className="pt-6 font-semibold">PEMERIKSAAN BIDAN</h1>
+          <h1 className="col-span-3 pt-6 font-medium">RIWAYAT OBSTETRIK</h1>
+          <div className="col-span-1"></div>
+          <h1 className="col-span-3 pt-6 font-medium">PEMERIKSAAN BIDAN</h1>
         </Row>
         <Row>
           <FormField
             control={form.control}
             name="section2.riwayatObstetrik.gravida"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Gravida</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Masukan gravida" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+          <div className="col-span-1"></div>
           <FormField
             control={form.control}
             name="section2.pemeriksaanBidan.tanggalPeriksa"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Tanggal Periksa</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
+                <div>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={'outline'}
+                          className={cn(
+                            'w-full pl-3 text-left font-normal',
+                            !field.value && 'text-muted-foreground',
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, 'PPP')
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date > new Date() || date < new Date('1900-01-01')
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
               </FormItem>
             )}
           />
@@ -180,10 +211,10 @@ export function Section2({ form }: any) {
             control={form.control}
             name="section2.pemeriksaanBidan.bbSebelumHamil"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>BB sebelum Hamil</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type="number" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -195,24 +226,55 @@ export function Section2({ form }: any) {
             control={form.control}
             name="section2.riwayatObstetrik.partus"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Partus</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Masukan partus" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+          <div className="col-span-1"></div>
           <FormField
             control={form.control}
             name="section2.pemeriksaanBidan.tanggalHPHT"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Tanggal HPHT</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
+                <div>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={'outline'}
+                          className={cn(
+                            'w-full pl-3 text-left font-normal',
+                            !field.value && 'text-muted-foreground',
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, 'PPP')
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date > new Date() || date < new Date('1900-01-01')
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
                 <FormMessage />
               </FormItem>
             )}
@@ -221,10 +283,10 @@ export function Section2({ form }: any) {
             control={form.control}
             name="section2.pemeriksaanBidan.tb"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>TB</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type="number" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -236,24 +298,55 @@ export function Section2({ form }: any) {
             control={form.control}
             name="section2.riwayatObstetrik.abortus"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Abortus</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Masukan abortus" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+          <div className="col-span-1"></div>
           <FormField
             control={form.control}
             name="section2.pemeriksaanBidan.taksiranPersalinan"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Taksiran Persalinan</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
+                <div>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={'outline'}
+                          className={cn(
+                            'w-full pl-3 text-left font-normal',
+                            !field.value && 'text-muted-foreground',
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, 'PPP')
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date > new Date() || date < new Date('1900-01-01')
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
                 <FormMessage />
               </FormItem>
             )}
@@ -262,11 +355,24 @@ export function Section2({ form }: any) {
             control={form.control}
             name="section2.pemeriksaanBidan.bukuKIA"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Buku KIA</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Memiliki buku KIA?" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="memiliki">Memiliki</SelectItem>
+                    <SelectItem value="tidak memiliki">
+                      Tidak Memiliki
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
@@ -277,23 +383,25 @@ export function Section2({ form }: any) {
             control={form.control}
             name="section2.riwayatObstetrik.hidup"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Hidup</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Masukan hidup" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+          <div className="col-span-1"></div>
+
           <FormField
             control={form.control}
             name="section2.pemeriksaanBidan.persalinanSebelumnya"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Persalinan Sebelumnya</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type="number" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -305,10 +413,10 @@ export function Section2({ form }: any) {
             control={form.control}
             name="section2.pemeriksaanBidan.penyakitKronisDanAlergi"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-7">
                 <FormLabel>Penyakit Kronis dan Alergi</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Penyakit kronis dan alergi" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -320,10 +428,13 @@ export function Section2({ form }: any) {
             control={form.control}
             name="section2.pemeriksaanBidan.riwayatKomplikasiKebidanan"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-7">
                 <FormLabel>Riwayat Komplikasi Kebidanan</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input
+                    placeholder="Riwayat komplikasi kebidanan"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

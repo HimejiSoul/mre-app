@@ -31,7 +31,7 @@ export function GeneralInformation({ form }: any) {
             control={form.control}
             name="generalInformation.noIbu"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>No. IBU</FormLabel>
                 <FormControl>
                   <Input placeholder="00/00/00" {...field} />
@@ -46,7 +46,7 @@ export function GeneralInformation({ form }: any) {
             control={form.control}
             name="generalInformation.namaLengkap"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Nama Lengkap</FormLabel>
                 <FormControl>
                   <Input placeholder="Firda Rizky" {...field} />
@@ -59,7 +59,7 @@ export function GeneralInformation({ form }: any) {
             control={form.control}
             name="generalInformation.namaSuami"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Nama Suami</FormLabel>
                 <FormControl>
                   <Input placeholder="Hilmy Aziz" {...field} />
@@ -68,78 +68,72 @@ export function GeneralInformation({ form }: any) {
               </FormItem>
             )}
           />
-          <div className="grid grid-cols-3 gap-4">
-            <FormField
-              control={form.control}
-              name="generalInformation.tanggalLahir"
-              render={({ field }) => (
-                <FormItem className="col-span-2">
-                  <FormLabel>Tanggal Lahir</FormLabel>
-                  <div>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={'outline'}
-                            className={cn(
-                              'w-full pl-3 text-left font-normal',
-                              !field.value && 'text-muted-foreground',
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, 'PPP')
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date('1900-01-01')
-                          }
-                          initialFocus
-                          captionLayout="dropdown-buttons"
-                          fromYear={1945}
-                          toYear={2030}
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="generalInformation.umur"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Umur</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Masukan umur"
-                      type="number"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+          <FormField
+            control={form.control}
+            name="generalInformation.tanggalLahir"
+            render={({ field }) => (
+              <FormItem className="col-span-2">
+                <FormLabel>Tanggal Lahir</FormLabel>
+                <div>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={'outline'}
+                          className={cn(
+                            'w-full pl-3 text-left font-normal',
+                            !field.value && 'text-muted-foreground',
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, 'PPP')
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date > new Date() || date < new Date('1900-01-01')
+                        }
+                        initialFocus
+                        captionLayout="dropdown-buttons"
+                        fromYear={1945}
+                        toYear={2030}
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="generalInformation.umur"
+            render={({ field }) => (
+              <FormItem className="col-span-1">
+                <FormLabel>Umur</FormLabel>
+                <FormControl>
+                  <Input placeholder="Masukan umur" type="number" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </Row>
         <Row>
           <FormField
             control={form.control}
             name="generalInformation.alamatDomisili"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Alamat Domisili</FormLabel>
                 <FormControl>
                   <Input placeholder="Masukan alamat" {...field} />
@@ -152,7 +146,7 @@ export function GeneralInformation({ form }: any) {
             control={form.control}
             name="generalInformation.rtrw"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>RT/RW</FormLabel>
                 <FormControl>
                   <Input placeholder="Masukan RT/RW" {...field} />
@@ -167,7 +161,7 @@ export function GeneralInformation({ form }: any) {
             control={form.control}
             name="generalInformation.desa"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Desa</FormLabel>
                 <FormControl>
                   <Input placeholder="Masukan Desa" {...field} />
@@ -180,7 +174,7 @@ export function GeneralInformation({ form }: any) {
             control={form.control}
             name="generalInformation.kecamatan"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Kecamatan</FormLabel>
                 <FormControl>
                   <Input placeholder="Masukan Kecamatan" {...field} />
@@ -195,7 +189,7 @@ export function GeneralInformation({ form }: any) {
             control={form.control}
             name="generalInformation.kabupaten"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Kabupaten</FormLabel>
                 <FormControl>
                   <Input placeholder="Masukan Kabupaten" {...field} />
@@ -208,7 +202,7 @@ export function GeneralInformation({ form }: any) {
             control={form.control}
             name="generalInformation.provinsi"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Provinsi</FormLabel>
                 <FormControl>
                   <Input placeholder="Masukan Provinsi" {...field} />
@@ -223,7 +217,7 @@ export function GeneralInformation({ form }: any) {
             control={form.control}
             name="generalInformation.pendidikan"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Pendidikan</FormLabel>
                 <FormControl>
                   <Input placeholder="Masukan Pendidikan" {...field} />
@@ -236,7 +230,7 @@ export function GeneralInformation({ form }: any) {
             control={form.control}
             name="generalInformation.agama"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Agama</FormLabel>
                 <FormControl>
                   <Input placeholder="Masukan Agama" {...field} />
@@ -251,7 +245,7 @@ export function GeneralInformation({ form }: any) {
             control={form.control}
             name="generalInformation.pekerjaan"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Pekerjaan</FormLabel>
                 <FormControl>
                   <Input placeholder="Masukan Pekerjaan" {...field} />
@@ -264,7 +258,7 @@ export function GeneralInformation({ form }: any) {
             control={form.control}
             name="generalInformation.tanggalRegister"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Tanggal Register</FormLabel>
                 <div>
                   <Popover>

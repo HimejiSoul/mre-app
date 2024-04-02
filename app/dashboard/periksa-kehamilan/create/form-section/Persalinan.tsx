@@ -24,130 +24,164 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 export function Persalinan({ form }: any) {
   return (
     <section className="_PERSALINAN space-y-4">
       <TitleSection title="Persalinan" subtitle="Masukkan data pasien" />
       <FormWrapper>
-        <Row>
-          <h1 className="font-semibold">Kala I Aktif</h1>
-        </Row>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Persalinan</TableHead>
+              <TableHead>Tanggal</TableHead>
+              <TableHead>Jam</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell>Kala I Aktif</TableCell>
+              <TableCell>
+                <FormField
+                  control={form.control}
+                  name="persalinan.kalaIAktif.tanggal"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Tanggal" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </TableCell>
+              <TableCell>
+                <FormField
+                  control={form.control}
+                  name="persalinan.kalaIAktif.jam"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Jam" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Kala II</TableCell>
+              <TableCell>
+                <FormField
+                  control={form.control}
+                  name="persalinan.kalaII.tanggal"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Tanggal" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </TableCell>
+              <TableCell>
+                <FormField
+                  control={form.control}
+                  name="persalinan.kalaII.jam"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Jam" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Bayi Lahir</TableCell>
+              <TableCell>
+                <FormField
+                  control={form.control}
+                  name="persalinan.bayiLahir.tanggal"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Tanggal" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </TableCell>
+              <TableCell>
+                <FormField
+                  control={form.control}
+                  name="persalinan.bayiLahir.jam"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Jam" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Plasenta Lahir</TableCell>
+              <TableCell>
+                <FormField
+                  control={form.control}
+                  name="persalinan.plasentaLahir.tanggal"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Tanggal" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </TableCell>
+              <TableCell>
+                <FormField
+                  control={form.control}
+                  name="persalinan.plasentaLahir.jam"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Jam" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
         <Row>
           <FormField
             control={form.control}
-            name="persalinan.kalaIAktif.tanggal"
+            name="persalinan.perdarahanKalaIV"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Tanggal</FormLabel>
+              <FormItem className="col-span-6">
+                <FormLabel>Perdarahan Kala IV jam Pospartum</FormLabel>
                 <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="persalinan.kalaIAktif.tanggal"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Jam</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </Row>
-        <Row>
-          <h1 className="font-semibold">Kala II</h1>
-        </Row>
-        <Row>
-          <FormField
-            control={form.control}
-            name="persalinan.kalaII.tanggal"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Tanggal</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="persalinan.kalaII.jam"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Jam</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </Row>
-        <Row>
-          <h1 className="font-semibold">Bayi Lahir</h1>
-        </Row>
-        <Row>
-          <FormField
-            control={form.control}
-            name="persalinan.bayiLahir.tanggal"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Tanggal</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="persalinan.bayiLahir.tanggal"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Jam</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </Row>
-        <Row>
-          <h1 className="font-semibold">Plasenta Lahir</h1>
-        </Row>
-        <Row>
-          <FormField
-            control={form.control}
-            name="persalinan.plasentaLahir.tanggal"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Tanggal</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="persalinan.plasentaLahir.tanggal"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Jam</FormLabel>
-                <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Perdarahan Kala IV" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -159,10 +193,10 @@ export function Persalinan({ form }: any) {
             control={form.control}
             name="persalinan.usiaKehamilan"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Usia Kehamilan</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Usia kehamilan" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -172,10 +206,10 @@ export function Persalinan({ form }: any) {
             control={form.control}
             name="persalinan.usiaHPHT"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Usia HPHT</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Usia HPHT" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -185,10 +219,10 @@ export function Persalinan({ form }: any) {
             control={form.control}
             name="persalinan.keadaanIbu"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Keadaan Ibu</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Keadaan ibu" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -200,10 +234,10 @@ export function Persalinan({ form }: any) {
             control={form.control}
             name="persalinan.keadaanBayi"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Keadaan Bayi</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Keadaan bayi" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -213,38 +247,26 @@ export function Persalinan({ form }: any) {
             control={form.control}
             name="persalinan.beratBayi"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Berat Bayi</FormLabel>
                 <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="persalinan.perdarahanKalaIV"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Perdarahan Kala IV jam Pospartum</FormLabel>
-                <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Berat bayi" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
         </Row>
+
         <Row>
           <FormField
             control={form.control}
             name="persalinan.presentasi"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Presentasi</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Presentasi" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -254,10 +276,10 @@ export function Persalinan({ form }: any) {
             control={form.control}
             name="persalinan.tempat"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Tempat</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Tempat" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -267,10 +289,10 @@ export function Persalinan({ form }: any) {
             control={form.control}
             name="persalinan.penolong"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Penolong</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Penolong" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -282,10 +304,10 @@ export function Persalinan({ form }: any) {
             control={form.control}
             name="persalinan.caraPersalinan"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Cara Persalinan</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Cara persalinan" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -295,10 +317,10 @@ export function Persalinan({ form }: any) {
             control={form.control}
             name="persalinan.manajemenAktifKalaIII"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Manajemen Aktif Kala III</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Manajemen aktif kala III" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -308,10 +330,10 @@ export function Persalinan({ form }: any) {
             control={form.control}
             name="persalinan.pelayanan"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Pelayanan</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Pelayanan" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -323,10 +345,10 @@ export function Persalinan({ form }: any) {
             control={form.control}
             name="persalinan.integrasiProgram"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Integrasi Program</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Integrasi program" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -336,10 +358,10 @@ export function Persalinan({ form }: any) {
             control={form.control}
             name="persalinan.komplikasi"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Komplikasi</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Komplikasi" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -349,10 +371,10 @@ export function Persalinan({ form }: any) {
             control={form.control}
             name="persalinan.dirujukKe"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Pelayanan</FormLabel>
+              <FormItem className="col-span-3">
+                <FormLabel>Dirujuk ke</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Dirujuk ke" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -364,10 +386,10 @@ export function Persalinan({ form }: any) {
             control={form.control}
             name="persalinan.keadaanTiba"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Keadaan Tiba</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Keadaan tiba" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -377,10 +399,10 @@ export function Persalinan({ form }: any) {
             control={form.control}
             name="persalinan.keadaanPulang"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Keadaan Pulang</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Keadaan pulang" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -390,10 +412,10 @@ export function Persalinan({ form }: any) {
             control={form.control}
             name="persalinan.alamatBersalin"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Alamat Bersalin</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="Alamat bersalin" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
