@@ -9,7 +9,6 @@ import Link from 'next/link';
 
 export default function Page() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
-  const { pending } = useFormStatus();
 
   return (
     <form

@@ -2,10 +2,9 @@ import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { authConfig } from './auth.config';
 import { z } from 'zod';
-import { sql } from '@vercel/postgres';
 import type { User } from '@/app/lib/definitions';
-import bcrypt from 'bcrypt';
 import axios, { AxiosResponse } from 'axios';
+import { use } from 'react';
 
 // async function getUser(email: string): Promise<User | undefined> {
 //   try {
@@ -29,7 +28,6 @@ async function getUser(
 
     if (response.status === 200) {
       const userData = response.data;
-      console.log(userData);
       return userData;
     } else {
       console.error('Failed to fetch user:', response.statusText);
@@ -54,10 +52,10 @@ export const { auth, signIn, signOut } = NextAuth({
           const { email, password } = parsedCredentials.data;
           const user = await getUser(email, password);
           if (user) {
+            console.log(user);
             return user;
           }
         }
-        console.log('Invalid Credentials');
         return null;
       },
     }),
