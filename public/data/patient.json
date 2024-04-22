@@ -1,0 +1,81 @@
+{
+  "data": [
+    {
+      "code": 123,
+      "name": "Rai Barokah",
+      "age": 20,
+      "lastVisits": "Minggu 12, Desember 2023",
+      "KBType": "IUD",
+      "subRows": [
+        {
+          "date": "12-12-2023",
+          "s": "Nilai S",
+          "td": "Nilai TD",
+          "bb": 68,
+          "other": "Nilai Other",
+          "a": "Nilai A",
+          "p": "Nilai P",
+          "hpht": "Nilai HPHT"
+        }
+      ]
+    },
+    {
+      "code": 321,
+      "name": "Lutfiana",
+      "age": 22,
+      "lastVisits": "Jumat 10, Desember 2023",
+      "KBType": "IUD",
+      "subRows": [
+        {
+          "date": "10-12-2023",
+          "s": "Nilai S",
+          "td": "Nilai TD",
+          "bb": 70,
+          "other": "Nilai Other-2",
+          "a": "Nilai A",
+          "p": "Nilai P",
+          "hpht": "Nilai HPHT2"
+        },
+        {
+          "date": "1-12-2023",
+          "s": "Nilai S",
+          "td": "Nilai TD",
+          "bb": 65,
+          "other": "Nilai Other-3",
+          "a": "Nilai A",
+          "p": "Nilai P",
+          "hpht": "Nilai HPHT3"
+        }
+      ]
+    },
+    {
+      "code": 111,
+      "name": "Andini Puteri",
+      "age": 56,
+      "lastVisits": "Sabtu 20, Desember 2023",
+      "KBType": "IUD",
+      "subRows": [
+        {
+          "date": "10-12-2023",
+          "s": "Nilai S",
+          "td": "Nilai TD",
+          "bb": 70,
+          "other": "Nilai Other-2",
+          "a": "Nilai A",
+          "p": "Nilai P",
+          "hpht": "Nilai HPHT4"
+        },
+        {
+          "date": "1-12-2023",
+          "s": "Nilai S",
+          "td": "Nilai TD",
+          "bb": 65,
+          "other": "Nilai Other-3",
+          "a": "Nilai A",
+          "p": "Nilai P",
+          "hpht": "Nilai HPHT5"
+        }
+      ]
+    }
+  ]
+}

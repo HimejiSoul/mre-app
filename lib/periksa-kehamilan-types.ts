@@ -1,8 +1,12 @@
 import { z } from 'zod';
 
+const phoneRegex = new RegExp(
+  /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
+);
+
 export const kehamilanFormSchema = z.object({
   generalInformation: z.object({
-    noIbu: z.string().optional(),
+    noIbu: z.string().max(50).optional(),
     namaLengkap: z.string().min(2, {
       message: 'Nama lengkap harus lebih dari 2 karakter.',
     }),
@@ -33,9 +37,9 @@ export const kehamilanFormSchema = z.object({
     posyandu: z.string().optional(),
     jamkesmas: z.enum(['true', 'false']),
     namaKader: z.string().optional(),
-    golDarah: z.enum(['A', 'B', 'AB', 'O']),
+    golDarah: z.enum(['', 'A', 'B', 'AB', 'O']),
     namaDukun: z.string().optional(),
-    noTelp: z.string().optional(),
+    noTelp: z.string().regex(phoneRegex, 'Invalid Number!').optional(),
     riwayatObstetrik: z.object({
       gravida: z.string().optional(),
       partus: z.string().optional(),
@@ -43,12 +47,20 @@ export const kehamilanFormSchema = z.object({
       hidup: z.string().optional(),
     }),
     pemeriksaanBidan: z.object({
-      tanggalPeriksa: z.string().optional(),
-      tanggalHPHT: z.string().optional(),
-      taksiranPersalinan: z.string().optional(),
-      persalinanSebelumnya: z.string().optional(),
-      bbSebelumHamil: z.string().optional(),
-      tb: z.string().optional(),
+      tanggalPeriksa: z.date({
+        required_error: 'Tanggal periksa is required.',
+      }),
+      tanggalHPHT: z.date({
+        required_error: 'Tanggal HPHT is required.',
+      }),
+      taksiranPersalinan: z.date({
+        required_error: 'Taksiran persalinan is required.',
+      }),
+      persalinanSebelumnya: z.coerce.number({
+        required_error: 'Persalinan sebelumnya is required.',
+      }),
+      bbSebelumHamil: z.coerce.number().optional(),
+      tb: z.coerce.number().optional(),
       bukuKIA: z.string().optional(),
       riwayatKomplikasiKebidanan: z.string().optional(),
       penyakitKronisDanAlergi: z.string().optional(),
@@ -240,9 +252,9 @@ export const defaultValues: Partial<z.infer<typeof kehamilanFormSchema>> = {
     posyandu: '',
     jamkesmas: 'true',
     namaKader: '',
-    golDarah: 'A',
+    golDarah: '',
     namaDukun: '',
-    noTelp: '08',
+    noTelp: '',
     riwayatObstetrik: {
       gravida: '',
       partus: '',
@@ -250,13 +262,13 @@ export const defaultValues: Partial<z.infer<typeof kehamilanFormSchema>> = {
       hidup: '',
     },
     pemeriksaanBidan: {
-      tanggalPeriksa: '',
-      tanggalHPHT: '',
-      taksiranPersalinan: '',
-      persalinanSebelumnya: '',
-      bbSebelumHamil: '',
-      tb: '',
-      bukuKIA: '',
+      tanggalPeriksa: new Date(),
+      tanggalHPHT: new Date(),
+      taksiranPersalinan: new Date(),
+      persalinanSebelumnya: 1999,
+      bbSebelumHamil: 0,
+      tb: 0,
+      // bukuKIA: '', (Tidak perlu default value based on shadcn)
       riwayatKomplikasiKebidanan: '',
       penyakitKronisDanAlergi: '',
     },

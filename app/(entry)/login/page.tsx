@@ -1,6 +1,6 @@
 'use client';
 
-import { AtSign, KeyRound, AlertCircle } from 'lucide-react';
+import { AtSign, KeyRound, AlertCircle, RefreshCcw } from 'lucide-react';
 import { Button } from '@/app/ui/button';
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/app/lib/actions';
@@ -9,7 +9,6 @@ import Link from 'next/link';
 
 export default function Page() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
-  const { pending } = useFormStatus();
 
   return (
     <form
@@ -91,7 +90,13 @@ function LoginButton() {
 
   return (
     <Button className="mt-4 w-full" aria-disabled={pending}>
-      Masuk
+      {pending ? (
+        <>
+          <RefreshCcw size={20} className="mr-2 animate-spin" /> Loading...
+        </>
+      ) : (
+        'Masuk'
+      )}
     </Button>
   );
 }
