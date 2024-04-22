@@ -73,7 +73,8 @@ export default function KBForm() {
   });
 
   function onSubmit(data: any) {
-    createKBPatient(data);
+    // createKBPatient(data);
+    console.log(data);
   }
 
   return (
