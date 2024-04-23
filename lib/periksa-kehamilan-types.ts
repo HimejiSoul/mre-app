@@ -124,7 +124,10 @@ export const kehamilanFormSchema = z.object({
     caraPersalinan: z.string().optional(),
     manajemenAktifKalaIII: z.string().optional(),
     pelayanan: z.string().optional(),
-    integrasiProgram: z.string().optional(),
+    integrasiProgram: z.object({
+      jenisObat: z.string().optional(),
+      namaObat: z.string().optional(),
+    }),
     komplikasi: z.string().optional(),
     dirujukKe: z.string().optional(),
     keadaanTiba: z.string().optional(),
@@ -337,7 +340,10 @@ export const defaultValues: Partial<z.infer<typeof kehamilanFormSchema>> = {
     caraPersalinan: '',
     manajemenAktifKalaIII: '',
     pelayanan: '',
-    integrasiProgram: '',
+    integrasiProgram: {
+      jenisObat: '',
+      namaObat: '',
+    },
     komplikasi: '',
     dirujukKe: '',
     keadaanTiba: '',
