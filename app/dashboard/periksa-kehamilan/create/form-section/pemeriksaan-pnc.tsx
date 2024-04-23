@@ -6,9 +6,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { FormWrapper, Row, TitleSection } from '../create-form';
+import { FormWrapper, Row, TitleSection } from '../_component/form-card';
 
-export function PemeriksaanPNC({ form }: any) {
+export default function PemeriksaanPNC({ form }: any) {
   return (
     <section className="_PERSALINAN space-y-4">
       <TitleSection title="Pemeriksaan PNC" subtitle="Masukkan data pasien" />

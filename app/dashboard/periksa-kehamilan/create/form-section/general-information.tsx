@@ -1,5 +1,6 @@
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -11,14 +12,19 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Input } from '@/components/ui/input';
-import { FormWrapper, Row, TitleSection } from '../create-form';
+import { FormWrapper, Row, TitleSection } from '../_component/form-card';
 import { CalendarIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Calendar, CalendarLahir } from '@/components/ui/calendar';
+import { useState } from 'react';
+import { calculateAge } from '@/lib/calculate-age';
 
-export function GeneralInformation({ form }: any) {
+export default function GeneralInformation({ form }: any) {
+  const [birthDate, setBirthDate] = useState<Date | string>('');
+  const age = calculateAge(birthDate);
+
   return (
     <section className="_GENERAL_INFORMATION space-y-4">
       <TitleSection
@@ -86,7 +92,7 @@ export function GeneralInformation({ form }: any) {
                           )}
                         >
                           {field.value ? (
-                            format(field.value, 'PPP')
+                            format(field.value, 'dd-MM-yyyy')
                           ) : (
                             <span>Pick a date</span>
                           )}
@@ -95,21 +101,28 @@ export function GeneralInformation({ form }: any) {
                       </FormControl>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
+                      <CalendarLahir
                         mode="single"
+                        required
+                        defaultMonth={field.value}
                         selected={field.value}
-                        onSelect={field.onChange}
+                        onSelect={(date) => {
+                          field.onChange(date);
+                          setBirthDate(date || '');
+                        }}
                         disabled={(date) =>
                           date > new Date() || date < new Date('1900-01-01')
                         }
                         initialFocus
-                        captionLayout="dropdown-buttons"
-                        fromYear={1945}
-                        toYear={2030}
                       />
                     </PopoverContent>
                   </Popover>
                 </div>
+                {age === 0 ? null : (
+                  <FormDescription className="absolute pl-1 text-xs">
+                    {age} Tahun
+                  </FormDescription>
+                )}
                 <FormMessage />
               </FormItem>
             )}
@@ -118,11 +131,14 @@ export function GeneralInformation({ form }: any) {
             control={form.control}
             name="generalInformation.umur"
             render={({ field }) => (
-              <FormItem className="col-span-1">
+              <FormItem className="relative col-span-1">
                 <FormLabel>Umur</FormLabel>
                 <FormControl>
-                  <Input placeholder="Masukan umur" type="number" {...field} />
+                  <Input placeholder="0" {...field} />
                 </FormControl>
+                <span className="absolute -right-8 bottom-2.5 text-sm text-black/50">
+                  Thn
+                </span>
                 <FormMessage />
               </FormItem>
             )}
@@ -272,7 +288,7 @@ export function GeneralInformation({ form }: any) {
                           )}
                         >
                           {field.value ? (
-                            format(field.value, 'PPP')
+                            format(field.value, 'dd-MM-yyyy')
                           ) : (
                             <span>Pick a date</span>
                           )}

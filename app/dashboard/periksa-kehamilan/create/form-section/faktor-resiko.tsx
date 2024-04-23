@@ -5,25 +5,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
 import { Input } from '@/components/ui/input';
-import { FormWrapper, Row, TitleSection } from '../create-form';
-import { CalendarIcon } from 'lucide-react';
-import { format } from 'date-fns';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { Calendar } from '@/components/ui/calendar';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { FormWrapper, Row, TitleSection } from '../_component/form-card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   Table,
@@ -121,7 +104,7 @@ const dataTable = [
   },
 ];
 
-export function MendeteksiFaktroResikoDanResikoTinggi({ form }: any) {
+export default function FaktorResiko({ form }: any) {
   return (
     <section className="_KUNJUNGAN_NIFAS space-y-4">
       <TitleSection

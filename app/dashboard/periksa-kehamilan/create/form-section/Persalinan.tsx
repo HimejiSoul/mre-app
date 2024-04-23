@@ -5,25 +5,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
 import { Input } from '@/components/ui/input';
-import { FormWrapper, Row, TitleSection } from '../create-form';
-import { CalendarIcon } from 'lucide-react';
-import { format } from 'date-fns';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { Calendar } from '@/components/ui/calendar';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { FormWrapper, Row, TitleSection } from '../_component/form-card';
 import {
   Table,
   TableBody,
@@ -33,7 +16,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-export function Persalinan({ form }: any) {
+export default function Persalinan({ form }: any) {
   return (
     <section className="_PERSALINAN space-y-4">
       <TitleSection title="Persalinan" subtitle="Masukkan data pasien" />

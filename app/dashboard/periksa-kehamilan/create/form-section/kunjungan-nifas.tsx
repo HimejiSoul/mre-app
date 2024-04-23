@@ -2,28 +2,10 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
 import { Input } from '@/components/ui/input';
-import { FormWrapper, Row, TitleSection } from '../create-form';
-import { CalendarIcon } from 'lucide-react';
-import { format } from 'date-fns';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { Calendar } from '@/components/ui/calendar';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { FormWrapper, TitleSection } from '../_component/form-card';
 import {
   Table,
   TableBody,
@@ -33,7 +15,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-export function KunjunganNifas({ form }: any) {
+export default function KunjunganNifas({ form }: any) {
   return (
     <section className="_KUNJUNGAN_NIFAS space-y-4">
       <TitleSection

@@ -11,7 +11,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Input } from '@/components/ui/input';
-import { FormWrapper, Row, TitleSection } from '../create-form';
+import { FormWrapper, Row, TitleSection } from '../_component/form-card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   Select,
@@ -26,7 +26,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
 
-export function Section2({ form }: any) {
+export default function Section2({ form }: any) {
   return (
     <section className="_SECTION02 space-y-4">
       <TitleSection title="Section 2" subtitle="Masukkan data pasien" />
@@ -147,7 +147,7 @@ export function Section2({ form }: any) {
         </Row>
         <Row>
           <h1 className="col-span-3 pt-6 font-medium">RIWAYAT OBSTETRIK</h1>
-          <div className="col-span-1"></div>
+          <br className="col-span-1" />
           <h1 className="col-span-3 pt-6 font-medium">PEMERIKSAAN BIDAN</h1>
         </Row>
         <Row>
@@ -158,7 +158,11 @@ export function Section2({ form }: any) {
               <FormItem className="col-span-3">
                 <FormLabel>Gravida</FormLabel>
                 <FormControl>
-                  <Input placeholder="Masukan gravida" {...field} />
+                  <Input
+                    placeholder="Masukan gravida"
+                    type="number"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -183,7 +187,7 @@ export function Section2({ form }: any) {
                           )}
                         >
                           {field.value ? (
-                            format(field.value, 'PPP')
+                            format(field.value, 'dd-MM-yyyy')
                           ) : (
                             <span>Pick a date</span>
                           )}
@@ -211,11 +215,14 @@ export function Section2({ form }: any) {
             control={form.control}
             name="section2.pemeriksaanBidan.bbSebelumHamil"
             render={({ field }) => (
-              <FormItem className="col-span-3">
+              <FormItem className="relative col-span-3">
                 <FormLabel>BB sebelum Hamil</FormLabel>
                 <FormControl>
                   <Input type="number" {...field} />
                 </FormControl>
+                <span className="absolute bottom-2.5 right-10 text-sm text-black/50">
+                  kg
+                </span>
                 <FormMessage />
               </FormItem>
             )}
@@ -229,7 +236,11 @@ export function Section2({ form }: any) {
               <FormItem className="col-span-3">
                 <FormLabel>Partus</FormLabel>
                 <FormControl>
-                  <Input placeholder="Masukan partus" {...field} />
+                  <Input
+                    placeholder="Masukan partus"
+                    type="number"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -254,7 +265,7 @@ export function Section2({ form }: any) {
                           )}
                         >
                           {field.value ? (
-                            format(field.value, 'PPP')
+                            format(field.value, 'dd-MM-yyyy')
                           ) : (
                             <span>Pick a date</span>
                           )}
@@ -283,11 +294,14 @@ export function Section2({ form }: any) {
             control={form.control}
             name="section2.pemeriksaanBidan.tb"
             render={({ field }) => (
-              <FormItem className="col-span-3">
+              <FormItem className="relative col-span-3">
                 <FormLabel>TB</FormLabel>
                 <FormControl>
                   <Input type="number" {...field} />
                 </FormControl>
+                <span className="absolute bottom-2.5 right-10 text-sm text-black/50">
+                  cm
+                </span>
                 <FormMessage />
               </FormItem>
             )}
@@ -301,7 +315,11 @@ export function Section2({ form }: any) {
               <FormItem className="col-span-3">
                 <FormLabel>Abortus</FormLabel>
                 <FormControl>
-                  <Input placeholder="Masukan abortus" {...field} />
+                  <Input
+                    placeholder="Masukan abortus"
+                    type="number"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -326,7 +344,7 @@ export function Section2({ form }: any) {
                           )}
                         >
                           {field.value ? (
-                            format(field.value, 'PPP')
+                            format(field.value, 'dd-MM-yyyy')
                           ) : (
                             <span>Pick a date</span>
                           )}
@@ -386,7 +404,7 @@ export function Section2({ form }: any) {
               <FormItem className="col-span-3">
                 <FormLabel>Hidup</FormLabel>
                 <FormControl>
-                  <Input placeholder="Masukan hidup" {...field} />
+                  <Input placeholder="Masukan hidup" type="number" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

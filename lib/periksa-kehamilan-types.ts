@@ -66,28 +66,34 @@ export const kehamilanFormSchema = z.object({
       penyakitKronisDanAlergi: z.string().optional(),
     }),
   }),
-  rencanaPersalinan: z.object({
-    tanggal: z.date().optional(),
-    penolong: z.string().optional(),
-    tempat: z.string().optional(),
-    pendamping: z.string().optional(),
-    transportasi: z.string().optional(),
-    pendonor: z.string().optional(),
-  }),
-  riwayatKehamilanSebelumnya: z.object({
+  rencanaPersalinan: z.array(
+    z.object({
+      tanggal: z.date().optional(),
+      penolong: z.string().optional(),
+      tempat: z.string().optional(),
+      pendamping: z.string().optional(),
+      transportasi: z.string().optional(),
+      pendonor: z.string().optional(),
+    }),
+  ),
+  riwayatKehamilan: z.object({
     g: z.string().optional(),
     p: z.string().optional(),
     a: z.string().optional(),
-    tahun: z.string().optional(),
-    jenisKelamin: z.string().optional(),
-    hasilPersalinan: z.string().optional(),
-    jenisPersalinan: z.string().optional(),
-    keadaanSaatLahir: z.string().optional(),
-    bbl: z.string().optional(),
-    lamaMenyusui: z.string().optional(),
-    penolongPersalinan: z.string().optional(),
-    penyulit: z.string().optional(),
-    keterangan: z.string().optional(),
+    data: z.array(
+      z.object({
+        tahun: z.string().optional(),
+        jenisKelamin: z.string().optional(),
+        hasilPersalinan: z.string().optional(),
+        jenisPersalinan: z.string().optional(),
+        keadaanSaatLahir: z.string().optional(),
+        bbl: z.string().optional(),
+        lamaMenyusui: z.string().optional(),
+        penolongPersalinan: z.string().optional(),
+        penyulit: z.string().optional(),
+        keterangan: z.string().optional(),
+      }),
+    ),
   }),
   persalinan: z.object({
     kalaIAktif: z.object({
@@ -233,8 +239,8 @@ export const kehamilanFormSchema = z.object({
 export const defaultValues: Partial<z.infer<typeof kehamilanFormSchema>> = {
   generalInformation: {
     noIbu: '',
-    namaLengkap: '',
-    namaSuami: '',
+    namaLengkap: 'Firda', //DELETE THIS
+    namaSuami: 'Hilmy', //DELETE THIS
     tanggalLahir: new Date('1999-1-1'),
     umur: 0,
     alamatDomisili: '',
@@ -254,7 +260,7 @@ export const defaultValues: Partial<z.infer<typeof kehamilanFormSchema>> = {
     namaKader: '',
     golDarah: '',
     namaDukun: '',
-    noTelp: '',
+    noTelp: '08123456789',
     riwayatObstetrik: {
       gravida: '',
       partus: '',
@@ -273,28 +279,34 @@ export const defaultValues: Partial<z.infer<typeof kehamilanFormSchema>> = {
       penyakitKronisDanAlergi: '',
     },
   },
-  rencanaPersalinan: {
-    tanggal: new Date(),
-    penolong: '',
-    tempat: '',
-    pendamping: '',
-    transportasi: '',
-    pendonor: '',
-  },
-  riwayatKehamilanSebelumnya: {
+  rencanaPersalinan: [
+    {
+      tanggal: new Date(),
+      penolong: '',
+      tempat: '',
+      pendamping: '',
+      transportasi: '',
+      pendonor: '',
+    },
+  ],
+  riwayatKehamilan: {
     g: '',
     p: '',
     a: '',
-    tahun: '',
-    jenisKelamin: '',
-    hasilPersalinan: '',
-    jenisPersalinan: '',
-    keadaanSaatLahir: '',
-    bbl: '',
-    lamaMenyusui: '',
-    penolongPersalinan: '',
-    penyulit: '',
-    keterangan: '',
+    data: [
+      {
+        tahun: '',
+        jenisKelamin: '',
+        hasilPersalinan: '',
+        jenisPersalinan: '',
+        keadaanSaatLahir: '',
+        bbl: '',
+        lamaMenyusui: '',
+        penolongPersalinan: '',
+        penyulit: '',
+        keterangan: '',
+      },
+    ],
   },
   persalinan: {
     kalaIAktif: {
