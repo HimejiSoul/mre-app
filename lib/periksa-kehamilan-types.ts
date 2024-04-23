@@ -134,42 +134,33 @@ export const kehamilanFormSchema = z.object({
     keadaanPulang: z.string().optional(),
     alamatBersalin: z.string().optional(),
   }),
-  pemeriksaanPNC: z.object({
-    tanggal: z.string().optional(),
-    hariKeKF: z.string().optional(),
-    tandaVital: z.object({
-      td: z.string().optional(),
-      suhu: z.string().optional(),
+  pemeriksaanPNC: z.array(
+    z.object({
+      tanggal: z.string().optional(),
+      hariKeKF: z.string().optional(),
+      tandaVital: z.object({
+        td: z.string().optional(),
+        suhu: z.string().optional(),
+      }),
+      pelayanan: z.object({
+        catatDiBukuKIA: z.string().optional(),
+        fe: z.string().optional(),
+        vitA: z.boolean().default(false).optional(),
+      }),
+      integrasiProgram: z.object({
+        cd4: z.string().optional(),
+        antiMalaria: z.string().optional(),
+        antiTB: z.string().optional(),
+        fotoThorax: z.string().optional(),
+      }),
+      komplikasi: z.string().optional(),
+      ditujukKe: z.string().optional(),
+      keadaan: z.object({
+        tiba: z.string().optional(),
+        pulang: z.string().optional(),
+      }),
     }),
-    pelayanan: z.object({
-      catatDiBukuKIA: z.string().optional(),
-      fe: z.string().optional(),
-      vitA: z.string().optional(),
-    }),
-    integrasiProgram: z.object({
-      cd4: z.string().optional(),
-      antiMalaria: z.string().optional(),
-      antiTB: z.string().optional(),
-      fotoThorax: z.string().optional(),
-    }),
-    komplikasi: z.object({
-      ppp: z.string().optional(),
-      infeksi: z.string().optional(),
-      hdk: z.string().optional(),
-      lainnya: z.string().optional(),
-    }),
-    ditujukKe: z.object({
-      pkm: z.string().optional(),
-      rb: z.string().optional(),
-      rsia: z.string().optional(),
-      rs: z.string().optional(),
-      lainnya: z.string().optional(),
-    }),
-    keadaan: z.object({
-      tiba: z.string().optional(),
-      pulang: z.string().optional(),
-    }),
-  }),
+  ),
   kunjunganNifas: z.object({
     mal: z.object({
       rencana: z.string().optional(),
@@ -350,42 +341,33 @@ export const defaultValues: Partial<z.infer<typeof kehamilanFormSchema>> = {
     keadaanPulang: '',
     alamatBersalin: '',
   },
-  pemeriksaanPNC: {
-    tanggal: '',
-    hariKeKF: '',
-    tandaVital: {
-      td: '',
-      suhu: '',
+  pemeriksaanPNC: [
+    {
+      tanggal: '',
+      hariKeKF: '',
+      tandaVital: {
+        td: '',
+        suhu: '',
+      },
+      pelayanan: {
+        catatDiBukuKIA: '',
+        fe: '',
+        vitA: false,
+      },
+      integrasiProgram: {
+        cd4: '',
+        antiMalaria: '',
+        antiTB: '',
+        fotoThorax: '',
+      },
+      komplikasi: '',
+      ditujukKe: '',
+      keadaan: {
+        tiba: '',
+        pulang: '',
+      },
     },
-    pelayanan: {
-      catatDiBukuKIA: '',
-      fe: '',
-      vitA: '',
-    },
-    integrasiProgram: {
-      cd4: '',
-      antiMalaria: '',
-      antiTB: '',
-      fotoThorax: '',
-    },
-    komplikasi: {
-      ppp: '',
-      infeksi: '',
-      hdk: '',
-      lainnya: '',
-    },
-    ditujukKe: {
-      pkm: '',
-      rb: '',
-      rsia: '',
-      rs: '',
-      lainnya: '',
-    },
-    keadaan: {
-      tiba: '',
-      pulang: '',
-    },
-  },
+  ],
   kunjunganNifas: {
     mal: {
       rencana: '',
