@@ -106,7 +106,7 @@ const dataTable = [
 
 export default function FaktorResiko({ form }: any) {
   return (
-    <section className="_KUNJUNGAN_NIFAS space-y-4">
+    <section className="_FAKTOR_RESIKO space-y-4">
       <TitleSection
         title="Mendeteksi Faktor Resiko dan Resiko Tinggi"
         subtitle="Masukkan data pasien"
@@ -205,7 +205,11 @@ export default function FaktorResiko({ form }: any) {
               <FormItem className="col-span-3">
                 <FormLabel>Ditemukan Tanggal</FormLabel>
                 <FormControl>
-                  <Input placeholder="Ditemukan tanggal" {...field} />
+                  <Input
+                    type="date"
+                    placeholder="Ditemukan tanggal"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -215,7 +219,7 @@ export default function FaktorResiko({ form }: any) {
             control={form.control}
             name="resikoTinggi.jenisResiko"
             render={({ field }) => (
-              <FormItem className="col-span-3">
+              <FormItem className="col-span-6">
                 <FormLabel>Jenis Resiko</FormLabel>
                 <FormControl>
                   <Input placeholder="Jenis resiko" {...field} />
