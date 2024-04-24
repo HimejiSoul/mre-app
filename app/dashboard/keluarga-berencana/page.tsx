@@ -1,6 +1,6 @@
 import Pagination from '@/app/ui/keluarga-berencana/pagination';
 import Search from '@/app/ui/search';
-import Table from '@/app/ui/keluarga-berencana/table';
+import KBTable from '@/app/ui/keluarga-berencana/table';
 import { CreateKBForm } from '@/app/ui/keluarga-berencana/buttons';
 import { urbanist } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
@@ -38,8 +38,9 @@ export default async function Page({
         <CreateKBForm />
       </div>
       <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
-        <Table
-        // query={query} currentPage={currentPage}
+        <KBTable
+          query={query}
+          //  currentPage={currentPage}
         />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">
