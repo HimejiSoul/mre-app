@@ -1,4 +1,4 @@
-import Form from '@/app/ui/keluarga-berencana/edit-form';
+import Form from '@/app/ui/keluarga-berencana/edit-kb-form';
 import Breadcrumbs from '@/app/ui/keluarga-berencana/breadcrumbs';
 import { fetchInvoiceById, fetchCustomers } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
