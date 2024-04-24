@@ -23,7 +23,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useFieldArray } from 'react-hook-form';
-import { Button } from '@/components/ui/button';
+import { TableButtonGroup } from '../_component/button';
+import { defaultValues } from '@/lib/periksa-kehamilan-types';
 
 export default function RiwayatKehamilan({ form }: any) {
   const { fields, append, remove } = useFieldArray({
@@ -281,37 +282,16 @@ export default function RiwayatKehamilan({ form }: any) {
             ))}
           </TableBody>
         </Table>
-        <div className="flex gap-2">
-          <Button
-            type="button"
-            variant={'outline'}
-            className="border-red-500 text-red-500 hover:text-red-600"
-            onClick={() => remove(fields.length - 1)}
-          >
-            Hapus
-          </Button>
-          <Button
-            type="button"
-            className="w-full border-rme-blue-500 text-rme-blue-500 hover:text-rme-blue-500"
-            variant={'outline'}
-            onClick={() =>
-              append({
-                tahun: '',
-                jenisKelamin: '',
-                hasilPersalinan: '',
-                jenisPersalinan: '',
-                keadaanSaatLahir: '',
-                bbl: '',
-                lamaMenyusui: '',
-                penolongPersalinan: '',
-                penyulit: '',
-                keterangan: '',
-              })
-            }
-          >
-            Tambah
-          </Button>
-        </div>
+        <TableButtonGroup
+          remove={remove}
+          append={append}
+          fields={fields}
+          data={
+            defaultValues.riwayatKehamilan
+              ? defaultValues.riwayatKehamilan.data
+              : []
+          }
+        />
       </FormWrapper>
     </section>
   );

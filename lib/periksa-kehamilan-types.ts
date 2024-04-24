@@ -233,8 +233,8 @@ export const kehamilanFormSchema = z.object({
 export const defaultValues: Partial<z.infer<typeof kehamilanFormSchema>> = {
   generalInformation: {
     noIbu: '',
-    namaLengkap: 'Firda', //DELETE THIS
-    namaSuami: 'Hilmy', //DELETE THIS
+    namaLengkap: '',
+    namaSuami: '',
     tanggalLahir: new Date('1999-1-1'),
     umur: 0,
     alamatDomisili: '',
@@ -254,7 +254,7 @@ export const defaultValues: Partial<z.infer<typeof kehamilanFormSchema>> = {
     namaKader: '',
     golDarah: '',
     namaDukun: '',
-    noTelp: '08123456789',
+    noTelp: '',
     riwayatObstetrik: {
       gravida: '',
       partus: '',

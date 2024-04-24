@@ -3,12 +3,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import {
   kehamilanFormSchema,
   defaultValues,
 } from '@/lib/periksa-kehamilan-types';
+import { createKehamilanPatient } from '@/app/lib/actions';
+import { SubmitButton } from './_component/button';
 
 // Form section component
 import GeneralInformation from './form-section/general-information';
@@ -26,8 +27,9 @@ export default function KehamilanForm() {
     defaultValues,
   });
 
-  function onSubmit(data: z.infer<typeof kehamilanFormSchema>) {
-    console.log(data);
+  // function onSubmit(data: z.infer<typeof kehamilanFormSchema>) {
+  function onSubmit(data: any) {
+    createKehamilanPatient(data);
   }
 
   return (
@@ -44,9 +46,7 @@ export default function KehamilanForm() {
         <PemeriksaanPNC form={form} />
         <KunjunganNifas form={form} />
         <FaktorResiko form={form} />
-        <Button type="submit" className="w-fit bg-blue-600 hover:bg-blue-500">
-          Tambah Pasien
-        </Button>
+        <SubmitButton />
       </form>
     </Form>
   );
