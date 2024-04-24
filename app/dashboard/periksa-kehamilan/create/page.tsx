@@ -1,4 +1,4 @@
-import KehamilanForm from './create-form';
+import KehamilanForm from './kehamilan-form';
 import { SectionTitle } from '@/app/ui/section-title';
 
 export default async function Page() {

@@ -66,28 +66,34 @@ export const kehamilanFormSchema = z.object({
       penyakitKronisDanAlergi: z.string().optional(),
     }),
   }),
-  rencanaPersalinan: z.object({
-    tanggal: z.date().optional(),
-    penolong: z.string().optional(),
-    tempat: z.string().optional(),
-    pendamping: z.string().optional(),
-    transportasi: z.string().optional(),
-    pendonor: z.string().optional(),
-  }),
-  riwayatKehamilanSebelumnya: z.object({
+  rencanaPersalinan: z.array(
+    z.object({
+      tanggal: z.date().optional(),
+      penolong: z.string().optional(),
+      tempat: z.string().optional(),
+      pendamping: z.string().optional(),
+      transportasi: z.string().optional(),
+      pendonor: z.string().optional(),
+    }),
+  ),
+  riwayatKehamilan: z.object({
     g: z.string().optional(),
     p: z.string().optional(),
     a: z.string().optional(),
-    tahun: z.string().optional(),
-    jenisKelamin: z.string().optional(),
-    hasilPersalinan: z.string().optional(),
-    jenisPersalinan: z.string().optional(),
-    keadaanSaatLahir: z.string().optional(),
-    bbl: z.string().optional(),
-    lamaMenyusui: z.string().optional(),
-    penolongPersalinan: z.string().optional(),
-    penyulit: z.string().optional(),
-    keterangan: z.string().optional(),
+    data: z.array(
+      z.object({
+        tahun: z.string().optional(),
+        jenisKelamin: z.string().optional(),
+        hasilPersalinan: z.string().optional(),
+        jenisPersalinan: z.string().optional(),
+        keadaanSaatLahir: z.string().optional(),
+        bbl: z.string().optional(),
+        lamaMenyusui: z.string().optional(),
+        penolongPersalinan: z.string().optional(),
+        penyulit: z.string().optional(),
+        keterangan: z.string().optional(),
+      }),
+    ),
   }),
   persalinan: z.object({
     kalaIAktif: z.object({
@@ -118,49 +124,43 @@ export const kehamilanFormSchema = z.object({
     caraPersalinan: z.string().optional(),
     manajemenAktifKalaIII: z.string().optional(),
     pelayanan: z.string().optional(),
-    integrasiProgram: z.string().optional(),
+    integrasiProgram: z.object({
+      jenisObat: z.string().optional(),
+      namaObat: z.string().optional(),
+    }),
     komplikasi: z.string().optional(),
     dirujukKe: z.string().optional(),
     keadaanTiba: z.string().optional(),
     keadaanPulang: z.string().optional(),
     alamatBersalin: z.string().optional(),
   }),
-  pemeriksaanPNC: z.object({
-    tanggal: z.string().optional(),
-    hariKeKF: z.string().optional(),
-    tandaVital: z.object({
-      td: z.string().optional(),
-      suhu: z.string().optional(),
+  pemeriksaanPNC: z.array(
+    z.object({
+      tanggal: z.string().optional(),
+      hariKeKF: z.string().optional(),
+      tandaVital: z.object({
+        td: z.string().optional(),
+        suhu: z.string().optional(),
+      }),
+      pelayanan: z.object({
+        catatDiBukuKIA: z.string().optional(),
+        fe: z.string().optional(),
+        vitA: z.boolean().default(false).optional(),
+      }),
+      integrasiProgram: z.object({
+        cd4: z.string().optional(),
+        antiMalaria: z.string().optional(),
+        antiTB: z.string().optional(),
+        fotoThorax: z.string().optional(),
+      }),
+      komplikasi: z.string().optional(),
+      ditujukKe: z.string().optional(),
+      keadaan: z.object({
+        tiba: z.string().optional(),
+        pulang: z.string().optional(),
+      }),
     }),
-    pelayanan: z.object({
-      catatDiBukuKIA: z.string().optional(),
-      fe: z.string().optional(),
-      vitA: z.string().optional(),
-    }),
-    integrasiProgram: z.object({
-      cd4: z.string().optional(),
-      antiMalaria: z.string().optional(),
-      antiTB: z.string().optional(),
-      fotoThorax: z.string().optional(),
-    }),
-    komplikasi: z.object({
-      ppp: z.string().optional(),
-      infeksi: z.string().optional(),
-      hdk: z.string().optional(),
-      lainnya: z.string().optional(),
-    }),
-    ditujukKe: z.object({
-      pkm: z.string().optional(),
-      rb: z.string().optional(),
-      rsia: z.string().optional(),
-      rs: z.string().optional(),
-      lainnya: z.string().optional(),
-    }),
-    keadaan: z.object({
-      tiba: z.string().optional(),
-      pulang: z.string().optional(),
-    }),
-  }),
+  ),
   kunjunganNifas: z.object({
     mal: z.object({
       rencana: z.string().optional(),
@@ -273,28 +273,34 @@ export const defaultValues: Partial<z.infer<typeof kehamilanFormSchema>> = {
       penyakitKronisDanAlergi: '',
     },
   },
-  rencanaPersalinan: {
-    tanggal: new Date(),
-    penolong: '',
-    tempat: '',
-    pendamping: '',
-    transportasi: '',
-    pendonor: '',
-  },
-  riwayatKehamilanSebelumnya: {
+  rencanaPersalinan: [
+    {
+      tanggal: new Date(),
+      penolong: '',
+      tempat: '',
+      pendamping: '',
+      transportasi: '',
+      pendonor: '',
+    },
+  ],
+  riwayatKehamilan: {
     g: '',
     p: '',
     a: '',
-    tahun: '',
-    jenisKelamin: '',
-    hasilPersalinan: '',
-    jenisPersalinan: '',
-    keadaanSaatLahir: '',
-    bbl: '',
-    lamaMenyusui: '',
-    penolongPersalinan: '',
-    penyulit: '',
-    keterangan: '',
+    data: [
+      {
+        tahun: '',
+        jenisKelamin: '',
+        hasilPersalinan: '',
+        jenisPersalinan: '',
+        keadaanSaatLahir: '',
+        bbl: '',
+        lamaMenyusui: '',
+        penolongPersalinan: '',
+        penyulit: '',
+        keterangan: '',
+      },
+    ],
   },
   persalinan: {
     kalaIAktif: {
@@ -325,49 +331,43 @@ export const defaultValues: Partial<z.infer<typeof kehamilanFormSchema>> = {
     caraPersalinan: '',
     manajemenAktifKalaIII: '',
     pelayanan: '',
-    integrasiProgram: '',
+    integrasiProgram: {
+      jenisObat: '',
+      namaObat: '',
+    },
     komplikasi: '',
     dirujukKe: '',
     keadaanTiba: '',
     keadaanPulang: '',
     alamatBersalin: '',
   },
-  pemeriksaanPNC: {
-    tanggal: '',
-    hariKeKF: '',
-    tandaVital: {
-      td: '',
-      suhu: '',
+  pemeriksaanPNC: [
+    {
+      tanggal: '',
+      hariKeKF: '',
+      tandaVital: {
+        td: '',
+        suhu: '',
+      },
+      pelayanan: {
+        catatDiBukuKIA: '',
+        fe: '',
+        vitA: false,
+      },
+      integrasiProgram: {
+        cd4: '',
+        antiMalaria: '',
+        antiTB: '',
+        fotoThorax: '',
+      },
+      komplikasi: '',
+      ditujukKe: '',
+      keadaan: {
+        tiba: '',
+        pulang: '',
+      },
     },
-    pelayanan: {
-      catatDiBukuKIA: '',
-      fe: '',
-      vitA: '',
-    },
-    integrasiProgram: {
-      cd4: '',
-      antiMalaria: '',
-      antiTB: '',
-      fotoThorax: '',
-    },
-    komplikasi: {
-      ppp: '',
-      infeksi: '',
-      hdk: '',
-      lainnya: '',
-    },
-    ditujukKe: {
-      pkm: '',
-      rb: '',
-      rsia: '',
-      rs: '',
-      lainnya: '',
-    },
-    keadaan: {
-      tiba: '',
-      pulang: '',
-    },
-  },
+  ],
   kunjunganNifas: {
     mal: {
       rencana: '',

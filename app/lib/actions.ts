@@ -46,6 +46,18 @@ export async function createKBPatient(formData: FormData) {
   redirect('/dashboard/keluarga-berencana/create/soap');
 }
 
+export async function createKehamilanPatient(formData: FormData) {
+  const kehamilanData = { data: formData };
+  const apiEndpoint = `${process.env.API_ENDPOINT}/regist_kehamilan/regist_kehamilan`;
+  try {
+    const response = await axios.post(apiEndpoint, kehamilanData);
+    console.log(response.data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+  redirect('/dashboard/periksa-kehamilan');
+}
+
 export async function createInvoice(prevState: State, formData: FormData) {
   // Validate form using Zod
   const validatedFields = CreateInvoice.safeParse({

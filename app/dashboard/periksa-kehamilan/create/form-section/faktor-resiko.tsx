@@ -5,25 +5,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
 import { Input } from '@/components/ui/input';
-import { FormWrapper, Row, TitleSection } from '../create-form';
-import { CalendarIcon } from 'lucide-react';
-import { format } from 'date-fns';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { Calendar } from '@/components/ui/calendar';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { FormWrapper, Row, TitleSection } from '../_component/form-card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   Table,
@@ -121,9 +104,9 @@ const dataTable = [
   },
 ];
 
-export function MendeteksiFaktroResikoDanResikoTinggi({ form }: any) {
+export default function FaktorResiko({ form }: any) {
   return (
-    <section className="_KUNJUNGAN_NIFAS space-y-4">
+    <section className="_FAKTOR_RESIKO space-y-4">
       <TitleSection
         title="Mendeteksi Faktor Resiko dan Resiko Tinggi"
         subtitle="Masukkan data pasien"
@@ -222,7 +205,11 @@ export function MendeteksiFaktroResikoDanResikoTinggi({ form }: any) {
               <FormItem className="col-span-3">
                 <FormLabel>Ditemukan Tanggal</FormLabel>
                 <FormControl>
-                  <Input placeholder="Ditemukan tanggal" {...field} />
+                  <Input
+                    type="date"
+                    placeholder="Ditemukan tanggal"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -232,7 +219,7 @@ export function MendeteksiFaktroResikoDanResikoTinggi({ form }: any) {
             control={form.control}
             name="resikoTinggi.jenisResiko"
             render={({ field }) => (
-              <FormItem className="col-span-3">
+              <FormItem className="col-span-6">
                 <FormLabel>Jenis Resiko</FormLabel>
                 <FormControl>
                   <Input placeholder="Jenis resiko" {...field} />
