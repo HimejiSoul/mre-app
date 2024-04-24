@@ -1,5 +1,6 @@
 'use client';
 
+import { RefreshCcw } from 'lucide-react';
 import { useFormStatus } from 'react-dom';
 import { createKBPatient } from '@/app/lib/actions';
 import { format } from 'date-fns';
@@ -9,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { urbanist } from '@/app/ui/fonts';
 import { cn } from '@/lib/utils';
-import { Calendar } from '@/components/ui/calendar';
+import { Calendar, CalendarLahir } from '@/components/ui/calendar';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -36,6 +37,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { KBSchema, defaultValues } from '@/lib/kb-schema';
+import { toast } from '@/components/ui/use-toast';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -46,7 +48,13 @@ function SubmitButton() {
       aria-disabled={pending}
       className="mt-5 w-fit bg-blue-600 hover:bg-blue-400"
     >
-      Tambah Pasien
+      {pending ? (
+        <>
+          <RefreshCcw size={20} className="mr-2 animate-spin" /> Loading...
+        </>
+      ) : (
+        'Tambah Pasien'
+      )}
     </Button>
   );
 }
@@ -96,9 +104,18 @@ export default function KBForm() {
     defaultValues,
   });
 
-  function onSubmit(data: any) {
-    createKBPatient(data);
-  }
+  const onSubmit = async (data: any) => {
+    try {
+      await createKBPatient(data);
+      toast({
+        title: `Berhasil Menginputkan Data Pasien: ${data.generalInformation.namaPeserta}`,
+      });
+    } catch {
+      toast({
+        title: `Gagal Menginputkan Data Pasien`,
+      });
+    }
+  };
 
   return (
     <div className="rounded-xl bg-[#D0E4FF] px-4 py-6 ">
@@ -202,7 +219,7 @@ const GeneralInformation = ({ form }: any) => {
                       </FormControl>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
+                      <CalendarLahir
                         mode="single"
                         selected={field.value}
                         onSelect={field.onChange}
