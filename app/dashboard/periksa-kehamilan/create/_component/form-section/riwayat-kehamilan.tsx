@@ -6,7 +6,11 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { FormWrapper, Row, TitleSection } from '../_component/form-card';
+import {
+  FormWrapper,
+  Row,
+  TitleSection,
+} from '@/app/dashboard/periksa-kehamilan/create/_component/form-card';
 import {
   Select,
   SelectContent,
@@ -23,8 +27,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useFieldArray } from 'react-hook-form';
-import { TableButtonGroup } from '../_component/button';
-import { defaultValues } from '@/lib/periksa-kehamilan-types';
+import { TableButtonGroup } from '@/app/dashboard/periksa-kehamilan/create/_component/button';
+import { defaultValues } from '@/app/dashboard/periksa-kehamilan/_types/periksa-kehamilan-types';
 
 export default function RiwayatKehamilan({ form }: any) {
   const { fields, append, remove } = useFieldArray({

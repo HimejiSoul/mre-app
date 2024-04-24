@@ -5,7 +5,10 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { FormWrapper, TitleSection } from '../_component/form-card';
+import {
+  FormWrapper,
+  TitleSection,
+} from '@/app/dashboard/periksa-kehamilan/create/_component/form-card';
 import {
   Table,
   TableBody,

@@ -435,3 +435,65 @@ export const defaultValues: Partial<z.infer<typeof kehamilanFormSchema>> = {
     jenisResiko: '',
   },
 };
+
+export const soapKehamilanFormSchema = z.object({
+  table1: z.array(
+    z.object({
+      tanggal: z.string().optional(),
+      hariKeKF: z.string().optional(),
+      tandaVital: z.object({
+        td: z.string().optional(),
+        suhu: z.string().optional(),
+      }),
+      pelayanan: z.object({
+        catatDiBukuKIA: z.string().optional(),
+        fe: z.string().optional(),
+        vitA: z.boolean().default(false).optional(),
+      }),
+      integrasiProgram: z.object({
+        cd4: z.string().optional(),
+        antiMalaria: z.string().optional(),
+        antiTB: z.string().optional(),
+        fotoThorax: z.string().optional(),
+      }),
+      komplikasi: z.string().optional(),
+      ditujukKe: z.string().optional(),
+      keadaan: z.object({
+        tiba: z.string().optional(),
+        pulang: z.string().optional(),
+      }),
+    }),
+  ),
+});
+
+export const soapDefaultValues: Partial<
+  z.infer<typeof soapKehamilanFormSchema>
+> = {
+  table1: [
+    {
+      tanggal: '',
+      hariKeKF: '',
+      tandaVital: {
+        td: '',
+        suhu: '',
+      },
+      pelayanan: {
+        catatDiBukuKIA: '',
+        fe: '',
+        vitA: false,
+      },
+      integrasiProgram: {
+        cd4: '',
+        antiMalaria: '',
+        antiTB: '',
+        fotoThorax: '',
+      },
+      komplikasi: '',
+      ditujukKe: '',
+      keadaan: {
+        tiba: '',
+        pulang: '',
+      },
+    },
+  ],
+};
