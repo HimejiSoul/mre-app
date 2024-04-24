@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 import axios from 'axios';
+import { isRedirectError } from 'next/dist/client/components/redirect';
 
 const FormSchema = z.object({
   id: z.string(),
@@ -40,10 +41,28 @@ export async function createKBPatient(formData: FormData) {
   try {
     const response = await axios.post(apiEndpoint, KBData);
     console.log(response.data);
+    const id = response.data.id_pasien;
+    redirect(`/dashboard/keluarga-berencana/soap?id=${id}`);
   } catch (error) {
+    if (isRedirectError(error)) {
+      throw error;
+    }
     console.error('Error:', error);
   }
-  redirect('/dashboard/keluarga-berencana/create/soap');
+}
+export async function createKBSOAPPatient(formData: FormData, id: any) {
+  const KBSOAPData = { data: { id_pasien: id, ...formData } };
+  const apiEndpoint = `${process.env.API_ENDPOINT}/soap_kb/soap_kb`;
+  try {
+    const response = await axios.post(apiEndpoint, KBSOAPData);
+    console.log(response.data);
+    redirect('/dashboard/keluarga-berencana');
+  } catch (error) {
+    if (isRedirectError(error)) {
+      throw error;
+    }
+    console.error('Error:', error);
+  }
 }
 
 export async function createInvoice(prevState: State, formData: FormData) {
