@@ -2,7 +2,7 @@
 
 import { SectionTitle } from '@/app/ui/section-title';
 import { useFormStatus } from 'react-dom';
-import { createKBPatient } from '@/app/lib/actions';
+import { createKBSOAPPatient } from '@/app/lib/actions';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -26,6 +26,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { toast } from '@/components/ui/use-toast';
+import { useSearchParams } from 'next/navigation';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -42,40 +44,48 @@ function SubmitButton() {
 }
 
 const FormSchema = z.object({
-  soapKB: z.object({
-    tglDatang: z.date({
-      required_error: 'Harap Diisi',
-    }),
-    s: z.string(),
-    td: z.string(),
-    bb: z.string(),
-    hpht: z.string(),
-    lain2: z.string(),
-    a: z.string(),
-    p: z.string(),
+  tglDatang: z.date({
+    required_error: 'Harap Diisi',
   }),
+  s: z.string(),
+  td: z.string(),
+  bb: z.string(),
+  hpht: z.string(),
+  lain2: z.string(),
+  a: z.string(),
+  p: z.string(),
 });
 
 export default function KBForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      soapKB: {
-        s: '10',
-        td: '10',
-        bb: '10',
-        hpht: '10',
-        lain2: '10',
-        a: '10',
-        p: '10',
-      },
+      tglDatang: new Date(),
+      s: '10',
+      td: '10',
+      bb: '10',
+      hpht: '10',
+      lain2: '10',
+      a: '10',
+      p: '10',
     },
   });
 
-  function onSubmit(data: any) {
-    // createKBPatient(data);
-    console.log(data);
-  }
+  const searchParams = useSearchParams();
+  const onSubmit = async (data: any) => {
+    const id = searchParams.get('id');
+    try {
+      console.log(id);
+      await createKBSOAPPatient(data, id);
+      toast({
+        title: `Berhasil Menginputkan SOAP Pasien`,
+      });
+    } catch {
+      toast({
+        title: `Gagal Menginputkan Data Pasien`,
+      });
+    }
+  };
 
   return (
     <main>
@@ -114,7 +124,7 @@ const Soap = ({ form }: any) => {
           <div className="w-1/3">
             <FormField
               control={form.control}
-              name="soapKB.tglDatang"
+              name="tglDatang"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Tanggal Kedatangan</FormLabel>
@@ -161,7 +171,7 @@ const Soap = ({ form }: any) => {
           <div className="w-4/12">
             <FormField
               control={form.control}
-              name="soapKB.s"
+              name="s"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>S</FormLabel>
@@ -180,7 +190,7 @@ const Soap = ({ form }: any) => {
           <div className="w-3/12">
             <FormField
               control={form.control}
-              name="soapKB.td"
+              name="td"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>TD</FormLabel>
@@ -196,7 +206,7 @@ const Soap = ({ form }: any) => {
           <div className="w-3/12">
             <FormField
               control={form.control}
-              name="soapKB.bb"
+              name="bb"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>BB</FormLabel>
@@ -212,7 +222,7 @@ const Soap = ({ form }: any) => {
           <div className="w-3/12">
             <FormField
               control={form.control}
-              name="soapKB.hpht"
+              name="hpht"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>HPHT</FormLabel>
@@ -228,7 +238,7 @@ const Soap = ({ form }: any) => {
           <div className="w-3/12">
             <FormField
               control={form.control}
-              name="soapKB.lain2"
+              name="lain2"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Lain-Lain</FormLabel>
@@ -247,7 +257,7 @@ const Soap = ({ form }: any) => {
           <div className="w-4/12">
             <FormField
               control={form.control}
-              name="soapKB.a"
+              name="a"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>A</FormLabel>
@@ -266,7 +276,7 @@ const Soap = ({ form }: any) => {
           <div className="w-4/12">
             <FormField
               control={form.control}
-              name="soapKB.p"
+              name="p"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>P</FormLabel>

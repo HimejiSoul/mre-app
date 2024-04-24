@@ -25,21 +25,21 @@ import {
 import { Button } from '@/components/ui/button';
 
 type SubPatient = {
-  date: string;
+  tglDatang: string;
   s: string;
   td: string;
   bb: number;
-  other: string;
+  lain2: string;
   a: string;
   p: string;
 };
 
 type Patient = {
-  code: number;
+  id_pasien: number;
   name: string;
-  age: number;
-  lastVisits: string;
-  KBType: string;
+  usia: number;
+  tglDatang: string;
+  metodeKontrasepsi: string;
   subRows?: SubPatient[];
 };
 
@@ -76,37 +76,40 @@ const columns: ColumnDef<Patient>[] = [
     },
   },
   {
-    accessorKey: 'code',
-    header: () => 'Kode',
+    accessorKey: 'id_pasien',
+    header: () => 'KOHRT',
     footer: (props) => props.column.id,
   },
   {
     accessorKey: 'name',
     header: 'Nama',
-    cell: ({ row, getValue }) => <div>{getValue<string>()}</div>,
+    // cell: ({ row, getValue }) => <div>{getValue<string>()}</div>,
     footer: (props) => props.column.id,
   },
   {
-    accessorKey: 'age',
+    accessorKey: 'usia',
     header: () => 'Usia',
     footer: (props) => props.column.id,
   },
   {
-    accessorKey: 'lastVisits',
+    accessorKey: 'tglDatang',
     header: () => 'Kedatangan Terakhir',
     footer: (props) => props.column.id,
   },
   {
-    accessorKey: 'KBType',
+    accessorKey: 'metodeKontrasepsi',
     header: () => 'Tipe KB',
     footer: (props) => props.column.id,
   },
   {
     id: 'action',
     header: () => 'Action',
-    cell: () => (
+    cell: ({ row }) => (
       <div className="flex justify-end gap-3">
-        <Link href={`#`} className="rounded-md border p-2 hover:bg-gray-100">
+        <Link
+          href={`/dashboard/keluarga-berencana/${row.original.id_pasien}/edit`}
+          className="rounded-md border p-2 hover:bg-gray-100"
+        >
           <PencilIcon className="w-5" />
         </Link>
         <Link href={`#`} className="rounded-md border p-2 hover:bg-gray-100">
@@ -121,10 +124,10 @@ const columns: ColumnDef<Patient>[] = [
   },
 ];
 
-export default function InvoicesTable({} // query,
+export default function KBTable({} // query,
 // currentPage,
 : {
-  // query: string;
+  query: string;
   // currentPage: number;
 }) {
   // const invoices = await fetchFilteredInvoices(query, currentPage);
@@ -260,7 +263,6 @@ export default function InvoicesTable({} // query,
     </div>
   );
 }
-
 function TableComponent({
   data,
   columns,
@@ -361,12 +363,12 @@ function renderSubComponent({ row }: { row: Row<Patient> }) {
           {data.map((d: any, i: number) => {
             return (
               <TableRow key={i}>
-                <TableCell>{d.date}</TableCell>
+                <TableCell>{d.tglDatang}</TableCell>
                 <TableCell>{d.s}</TableCell>
                 <TableCell>{d.td}</TableCell>
                 <TableCell>{d.bb}</TableCell>
                 <TableCell>{d.hpht}</TableCell>
-                <TableCell>{d.other}</TableCell>
+                <TableCell>{d.lain2}</TableCell>
                 <TableCell>{d.a}</TableCell>
                 <TableCell>{d.p}</TableCell>
               </TableRow>
