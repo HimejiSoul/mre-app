@@ -1,6 +1,7 @@
 import SideNav from '@/app/ui/dashboard/sidenav';
 import SearchBar from '@/app/ui/dashboard/searchBar';
 import Rightbar from '@/app/ui/dashboard/rightBar';
+import { Toaster } from '@/components/ui/toaster';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -17,6 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className=" hidden w-fit xl:block xl:w-80">
         <Rightbar />
       </div>
+      <Toaster />
     </div>
   );
 }
