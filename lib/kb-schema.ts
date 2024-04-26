@@ -8,13 +8,13 @@ export const KBSchema = z.object({
     noSeriKartu: z.string().min(2, {
       message: 'Harap Diisi',
     }),
-    tglDatang: z.date({
+    tglDatang: z.any({
       required_error: 'Harap Diisi',
     }),
     namaPeserta: z.string().min(2, {
       message: 'Harap Diisi',
     }),
-    tglLahir: z.date({
+    tglLahir: z.any({
       required_error: 'Harap Diisi',
     }),
     usia: z.string().min(2, {
@@ -65,7 +65,7 @@ export const KBSchema = z.object({
   }),
   skrining: z.object({
     anamsesa: z.object({
-      haidTerakhir: z.date({
+      haidTerakhir: z.any({
         required_error: 'Harap Diisi',
       }),
       hamil: z.enum(['true', 'false'], {
@@ -141,13 +141,13 @@ export const KBSchema = z.object({
     metodeKontrasepsi: z.string().min(2, {
       message: 'Harap Diisi',
     }),
-    tglDilayani: z.date({
+    tglDilayani: z.any({
       required_error: 'Harap Diisi',
     }),
-    tglDipesanKembali: z.date({
+    tglDipesanKembali: z.any({
       required_error: 'Harap Diisi',
     }),
-    tglDicabut: z.date({
+    tglDicabut: z.any({
       required_error: 'Harap Diisi',
     }),
   }),
@@ -239,7 +239,7 @@ export const defaultValues: Partial<z.infer<typeof KBSchema>> = {
       umurKecilLaki: '50',
       umurKecilPr: '80',
     },
-    caraKBTerakhir: 'iud',
+    caraKBTerakhir: 'IUD',
     statusPesertaKB: 'Baru Pertama Kali',
   },
   skrining: {
@@ -261,7 +261,7 @@ export const defaultValues: Partial<z.infer<typeof KBSchema>> = {
     pemeriksaan: {
       beratBadan: '100',
       tekananDarah: '80',
-      alatKontrasepsi: ['iud', 'mow'],
+      alatKontrasepsi: ['IUD', 'MOW'],
       keadaanUmum: 'Baik',
       posisiRahim: 'Anterfleksi',
       tambahan: {

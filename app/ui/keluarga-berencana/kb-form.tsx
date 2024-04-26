@@ -584,13 +584,13 @@ const OtherInformation = ({ form }: any) => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="iud">IUD</SelectItem>
-                      <SelectItem value="mow">MOW</SelectItem>
-                      <SelectItem value="mop">MOP</SelectItem>
-                      <SelectItem value="random">Random</SelectItem>
-                      <SelectItem value="implant">Implant</SelectItem>
-                      <SelectItem value="suntikan">Suntikan</SelectItem>
-                      <SelectItem value="pil">Pil</SelectItem>
+                      <SelectItem value="IUD">IUD</SelectItem>
+                      <SelectItem value="MOW">MOW</SelectItem>
+                      <SelectItem value="MOP">MOP</SelectItem>
+                      <SelectItem value="Random">Random</SelectItem>
+                      <SelectItem value="Implant">Implant</SelectItem>
+                      <SelectItem value="Suntikan">Suntikan</SelectItem>
+                      <SelectItem value="Pil">Pil</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
