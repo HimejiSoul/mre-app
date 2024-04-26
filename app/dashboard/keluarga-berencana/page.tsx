@@ -5,7 +5,11 @@ import { CreateKBForm } from '@/app/ui/keluarga-berencana/buttons';
 import { urbanist } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
-import { fetchInvoicesPages } from '@/app/lib/data';
+import {
+  fetchAllPatientTable,
+  fetchInvoicesPages,
+  fetchPatientTable,
+} from '@/app/lib/data';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -18,11 +22,23 @@ export default async function Page({
   searchParams?: {
     query?: string;
     page?: string;
+    allPatientKB?: any;
   };
 }) {
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
-  const totalPages = await fetchInvoicesPages(query);
+  const allPatientKBArray = await fetchAllPatientTable(0);
+  const totalPages = Math.ceil(allPatientKBArray.length / 5);
+  // console.log(query);
+  // console.log(allPatientKBArray);
+  // console.log(totalPages);
+  const start_index = (currentPage - 1) * 5;
+  const last_index = currentPage * 5;
+  const datapasien = allPatientKBArray.slice(start_index, last_index);
+  // console.log(start_index);
+  // console.log(last_index);
+  // console.log(datapasien);
+  const allPatientKB = await fetchPatientTable(JSON.stringify(datapasien));
   return (
     <div className="w-full rounded-2xl bg-[#D0E4FF] p-5">
       <div className="flex w-full flex-col justify-between">
@@ -39,8 +55,9 @@ export default async function Page({
       </div>
       <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
         <KBTable
-          query={query}
+          // query={query}
           //  currentPage={currentPage}
+          dataPatient={allPatientKB}
         />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">

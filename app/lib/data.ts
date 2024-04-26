@@ -12,13 +12,40 @@ import { formatCurrency } from './utils';
 import { unstable_noStore as noStore } from 'next/cache';
 import axios, { AxiosResponse } from 'axios';
 
+export async function fetchAllPatientTable(id_layanan: any) {
+  try {
+    const response: AxiosResponse<any> = await axios.get(
+      `${process.env.API_ENDPOINT}/all_pasien_endpoint/all_pasien?id_layanan=${id_layanan}`,
+    );
+    const allDataPatient = response.data.data;
+    // console.log(allDataPatient);
+    return allDataPatient;
+  } catch (error) {
+    console.error('Database Error:', error);
+    // throw new Error('Failed to fetch card data.');
+  }
+}
+export async function fetchPatientTable(id_pasien: any) {
+  try {
+    const response: AxiosResponse<any> = await axios.get(
+      `${process.env.API_ENDPOINT}/table_kb/table_kb?id_pasien=${id_pasien}`,
+    );
+    const dataPatient = response.data.data;
+    // console.log(dataPatient);
+    return dataPatient;
+  } catch (error) {
+    console.error('Database Error:', error);
+    // throw new Error('Failed to fetch card data.');
+  }
+}
+
 export async function fetchPatientById(id_pasien: any) {
   try {
     const response: AxiosResponse<any> = await axios.get(
       `${process.env.API_ENDPOINT}/edit_kb/edit_kb?id_pasien=${id_pasien}`,
     );
     const dataPatient = response.data.data;
-    console.log(dataPatient);
+    // console.log(dataPatient);
     return dataPatient;
   } catch (error) {
     console.error('Database Error:', error);
