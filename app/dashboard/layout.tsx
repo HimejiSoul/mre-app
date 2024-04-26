@@ -10,9 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <SideNav />
       </div>
       <div className="no-scrollbar relative flex grow flex-col overflow-y-scroll">
-        <div className="px-8 py-5">
-          <SearchBar />
-        </div>
+        <div className="px-8 py-5">{/* <SearchBar /> */}</div>
         <div className="w-full px-8">{children}</div>
       </div>
       <div className=" hidden w-fit xl:block xl:w-80">
