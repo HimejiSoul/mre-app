@@ -5,8 +5,8 @@ import { useFormStatus } from 'react-dom';
 import { createKBSOAPPatient } from '@/app/lib/actions';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { urbanist } from '@/app/ui/fonts';
 import { cn } from '@/lib/utils';
@@ -27,7 +27,6 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { toast } from '@/components/ui/use-toast';
-import { useSearchParams } from 'next/navigation';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -56,7 +55,7 @@ const FormSchema = z.object({
   p: z.string(),
 });
 
-export default function KBForm() {
+export default function KBForm({ params }: { params: { id: string } }) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -71,11 +70,10 @@ export default function KBForm() {
     },
   });
 
-  const searchParams = useSearchParams();
   const onSubmit = async (data: any) => {
-    const id = searchParams.get('id');
+    const id = params.id;
     try {
-      console.log(id);
+      // console.log(id);
       await createKBSOAPPatient(data, id);
       toast({
         title: `Berhasil Menginputkan SOAP Pasien`,
