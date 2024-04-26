@@ -6,7 +6,11 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { FormWrapper, Row, TitleSection } from '../_component/form-card';
+import {
+  FormWrapper,
+  Row,
+  TitleSection,
+} from '@/app/dashboard/periksa-kehamilan/create/_component/form-card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   Table,

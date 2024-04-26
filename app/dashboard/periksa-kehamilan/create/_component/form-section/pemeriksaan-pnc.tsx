@@ -1,5 +1,8 @@
 import { FormField, FormItem, FormMessage } from '@/components/ui/form';
-import { FormWrapper, TitleSection } from '../_component/form-card';
+import {
+  FormWrapper,
+  TitleSection,
+} from '@/app/dashboard/periksa-kehamilan/create/_component/form-card';
 import {
   Table,
   TableBody,
@@ -10,9 +13,9 @@ import {
 } from '@/components/ui/table';
 
 import { useFieldArray } from 'react-hook-form';
-import { defaultValues } from '@/lib/periksa-kehamilan-types';
-import { TableButtonGroup } from '../_component/button';
-import { FormInput } from '../_component/form-field';
+import { defaultValues } from '@/app/dashboard/periksa-kehamilan/_types/periksa-kehamilan-types';
+import { TableButtonGroup } from '@/app/dashboard/periksa-kehamilan/create/_component/button';
+import { FormInput } from '@/app/dashboard/periksa-kehamilan/create/_component/form-field';
 
 const dataColPNC = [
   {

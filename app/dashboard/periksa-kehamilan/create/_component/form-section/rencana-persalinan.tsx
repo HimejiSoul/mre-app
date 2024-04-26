@@ -11,7 +11,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { FormWrapper, TitleSection } from '../_component/form-card';
+import {
+  FormWrapper,
+  TitleSection,
+} from '@/app/dashboard/periksa-kehamilan/create/_component/form-card';
 import { CalendarIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import { Button } from '@/components/ui/button';
@@ -33,8 +36,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useFieldArray } from 'react-hook-form';
-import { TableButtonGroup } from '../_component/button';
-import { defaultValues } from '@/lib/periksa-kehamilan-types';
+import { TableButtonGroup } from '@/app/dashboard/periksa-kehamilan/create/_component/button';
+import { defaultValues } from '@/app/dashboard/periksa-kehamilan/_types/periksa-kehamilan-types';
 
 export default function RencanaPersalinan({ form }: any) {
   const { fields, append, remove } = useFieldArray({
