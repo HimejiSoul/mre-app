@@ -8,10 +8,15 @@ import {
   flexRender,
   Row,
 } from '@tanstack/react-table';
-import { Bell, ChevronDown, ChevronUp, Eye, PencilIcon } from 'lucide-react';
+import {
+  Bell,
+  ChevronDown,
+  ChevronRight,
+  ChevronUp,
+  PencilIcon,
+} from 'lucide-react';
 import Link from 'next/link';
 import { Fragment } from 'react';
-import pasienData from '@/public/data/patient.json';
 import {
   Table,
   TableBody,
@@ -23,6 +28,39 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+  DialogClose,
+} from '@/components/ui/dialog';
+import { urbanist } from '@/app/ui/fonts';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { ChevronLeft } from 'lucide-react';
 
 type SubPatient = {
   tglDatang: string;
@@ -50,7 +88,124 @@ type TableProps<TData> = {
   getRowCanExpand: (row: Row<TData>) => boolean;
 };
 
-const dataPatients: Patient[] = pasienData.data;
+// const dataPatients: Patient[] = pasienData.data;
+// console.log(dataPatients);
+
+const FormSchema = z.object({
+  tglKirim: z.any(),
+  waktuKirim: z.string(),
+  isiPesan: z.string(),
+});
+
+function SubmitButton() {
+  return (
+    <Button
+      type="submit"
+      className=" flex w-fit bg-blue-600 hover:bg-blue-400 "
+    >
+      <p>Kirim Pesan</p>
+      <ChevronRight className="ml-2 h-5 w-5 " />
+    </Button>
+  );
+}
+
+const DialogWA = ({ patientname }: any) => {
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      tglKirim: '',
+      waktuKirim: '',
+      isiPesan: '',
+    },
+  });
+
+  function onSubmit(data: z.infer<typeof FormSchema>) {}
+  return (
+    <div className="rounded-md bg-[#D0E4FF] px-4 py-6">
+      <h1 className={`${urbanist.className} text-lg font-bold`}>
+        Kirim Reminder ke {patientname}
+      </h1>
+      <span className="text-sm font-medium text-[#6F90BA]">
+        Tentukan tanggal kirim dan waktu kirim reminder Whatsapp
+      </span>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex w-full flex-col"
+        >
+          <div className="my-2 mb-8 flex w-full flex-col gap-3 rounded-md bg-white p-4 ">
+            <div className="flex w-full gap-4">
+              <div className="w-1/2">
+                <FormField
+                  control={form.control}
+                  name="tglKirim"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Pilih Tanggal Kirim</FormLabel>
+                      <FormControl>
+                        <Input type="date" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="w-1/2">
+                <FormField
+                  control={form.control}
+                  name="waktuKirim"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Waktu Reservasi yang Tersedia</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="00:00" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="10:00">10:00</SelectItem>
+                          <SelectItem value="12:00">12:00</SelectItem>
+                          <SelectItem value="14:00">14:00</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+            <div>
+              <FormField
+                control={form.control}
+                name="isiPesan"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Isi Pesan</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Masukkan Pesan..."
+                        className="resize-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+        </form>
+      </Form>
+      <div className="flex w-full justify-end">
+        <SubmitButton />
+      </div>
+    </div>
+  );
+};
 
 const columns: ColumnDef<Patient>[] = [
   {
@@ -103,7 +258,7 @@ const columns: ColumnDef<Patient>[] = [
   },
   {
     id: 'action',
-    header: () => 'Action',
+    header: () => '',
     cell: ({ row }) => (
       <div className="flex justify-end gap-3">
         <Link
@@ -112,146 +267,51 @@ const columns: ColumnDef<Patient>[] = [
         >
           <PencilIcon className="w-5" />
         </Link>
-        <Link href={`#`} className="rounded-md border p-2 hover:bg-gray-100">
+        {/* <Link href={`#`} className="rounded-md border p-2 hover:bg-gray-100">
           <Eye className="w-5" />
-        </Link>
-        <Link href={`#`} className="rounded-md border p-2 hover:bg-gray-100">
-          <Bell className="w-5" />
-        </Link>
+        </Link> */}
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="outline" className="p-2">
+              <Bell className="w-5" />
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle
+                className={`${urbanist.className} flex items-center text-lg font-bold`}
+              >
+                <DialogClose asChild>
+                  <ChevronLeft className="mr-3 h-5 w-5" />
+                </DialogClose>
+                <p>Reminder Pasien Layanan KB</p>
+              </DialogTitle>
+            </DialogHeader>
+            <DialogWA patientname={row.original.name} />
+          </DialogContent>
+        </Dialog>
       </div>
     ),
     footer: (props) => props.column.id,
   },
 ];
 
-export default function KBTable({} // query,
-// currentPage,
+export default function KBTable({
+  dataPatient, // query,
+} // currentPage,
 : {
-  query: string;
+  dataPatient: any;
+  // query: string;
   // currentPage: number;
 }) {
   // const invoices = await fetchFilteredInvoices(query, currentPage);
+  const dataPatients = dataPatient;
+  // console.log(dataPatients);
 
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
-          {/* <div className="md:hidden">
-            {invoices?.map((invoice) => (
-              <div
-                key={invoice.id}
-                className="mb-2 w-full rounded-md bg-white p-4"
-              >
-                <div className="flex items-center justify-between border-b pb-4">
-                  <div>
-                    <div className="mb-2 flex items-center">
-                      <Image
-                        src={invoice.image_url}
-                        className="mr-2 rounded-full"
-                        width={28}
-                        height={28}
-                        alt={`${invoice.name}'s profile picture`}
-                      />
-                      <p>{invoice.name}</p>
-                    </div>
-                    <p className="text-sm text-gray-500">{invoice.email}</p>
-                  </div>
-                  <InvoiceStatus status={invoice.status} />
-                </div>
-                <div className="flex w-full items-center justify-between pt-4">
-                  <div>
-                    <p className="text-xl font-medium">
-                      {formatCurrency(invoice.amount)}
-                    </p>
-                    <p>{formatDateToLocal(invoice.date)}</p>
-                  </div>
-                  <div className="flex justify-end gap-2">
-                    <UpdateInvoice id={invoice.id} />
-                    <DeleteInvoice id={invoice.id} />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div> */}
-          {/* <table className="hidden min-w-full text-gray-900 md:table">
-            <thead className="rounded-lg text-left text-sm font-normal">
-              <tr>
-                <th
-                  scope="col"
-                  className="relative px-4 py-5 font-medium sm:pl-6"
-                >
-                  <span className="sr-only">Dropdown</span>
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Kode
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Nama
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Usia
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Kedatangan Terakhir
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Tipe KB
-                </th>
-                <th scope="col" className="px-3 pl-6 text-center font-medium">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white">
-              {dataPatients?.map((patient) => (
-                <tr
-                  key={patient.code}
-                  className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
-                >
-                  <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                    <div className="flex justify-end gap-3">`{'>'}`</div>
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {patient.code}
-                  </td>
-                  <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                    <div className="flex items-center gap-3">
-                      <p>{patient.name}</p>
-                    </div>
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">{patient.age}</td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {patient.lastVisits}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {patient.KBType}
-                  </td>
-                  <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                    <div className="flex justify-end gap-3">
-                      <Link
-                        href={`#`}
-                        className="rounded-md border p-2 hover:bg-gray-100"
-                      >
-                        <PencilIcon className="w-5" />
-                      </Link>
-                      <Link
-                        href={`#`}
-                        className="rounded-md border p-2 hover:bg-gray-100"
-                      >
-                        <Eye className="w-5" />
-                      </Link>
-                      <Link
-                        href={`#`}
-                        className="rounded-md border p-2 hover:bg-gray-100"
-                      >
-                        <Bell className="w-5" />
-                      </Link>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table> */}
           <TableComponent
             data={dataPatients}
             columns={columns}
@@ -287,7 +347,7 @@ function TableComponent({
               {headerGroup.headers.map((header) => {
                 return (
                   <th
-                    className="px-3 py-5 font-semibold last-of-type:text-center"
+                    className="px-3 py-5 font-semibold"
                     key={header.id}
                     colSpan={header.colSpan}
                   >
@@ -381,7 +441,11 @@ function renderSubComponent({ row }: { row: Row<Patient> }) {
         variant={'outline'}
         className="w-full border-rme-blue-500 bg-transparent text-rme-blue-500 hover:bg-white hover:text-rme-blue-500"
       >
-        <Link href={'/dashboard'}>Tambah Histori Kedatangan</Link>
+        <Link
+          href={`/dashboard/keluarga-berencana/${row.original.id_pasien}/soap`}
+        >
+          Tambah Histori Kedatangan
+        </Link>
       </Button>
     </div>
   );
