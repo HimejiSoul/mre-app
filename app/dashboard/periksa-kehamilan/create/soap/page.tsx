@@ -1,4 +1,4 @@
-import { SoapKehamilanForm } from '@/app/dashboard/periksa-kehamilan/create/kehamilan-form';
+import { SoapKehamilanForm } from '@/app/dashboard/periksa-kehamilan/create/soap/soap-form';
 import { SectionTitle } from '@/app/ui/section-title';
 
 export default async function Page() {

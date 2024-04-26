@@ -2,7 +2,7 @@ import { FormField, FormItem, FormMessage } from '@/components/ui/form';
 import {
   FormWrapper,
   TitleSection,
-} from '@/app/dashboard/periksa-kehamilan/create/_component/form-card';
+} from '@/app/dashboard/periksa-kehamilan/create/_component/form-content';
 import {
   Table,
   TableBody,

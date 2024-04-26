@@ -1,5 +1,7 @@
 import { Button } from '@/components/ui/button';
+import { RefreshCcw } from 'lucide-react';
 import { useFormStatus } from 'react-dom';
+import { Button as ButtonSubmit } from '@/app/ui/button';
 
 // TODO: Fix ts data type
 export function TableButtonGroup({ remove, append, fields, data }: any) {
@@ -29,12 +31,24 @@ export function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <Button
-      type="submit"
-      aria-disabled={pending}
+    // <Button
+    //   type="submit"
+    //   aria-disabled={pending}
+    //   className="w-fit bg-blue-600 hover:bg-blue-500"
+    // >
+    //   Tambah Pasien
+    // </Button>
+    <ButtonSubmit
       className="w-fit bg-blue-600 hover:bg-blue-500"
+      aria-disabled={pending}
     >
-      Tambah Pasien
-    </Button>
+      {pending ? (
+        <>
+          <RefreshCcw size={20} className="mr-2 animate-spin" /> Loading...
+        </>
+      ) : (
+        'Tambah Pasien'
+      )}
+    </ButtonSubmit>
   );
 }

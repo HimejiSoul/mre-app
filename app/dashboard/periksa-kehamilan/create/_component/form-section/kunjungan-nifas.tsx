@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import {
   FormWrapper,
   TitleSection,
-} from '@/app/dashboard/periksa-kehamilan/create/_component/form-card';
+} from '@/app/dashboard/periksa-kehamilan/create/_component/form-content';
 import {
   Table,
   TableBody,
