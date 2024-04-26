@@ -14,7 +14,7 @@ import {
 import {
   FormWrapper,
   TitleSection,
-} from '@/app/dashboard/periksa-kehamilan/create/_component/form-card';
+} from '@/app/dashboard/periksa-kehamilan/create/_component/form-content';
 import { CalendarIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import { Button } from '@/components/ui/button';
