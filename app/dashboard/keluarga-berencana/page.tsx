@@ -1,3 +1,4 @@
+// 'use client';
 import Pagination from '@/app/ui/keluarga-berencana/pagination';
 import Search from '@/app/ui/search';
 import KBTable from '@/app/ui/keluarga-berencana/table';
@@ -6,8 +7,8 @@ import { urbanist } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
 import {
+  fetchAllPatientFind,
   fetchAllPatientTable,
-  fetchInvoicesPages,
   fetchPatientTable,
 } from '@/app/lib/data';
 import { Metadata } from 'next';
@@ -27,18 +28,20 @@ export default async function Page({
 }) {
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
-  const allPatientKBArray = await fetchAllPatientTable(0);
-  const totalPages = Math.ceil(allPatientKBArray.length / 5);
   // console.log(query);
-  // console.log(allPatientKBArray);
-  // console.log(totalPages);
+  // console.log(currentPage);
   const start_index = (currentPage - 1) * 5;
   const last_index = currentPage * 5;
+  const allPatientKBArray = await fetchAllPatientFind(query, 0);
   const datapasien = allPatientKBArray.slice(start_index, last_index);
+  const totalPages = Math.ceil(allPatientKBArray.length / 5);
+  const allPatientKB = await fetchPatientTable(JSON.stringify(datapasien), 0);
+  // console.log(allPatientKBArray);
+  // console.log(allPatientKB);
+  // console.log(allPatientKB);
   // console.log(start_index);
   // console.log(last_index);
   // console.log(datapasien);
-  const allPatientKB = await fetchPatientTable(JSON.stringify(datapasien));
   return (
     <div className="w-full rounded-2xl bg-[#D0E4FF] p-5">
       <div className="flex w-full flex-col justify-between">
@@ -53,7 +56,7 @@ export default async function Page({
         <Search placeholder="Search invoices..." />
         <CreateKBForm />
       </div>
-      <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
+      <Suspense key={query} fallback={<InvoicesTableSkeleton />}>
         <KBTable
           // query={query}
           //  currentPage={currentPage}
