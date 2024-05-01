@@ -16,16 +16,30 @@ import {
   TitleSection,
 } from '@/app/dashboard/periksa-kehamilan/create/_component/form-content';
 import { Separator } from '@/components/ui/separator';
+import { toast } from '@/components/ui/use-toast';
+import { createSoapKehamilanPatient } from '@/app/lib/actions';
 
-export function SoapKehamilanForm() {
+export function SoapKehamilanForm({ params }: { params: { id: string } }) {
   const form = useForm<z.infer<typeof soapKehamilanFormSchema>>({
     resolver: zodResolver(soapKehamilanFormSchema),
     defaultValues,
   });
 
-  function onSubmit(data: z.infer<typeof soapKehamilanFormSchema>) {
-    console.log(data);
-  }
+  // function onSubmit(data: z.infer<typeof soapKehamilanFormSchema>) {
+  const onSubmit = async (data: any) => {
+    const id = params.id;
+    try {
+      // console.log(id);
+      await createSoapKehamilanPatient(data, id);
+      toast({
+        title: `Berhasil Menginputkan SOAP Pasien`,
+      });
+    } catch {
+      toast({
+        title: `Gagal Menginputkan Data Pasien`,
+      });
+    }
+  };
 
   return (
     <Form {...form}>

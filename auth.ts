@@ -4,26 +4,15 @@ import { authConfig } from './auth.config';
 import { z } from 'zod';
 import type { User } from '@/app/lib/definitions';
 import axios, { AxiosResponse } from 'axios';
-import { use } from 'react';
-
-// async function getUser(email: string): Promise<User | undefined> {
-//   try {
-//     const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;
-//     return user.rows[0];
-//   } catch (error) {
-//     console.error('Failed to fetch user:', error);
-//     throw new Error('Failed to fetch user.');
-//   }
-// }
 
 async function getUser(
-  email: string,
+  username: string,
   password: string,
 ): Promise<User | undefined> {
   const apiEndpoint = `${process.env.API_ENDPOINT}/loginbidan_endpoint/login`;
   try {
     const response: AxiosResponse<any> = await axios.get(
-      `${apiEndpoint}?username=${email}&password=${password}`,
+      `${apiEndpoint}?username=${username}&password=${password}`,
     );
 
     if (response.status === 200) {
@@ -31,33 +20,44 @@ async function getUser(
       return userData;
     } else {
       console.error('Failed to fetch user:', response.statusText);
-      throw new Error('Failed to fetch user.');
     }
   } catch (error) {
     console.error('Failed to fetch user:', error);
-    throw new Error('Failed to fetch user.');
   }
 }
 
-export const { auth, signIn, signOut } = NextAuth({
+export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
       async authorize(credentials) {
         const parsedCredentials = z
-          .object({ email: z.string(), password: z.string().min(6) })
+          .object({ username: z.string(), password: z.string().min(6) })
           .safeParse(credentials);
 
         if (parsedCredentials.success) {
-          const { email, password } = parsedCredentials.data;
-          const user = await getUser(email, password);
+          const { username, password } = parsedCredentials.data;
+          const user = await getUser(username, password);
           if (user) {
             console.log(user);
-            return user;
+            return user.data;
           }
         }
         return null;
       },
     }),
   ],
+
+  callbacks: {
+    async jwt({ token, user }) {
+      user && (token.user = user);
+      return token;
+    },
+    // FIXME: This ts error
+    async session({ session, token }: any) {
+      // Send properties to the client, like an access_token and user id from a provider.
+      session.user = token.user;
+      return session;
+    },
+  },
 });

@@ -81,11 +81,26 @@ export async function createKBSOAPPatient(formData: FormData, id: any) {
 }
 
 export async function createKehamilanPatient(formData: FormData) {
-  const kehamilanData = { data: formData };
+  const data = { data: formData };
   const apiEndpoint = `${process.env.API_ENDPOINT}/regist_kehamilan/regist_kehamilan`;
   try {
-    const response = await axios.post(apiEndpoint, kehamilanData);
+    const response = await axios.post(apiEndpoint, data);
     // console.log(response.data);
+    const id = response.data.id_pasien;
+    redirect(`/dashboard/periksa-kehamilan/${id}/create/soap`);
+  } catch (error) {
+    if (isRedirectError(error)) {
+      throw error;
+    }
+    console.error('Error:', error);
+  }
+}
+
+export async function createSoapKehamilanPatient(formData: FormData, id: any) {
+  const data = { data: { id_pasien: id, ...formData } };
+  const apiEndpoint = `${process.env.API_ENDPOINT}/soap_kehamilan/soap_kehamilan`;
+  try {
+    await axios.post(apiEndpoint, data);
   } catch (error) {
     console.error('Error:', error);
   }

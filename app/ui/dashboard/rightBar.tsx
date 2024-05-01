@@ -1,20 +1,21 @@
 'use client';
 
-import React from 'react';
-import { Calendar } from '@/components/ui/calendar';
 import { urbanist } from '../fonts';
+import { Profile } from '@/components/Profile';
+import AuthProvider from '@/components/AuthProvider';
+import { Calendar } from '@/components/ui/calendar';
+import { useState } from 'react';
 
 export default function Rightbar() {
-  const [date, setDate] = React.useState<Date | undefined>(new Date());
+  const [date, setDate] = useState<Date | undefined>(new Date());
 
   return (
     <div className="flex h-screen flex-col gap-6 bg-white p-6">
       <div className="font-base flex h-10 flex-row justify-end gap-3 text-right text-sm">
-        <div className="flex flex-col">
-          <p className="font-bold">Imas Amd.keb, CHE</p>
-          <p className="text-xs text-blue-600">Bidan</p>
-        </div>
-        <div className="w-10 rounded-full bg-blue-600"></div>
+        <AuthProvider>
+          <Profile />
+        </AuthProvider>
+        {/* <div className="w-10 rounded-full bg-blue-600"></div> */}
       </div>
       <div className={`flex flex-col font-bold text-black`}>
         <p className={`${urbanist.className} text-lg`}>Kalender</p>

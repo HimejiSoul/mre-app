@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import { RevenueChartSkeleton, CardsSkeleton } from '@/app/ui/skeletons';
 import CardWrapper from '@/app/ui/dashboard/cards';
 
-export default async function Page() {
+export default function Page() {
   return (
     <main className="rounded-2xl bg-[#D0E4FF] p-5">
       <h1

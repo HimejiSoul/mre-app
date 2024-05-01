@@ -28,13 +28,13 @@ export default function Page() {
         </h1>
       </section>
       <section className="_FORM w-full space-y-2">
-        <label htmlFor="email"></label>
+        <label htmlFor="username"></label>
         <div className="relative">
           <input
             className="peer block w-full rounded-md border border-gray-200 py-3 pl-10 text-sm outline-2 placeholder:text-rme-gray-300"
-            id="email"
+            id="username"
             // type="email"
-            name="email"
+            name="username"
             placeholder="Username"
             required
           />
