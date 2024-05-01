@@ -3,6 +3,7 @@ import NavLinks from '@/app/ui/dashboard/nav-links';
 import AcmeLogo from '@/app/ui/acme-logo';
 import { signOut } from '@/auth';
 import { LogOut } from '../icons';
+import AuthProvider from '@/components/AuthProvider';
 
 export default function SideNav() {
   const LogOutIcon = LogOut;
@@ -17,7 +18,9 @@ export default function SideNav() {
         </div>
       </Link>
       <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
-        <NavLinks />
+        <AuthProvider>
+          <NavLinks />
+        </AuthProvider>
         <form
           action={async () => {
             'use server';
