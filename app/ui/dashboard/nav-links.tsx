@@ -4,9 +4,10 @@ import Link from 'next/link';
 import { redirect, usePathname } from 'next/navigation';
 import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Fragment } from 'react';
 
 // Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
 const links = [
   { name: 'Dashboard', href: '/dashboard', icon: Icon.Home, role: 'both' },
   {
@@ -38,16 +39,14 @@ export default function NavLinks() {
     alert('Data error');
   }
 
-  // const role = session?.data?.user.role;
-  const role = 'bidan';
+  const role = session?.data?.user.role;
 
   // Filter links based on role and 'both' role
   const filteredLinks = links.filter(
     (link) => link.role === role || link.role === 'both',
   );
 
-  console.log(filteredLinks);
-
+  // Check if the path is need to redirect
   let isRedirect = false;
   if (
     pathname === '/dashboard' ||
@@ -55,7 +54,6 @@ export default function NavLinks() {
   ) {
     isRedirect = true;
   }
-
   if (!isRedirect) {
     redirect('/dashboard');
   }
