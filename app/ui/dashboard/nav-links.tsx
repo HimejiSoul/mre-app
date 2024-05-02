@@ -4,9 +4,10 @@ import Link from 'next/link';
 import { redirect, usePathname } from 'next/navigation';
 import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Fragment } from 'react';
 
 // Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
 const links = [
   { name: 'Dashboard', href: '/dashboard', icon: Icon.Home, role: 'both' },
   {
@@ -45,8 +46,14 @@ export default function NavLinks() {
     (link) => link.role === role || link.role === 'both',
   );
 
-  // Check if the current pathname exists in filtered links
-  const isRedirect = filteredLinks.some((link) => link.href === pathname);
+  // Check if the path is need to redirect
+  let isRedirect = false;
+  if (
+    pathname === '/dashboard' ||
+    filteredLinks.slice(1).some((link) => pathname.startsWith(link.href))
+  ) {
+    isRedirect = true;
+  }
   if (!isRedirect) {
     redirect('/dashboard');
   }
