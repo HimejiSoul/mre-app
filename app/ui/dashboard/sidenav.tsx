@@ -1,22 +1,14 @@
-import Link from 'next/link';
 import NavLinks from '@/app/ui/dashboard/nav-links';
-import AcmeLogo from '@/app/ui/acme-logo';
 import { signOut } from '@/auth';
 import { LogOut } from '../icons';
 import AuthProvider from '@/components/AuthProvider';
+import BidanNinaLogo from '@/app/ui/bidan-nina-logo';
 
 export default function SideNav() {
   const LogOutIcon = LogOut;
   return (
     <div className="flex h-full flex-col p-4">
-      <Link
-        className="mb-10 flex h-10 items-end justify-start rounded-md bg-blue-600 p-4 md:h-20"
-        href="/"
-      >
-        <div className="w-32 text-white md:w-40">
-          <AcmeLogo />
-        </div>
-      </Link>
+      <BidanNinaLogo />
       <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
         <AuthProvider>
           <NavLinks />
