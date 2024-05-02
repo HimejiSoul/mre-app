@@ -12,7 +12,7 @@ export default function Page() {
       >
         Total Pasien tiap Layanan
       </h1>
-      <div className="grid gap-3  sm:grid-cols-2 lg:grid-cols-6">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
         <Suspense fallback={<CardsSkeleton />}>
           <CardWrapper />
         </Suspense>

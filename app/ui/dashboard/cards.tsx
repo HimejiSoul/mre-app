@@ -1,17 +1,14 @@
-import {
-  BanknotesIcon,
-  ClockIcon,
-  UserGroupIcon,
-  InboxIcon,
-} from '@heroicons/react/24/outline';
-import { lusitana } from '@/app/ui/fonts';
+import { lusitana, urbanist } from '@/app/ui/fonts';
 import { fetchPatientData } from '@/app/lib/data';
+import * as Icon from '@/app/ui/icons';
+import { Separator } from '@/components/ui/separator';
 
 const iconMap = {
-  collected: BanknotesIcon,
-  customers: UserGroupIcon,
-  pending: ClockIcon,
-  invoices: InboxIcon,
+  kb: Icon.KBFilled,
+  kehamilan: Icon.KehamilanFilled,
+  imunisasi: Icon.ImunisasiFilled,
+  ibu: Icon.IbuFilled,
+  anak: Icon.AnakFilled,
 };
 
 export default async function CardWrapper() {
@@ -23,17 +20,13 @@ export default async function CardWrapper() {
   return (
     <>
       <div className="col-span-2">
-        <Card
-          title="Keluarga Berencana"
-          value={jumlah_pasienKB}
-          type="collected"
-        />
+        <Card title="Keluarga Berencana" value={jumlah_pasienKB} layanan="kb" />
       </div>
       <div className="col-span-2">
         <Card
           title="Periksa Kehamilan"
           value={jumlah_pasienHamil}
-          type="pending"
+          layanan="kehamilan"
         />
       </div>
 
@@ -41,14 +34,14 @@ export default async function CardWrapper() {
         <Card
           title="Layanan Imunisasi"
           value={jumlah_pasienImun}
-          type="invoices"
+          layanan="imunisasi"
         />
       </div>
       <div className="col-span-3">
-        <Card title="Layanan Ibu" value={jumlah_pasienIbu} type="customers" />
+        <Card title="Layanan Ibu" value={jumlah_pasienIbu} layanan="ibu" />
       </div>
       <div className="col-span-3">
-        <Card title="Layanan Anak" value={jumlah_pasienAnak} type="customers" />
+        <Card title="Layanan Anak" value={jumlah_pasienAnak} layanan="anak" />
       </div>
     </>
   );
@@ -57,26 +50,31 @@ export default async function CardWrapper() {
 export function Card({
   title,
   value,
-  type,
+  layanan,
 }: {
   title: string;
   value: number | string;
-  type: 'invoices' | 'customers' | 'pending' | 'collected';
+  layanan: 'kb' | 'kehamilan' | 'imunisasi' | 'ibu' | 'anak';
 }) {
-  const Icon = iconMap[type];
+  const Icon = iconMap[layanan];
 
   return (
     <div className="rounded-xl bg-gray-50 p-2 shadow-sm ">
-      <div className="flex p-4">
-        {Icon ? <Icon className="h-5 w-5 text-gray-700" /> : null}
-        <h3 className="ml-2 text-sm font-medium">{title}</h3>
+      <div className="flex flex-col gap-3 p-4">
+        <div className="w-fit rounded-xl bg-[#D0E4FF] p-2">
+          {Icon ? <Icon className="h-8 w-8 text-rme-blue-500" /> : null}
+        </div>
+        <h3 className="font-medium text-rme-gray-500">{title}</h3>
+        <h1
+          className={`${urbanist.className} truncate rounded-xl text-4xl font-bold`}
+        >
+          {value}
+        </h1>
+        <Separator />
+        <p className="text-sm text-rme-gray-300">
+          Terakhir diubah 3 Januari 2023, 19:23
+        </p>
       </div>
-      <p
-        className={`${lusitana.className}
-          truncate rounded-xl bg-white px-4 py-8 text-center text-2xl`}
-      >
-        {value}
-      </p>
     </div>
   );
 }
