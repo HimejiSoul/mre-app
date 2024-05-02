@@ -38,15 +38,24 @@ export default function NavLinks() {
     alert('Data error');
   }
 
-  const role = session?.data?.user.role;
+  // const role = session?.data?.user.role;
+  const role = 'bidan';
 
   // Filter links based on role and 'both' role
   const filteredLinks = links.filter(
     (link) => link.role === role || link.role === 'both',
   );
 
-  // Check if the current pathname exists in filtered links
-  const isRedirect = filteredLinks.some((link) => link.href === pathname);
+  console.log(filteredLinks);
+
+  let isRedirect = false;
+  if (
+    pathname === '/dashboard' ||
+    filteredLinks.slice(1).some((link) => pathname.startsWith(link.href))
+  ) {
+    isRedirect = true;
+  }
+
   if (!isRedirect) {
     redirect('/dashboard');
   }
