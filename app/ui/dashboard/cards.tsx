@@ -17,7 +17,6 @@ export default async function CardWrapper() {
   const jumlah_pasienImun = await fetchPatientData('2');
   const jumlah_pasienIbu = await fetchPatientData('3');
   const jumlah_pasienAnak = await fetchPatientData('4');
-  console.log(jumlah_pasienKB);
   return (
     <>
       <div className="col-span-2">
