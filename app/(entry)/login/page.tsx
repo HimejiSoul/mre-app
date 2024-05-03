@@ -54,9 +54,9 @@ export default function Page() {
           <KeyRound className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-rme-gray-300 peer-focus:text-gray-900" />
         </div>
       </section>
-      <section className="_FORGET_PASS mt-4 flex justify-end text-xs font-medium text-rme-gray-500 hover:underline hover:underline-offset-2">
+      {/* <section className="_FORGET_PASS mt-4 flex justify-end text-xs font-medium text-rme-gray-500 hover:underline hover:underline-offset-2">
         <Link href="/dashboard">Lupa Password?</Link>
-      </section>
+      </section> */}
 
       <LoginButton />
 
@@ -72,7 +72,7 @@ export default function Page() {
           </>
         )}
       </section>
-      <section className="_CREATE_ACCOUNT mt-4 text-center text-sm font-semibold text-rme-gray-500">
+      {/* <section className="_CREATE_ACCOUNT mt-4 text-center text-sm font-semibold text-rme-gray-500">
         Belum punya akun?{' '}
         <Link
           href="/register"
@@ -80,7 +80,7 @@ export default function Page() {
         >
           Buat Akun
         </Link>
-      </section>
+      </section> */}
     </form>
   );
 }
