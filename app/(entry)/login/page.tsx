@@ -33,7 +33,6 @@ export default function Page() {
           <input
             className="peer block w-full rounded-md border border-gray-200 py-3 pl-10 text-sm outline-2 placeholder:text-rme-gray-300"
             id="username"
-            // type="email"
             name="username"
             placeholder="Username"
             required
@@ -50,6 +49,7 @@ export default function Page() {
             placeholder="Password"
             required
             minLength={6}
+            autoComplete="current-password"
           />
           <KeyRound className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-rme-gray-300 peer-focus:text-gray-900" />
         </div>

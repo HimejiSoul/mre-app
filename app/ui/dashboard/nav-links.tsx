@@ -4,9 +4,9 @@ import Link from 'next/link';
 import { redirect, usePathname } from 'next/navigation';
 import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 // Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
 const links = [
   { name: 'Dashboard', href: '/dashboard', icon: Icon.Home, role: 'both' },
   {
@@ -30,23 +30,43 @@ const links = [
 ];
 
 export default function NavLinks() {
-  const pathname = usePathname();
-
   // FIXME: Fix this ts error
   const session: any = useSession();
-  if (!session) {
-    alert('Data error');
+  const pathname = usePathname();
+
+  if (session.status === 'loading') {
+    return (
+      <div className="space-y-2">
+        <Skeleton className="h-[48px] w-full bg-slate-200" />
+        <Skeleton className="h-[48px] w-full bg-slate-200" />
+        <Skeleton className="h-[48px] w-full bg-slate-200" />
+      </div>
+    );
   }
 
-  const role = session?.data?.user.role;
+  let role = 'both';
+  if (session && session.data && session.data.user) {
+    role = session.data.user.role;
+  } else {
+    const errorMessage = session
+      ? 'User data not found in session'
+      : 'Session data not found';
+    console.error(errorMessage);
+  }
 
   // Filter links based on role and 'both' role
   const filteredLinks = links.filter(
     (link) => link.role === role || link.role === 'both',
   );
 
-  // Check if the current pathname exists in filtered links
-  const isRedirect = filteredLinks.some((link) => link.href === pathname);
+  // Check if the path is need to redirect
+  let isRedirect = false;
+  if (
+    pathname === '/dashboard' ||
+    filteredLinks.slice(1).some((link) => pathname.startsWith(link.href))
+  ) {
+    isRedirect = true;
+  }
   if (!isRedirect) {
     redirect('/dashboard');
   }
@@ -60,7 +80,7 @@ export default function NavLinks() {
             key={link.name}
             href={link.href}
             className={clsx(
-              'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3',
+              'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium transition duration-200 ease-out hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3',
               {
                 'bg-sky-100 text-blue-600':
                   i === 0
