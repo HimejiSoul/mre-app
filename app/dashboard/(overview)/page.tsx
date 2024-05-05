@@ -6,7 +6,7 @@ import CardWrapper from '@/app/ui/dashboard/cards';
 
 export default function Page() {
   return (
-    <main className="rounded-2xl bg-[#D0E4FF] p-5">
+    <main className="rounded-2xl bg-[#D0E4FF] p-5 pt-8">
       <h1
         className={`${urbanist.className} mb-4 text-xl font-bold md:text-2xl`}
       >

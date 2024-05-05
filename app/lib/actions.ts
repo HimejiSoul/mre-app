@@ -85,7 +85,6 @@ export async function createKehamilanPatient(formData: FormData) {
   const apiEndpoint = `${process.env.API_ENDPOINT}/regist_kehamilan/regist_kehamilan`;
   try {
     const response = await axios.post(apiEndpoint, data);
-    // console.log(response.data);
     const id = response.data.id_pasien;
     redirect(`/dashboard/periksa-kehamilan/${id}/create/soap`);
   } catch (error) {
