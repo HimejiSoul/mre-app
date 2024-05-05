@@ -50,7 +50,6 @@
 import Pagination from '@/app/ui/keluarga-berencana/pagination';
 import Search from '@/app/ui/search';
 import KBTable from '@/app/ui/keluarga-berencana/table';
-import { CreateKBForm } from '@/app/ui/keluarga-berencana/buttons';
 import { urbanist } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
@@ -60,7 +59,7 @@ import {
   fetchPatientTable,
 } from '@/app/lib/data';
 import { Metadata } from 'next';
-import { CreateKehamilan } from '@/app/ui/periksa-kehamilan/buttons';
+import { ButtonLink } from '@/components/Buttons';
 
 export const metadata: Metadata = {
   title: 'Kehamilan',
@@ -103,7 +102,10 @@ export default async function Page({
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
         <Search placeholder="Search invoices..." />
-        <CreateKehamilan />
+        <ButtonLink
+          href="/dashboard/periksa-kehamilan/create"
+          name="Tambah pasien"
+        />
       </div>
       <Suspense key={query} fallback={<InvoicesTableSkeleton />}>
         <KBTable

@@ -9,7 +9,8 @@ import {
   defaultValues,
 } from '@/app/dashboard/periksa-kehamilan/_types/periksa-kehamilan-types';
 import { createKehamilanPatient } from '@/app/lib/actions';
-import { SubmitButton } from '@/app/dashboard/periksa-kehamilan/create/_component/button';
+import { useState } from 'react';
+import { ButtonSubmitForm } from '@/components/Buttons';
 
 // Form section component
 import GeneralInformation from '@/app/dashboard/periksa-kehamilan/create/_component/form-section/general-information';
@@ -22,14 +23,16 @@ import FaktorResiko from '@/app/dashboard/periksa-kehamilan/create/_component/fo
 import KunjunganNifas from '@/app/dashboard/periksa-kehamilan/create/_component/form-section/kunjungan-nifas';
 
 export default function KehamilanForm() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof kehamilanFormSchema>>({
     resolver: zodResolver(kehamilanFormSchema),
     defaultValues,
   });
 
   // function onSubmit(data: z.infer<typeof kehamilanFormSchema>) {
-  function onSubmit(data: any) {
-    createKehamilanPatient(data);
+  async function onSubmit(data: any) {
+    setIsLoading(true);
+    await createKehamilanPatient(data);
   }
 
   return (
@@ -46,7 +49,7 @@ export default function KehamilanForm() {
         <PemeriksaanPNC form={form} />
         <KunjunganNifas form={form} />
         <FaktorResiko form={form} />
-        <SubmitButton />
+        <ButtonSubmitForm isLoading={isLoading} />
       </form>
     </Form>
   );

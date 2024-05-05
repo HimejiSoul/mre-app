@@ -5,6 +5,8 @@ import { redirect, usePathname } from 'next/navigation';
 import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Loader2Icon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 // Map of links to display in the side navigation.
 const links = [
@@ -33,6 +35,19 @@ export default function NavLinks() {
   // FIXME: Fix this ts error
   const session: any = useSession();
   const pathname = usePathname();
+  const [loadingStates, setLoadingStates] = useState<{
+    [key: string]: boolean;
+  }>({});
+  useEffect(() => {
+    setLoadingStates({});
+  }, [pathname]);
+
+  const handleClick = (linkHref: string) => {
+    setLoadingStates((prevStates) => ({
+      ...prevStates,
+      [linkHref]: true,
+    }));
+  };
 
   if (session.status === 'loading') {
     return (
@@ -75,10 +90,13 @@ export default function NavLinks() {
     <div className="space-y-2">
       {filteredLinks.map((link, i) => {
         const LinkIcon = link.icon;
+        const isLoading = loadingStates[link.href] || false;
+
         return (
           <Link
             key={link.name}
             href={link.href}
+            onClick={() => handleClick(link.href)}
             className={clsx(
               'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium transition duration-200 ease-out hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3',
               {
@@ -89,7 +107,11 @@ export default function NavLinks() {
               },
             )}
           >
-            <LinkIcon className="h-8 w-6" />
+            {isLoading ? (
+              <Loader2Icon size={20} className="mr-2 animate-spin" />
+            ) : (
+              <LinkIcon className="h-8 w-6" />
+            )}
             <p className="hidden font-semibold md:block">{link.name}</p>
           </Link>
         );

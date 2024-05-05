@@ -14,8 +14,8 @@ import {
 
 import { useFieldArray } from 'react-hook-form';
 import { defaultValues } from '@/app/dashboard/periksa-kehamilan/_types/periksa-kehamilan-types';
-import { TableButtonGroup } from '@/app/dashboard/periksa-kehamilan/create/_component/button';
 import { FormInput } from '@/app/dashboard/periksa-kehamilan/create/_component/form-field';
+import { TableButtonGroup } from '@/components/Buttons';
 
 const dataColPNC = [
   {
