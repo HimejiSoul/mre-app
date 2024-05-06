@@ -27,20 +27,8 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { toast } from '@/components/ui/use-toast';
-
-function SubmitButton() {
-  const { pending } = useFormStatus();
-
-  return (
-    <Button
-      type="submit"
-      aria-disabled={pending}
-      className="mt-5 w-fit bg-blue-600 hover:bg-blue-400"
-    >
-      Tambah Histori
-    </Button>
-  );
-}
+import { ButtonSubmitForm } from '@/components/Buttons';
+import { useState } from 'react';
 
 const FormSchema = z.object({
   tglDatang: z.date({
@@ -56,6 +44,7 @@ const FormSchema = z.object({
 });
 
 export default function KBForm({ params }: { params: { id: string } }) {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -71,6 +60,7 @@ export default function KBForm({ params }: { params: { id: string } }) {
   });
 
   const onSubmit = async (data: any) => {
+    setIsLoading(true);
     const id = params.id;
     try {
       // console.log(id);
@@ -97,7 +87,7 @@ export default function KBForm({ params }: { params: { id: string } }) {
             className="flex w-full flex-col"
           >
             <Soap form={form} />
-            <SubmitButton />
+            <ButtonSubmitForm isLoading={isLoading} />
           </form>
         </Form>
       </div>

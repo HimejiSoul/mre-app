@@ -38,26 +38,8 @@ import {
 } from '@/components/ui/popover';
 import { KBSchema } from '@/lib/kb-schema';
 import { toast } from '@/components/ui/use-toast';
-
-function SubmitButton() {
-  const { pending } = useFormStatus();
-
-  return (
-    <Button
-      type="submit"
-      aria-disabled={pending}
-      className="mt-5 w-fit bg-blue-600 hover:bg-blue-400"
-    >
-      {pending ? (
-        <>
-          <RefreshCcw size={20} className="mr-2 animate-spin" /> Loading...
-        </>
-      ) : (
-        'Tambah Pasien'
-      )}
-    </Button>
-  );
-}
+import { ButtonSubmitForm } from '@/components/Buttons';
+import { useState } from 'react';
 
 const alatKontrasepsi = [
   {
@@ -99,6 +81,7 @@ const alatKontrasepsi = [
 ] as const;
 
 export default function EditKBForm(patientData: any) {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof KBSchema>>({
     resolver: zodResolver(KBSchema),
     defaultValues: patientData.patient,
@@ -107,6 +90,7 @@ export default function EditKBForm(patientData: any) {
   // console.log('ID', patient);
 
   const onSubmit = async (data: any) => {
+    setIsLoading(true);
     try {
       const id_pasien = patientData.id_pasien;
       // console.log(id_pasien);
@@ -133,7 +117,7 @@ export default function EditKBForm(patientData: any) {
           <Skrining form={form} />
           <Hasil form={form} />
           <PenapisanKB form={form} />
-          <SubmitButton />
+          <ButtonSubmitForm isLoading={isLoading} />
         </form>
       </Form>
     </div>

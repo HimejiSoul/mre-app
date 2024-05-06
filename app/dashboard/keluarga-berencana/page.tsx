@@ -2,7 +2,6 @@
 import Pagination from '@/app/ui/keluarga-berencana/pagination';
 import Search from '@/app/ui/search';
 import KBTable from '@/app/ui/keluarga-berencana/table';
-import { CreateKBForm } from '@/app/ui/keluarga-berencana/buttons';
 import { urbanist } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
@@ -12,6 +11,7 @@ import {
   fetchPatientTable,
 } from '@/app/lib/data';
 import { Metadata } from 'next';
+import { ButtonLink } from '@/components/Buttons';
 
 export const metadata: Metadata = {
   title: 'Layanan KB',
@@ -54,7 +54,10 @@ export default async function Page({
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
         <Search placeholder="Search invoices..." />
-        <CreateKBForm />
+        <ButtonLink
+          href="/dashboard/keluarga-berencana/create"
+          name="Tambah pasien"
+        />
       </div>
       <Suspense key={query} fallback={<InvoicesTableSkeleton />}>
         <KBTable

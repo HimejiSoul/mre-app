@@ -1,4 +1,4 @@
-import { lusitana, urbanist } from '@/app/ui/fonts';
+import { urbanist } from '@/app/ui/fonts';
 import { fetchPatientData } from '@/app/lib/data';
 import * as Icon from '@/app/ui/icons';
 import { Separator } from '@/components/ui/separator';
@@ -29,7 +29,6 @@ export default async function CardWrapper() {
           layanan="kehamilan"
         />
       </div>
-
       <div className="col-span-2">
         <Card
           title="Layanan Imunisasi"

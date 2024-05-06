@@ -1,7 +1,5 @@
 'use client';
 
-import { RefreshCcw } from 'lucide-react';
-import { useFormStatus } from 'react-dom';
 import { createKBPatient } from '@/app/lib/actions';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
@@ -38,26 +36,8 @@ import {
 } from '@/components/ui/popover';
 import { KBSchema, defaultValues } from '@/lib/kb-schema';
 import { toast } from '@/components/ui/use-toast';
-
-function SubmitButton() {
-  const { pending } = useFormStatus();
-
-  return (
-    <Button
-      type="submit"
-      aria-disabled={pending}
-      className="mt-5 w-fit bg-blue-600 hover:bg-blue-400"
-    >
-      {pending ? (
-        <>
-          <RefreshCcw size={20} className="mr-2 animate-spin" /> Loading...
-        </>
-      ) : (
-        'Tambah Pasien'
-      )}
-    </Button>
-  );
-}
+import { ButtonSubmitForm } from '@/components/Buttons';
+import { useState } from 'react';
 
 const alatKontrasepsi = [
   {
@@ -99,12 +79,14 @@ const alatKontrasepsi = [
 ] as const;
 
 export default function KBForm() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof KBSchema>>({
     resolver: zodResolver(KBSchema),
     defaultValues,
   });
 
   const onSubmit = async (data: any) => {
+    setIsLoading(true);
     try {
       await createKBPatient(data);
       toast({
@@ -129,7 +111,7 @@ export default function KBForm() {
           <Skrining form={form} />
           <Hasil form={form} />
           <PenapisanKB form={form} />
-          <SubmitButton />
+          <ButtonSubmitForm isLoading={isLoading} />
         </form>
       </Form>
     </div>
