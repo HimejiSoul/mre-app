@@ -298,8 +298,8 @@ const columns: ColumnDef<Patient>[] = [
 
 export default function KBTable({
   dataPatient, // query,
-} // currentPage,
-: {
+  // currentPage,
+}: {
   dataPatient: any;
   // query: string;
   // currentPage: number;
@@ -422,7 +422,7 @@ function renderSubComponent({ row }: { row: Row<Patient> }) {
         <TableBody>
           {data.map((d: any, i: number) => {
             return (
-              <TableRow key={i}>
+              <TableRow key={i} className="text-justify">
                 <TableCell>{d.tglDatang}</TableCell>
                 <TableCell>{d.s}</TableCell>
                 <TableCell>{d.td}</TableCell>
