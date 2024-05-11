@@ -36,7 +36,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { KBSchema } from '@/lib/kb-schema';
+import { KBSchema } from '@/app/dashboard/keluarga-berencana/_types/kb-schema';
 import { toast } from '@/components/ui/use-toast';
 import { ButtonSubmitForm } from '@/components/Buttons';
 import { useState } from 'react';

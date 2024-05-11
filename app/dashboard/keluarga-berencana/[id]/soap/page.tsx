@@ -28,6 +28,7 @@ import {
 } from '@/components/ui/popover';
 import { toast } from '@/components/ui/use-toast';
 import { ButtonSubmitForm } from '@/components/Buttons';
+import { Textarea } from '@/components/ui/textarea';
 import { useState } from 'react';
 
 const FormSchema = z.object({
@@ -162,9 +163,51 @@ const Soap = ({ form }: any) => {
               name="s"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>S</FormLabel>
+                  <FormLabel>S (Subjective)</FormLabel>
                   <FormControl>
-                    <Input placeholder="Isi S" type="text" {...field} />
+                    <Textarea
+                      placeholder="Isi S"
+                      className="resize-none"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="w-4/12">
+            <FormField
+              control={form.control}
+              name="a"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>A (Assessment)</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Isi A"
+                      className="resize-none"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="w-4/12">
+            <FormField
+              control={form.control}
+              name="p"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>P (Plan)</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Isi P"
+                      className="resize-none"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -174,107 +217,76 @@ const Soap = ({ form }: any) => {
         </div>
 
         {/* kolom 3 */}
-        <div className="flex w-full gap-4">
-          <div className="w-3/12">
-            <FormField
-              control={form.control}
-              name="td"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>TD</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Isi TD" type="text" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+        <div className=" w-full gap-4">
+          <p className="my-3 text-xs font-medium">O (Objective)</p>
+          <div className="flex gap-4">
+            <div className="w-3/12">
+              <FormField
+                control={form.control}
+                name="td"
+                render={({ field }) => (
+                  <FormItem>
+                    {/* <FormLabel>TD</FormLabel> */}
+                    <FormControl>
+                      <Input placeholder="Isi TD" type="text" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-          <div className="w-3/12">
-            <FormField
-              control={form.control}
-              name="bb"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>BB</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Isi BB" type="text" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+            <div className="w-3/12">
+              <FormField
+                control={form.control}
+                name="bb"
+                render={({ field }) => (
+                  <FormItem>
+                    {/* <FormLabel>BB</FormLabel> */}
+                    <FormControl>
+                      <Input placeholder="Isi BB" type="text" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-          <div className="w-3/12">
-            <FormField
-              control={form.control}
-              name="hpht"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>HPHT</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Isi HPHT" type="text" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+            <div className="w-3/12">
+              <FormField
+                control={form.control}
+                name="hpht"
+                render={({ field }) => (
+                  <FormItem>
+                    {/* <FormLabel>HPHT</FormLabel> */}
+                    <FormControl>
+                      <Input placeholder="Isi HPHT" type="text" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-          <div className="w-3/12">
-            <FormField
-              control={form.control}
-              name="lain2"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Lain-Lain</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Isi Lain-Lain" type="text" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-        </div>
-
-        {/* kolom 4 */}
-        <div className="flex w-full gap-4">
-          <div className="w-4/12">
-            <FormField
-              control={form.control}
-              name="a"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>A</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Isi A" type="text" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-        </div>
-
-        {/* kolom 5 */}
-        <div className="flex w-full gap-4">
-          <div className="w-4/12">
-            <FormField
-              control={form.control}
-              name="p"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>P</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Isi P" type="text" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="w-3/12">
+              <FormField
+                control={form.control}
+                name="lain2"
+                render={({ field }) => (
+                  <FormItem>
+                    {/* <FormLabel>Lain-Lain</FormLabel> */}
+                    <FormControl>
+                      <Input
+                        placeholder="Isi Lain-Lain"
+                        type="text"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           </div>
         </div>
       </div>
