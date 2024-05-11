@@ -54,6 +54,20 @@ export async function fetchPatientTable(id_pasien: any, id_layanan: any) {
   }
 }
 
+export async function fetchPatientTableKehamilan(id_pasien: any) {
+  try {
+    const response: AxiosResponse<any> = await axios.get(
+      `${process.env.API_ENDPOINT}/table_kehamilan/table_kehamilan?id_pasien=${id_pasien}`,
+    );
+    const dataPatient = response.data.data;
+    // console.log(dataPatient);
+    return dataPatient;
+  } catch (error) {
+    console.error('Database Error:', error);
+    // throw new Error('Failed to fetch card data.');
+  }
+}
+
 export async function fetchPatientById(id_pasien: any) {
   try {
     const response: AxiosResponse<any> = await axios.get(
@@ -61,6 +75,19 @@ export async function fetchPatientById(id_pasien: any) {
     );
     const dataPatient = response.data.data;
     // console.log(dataPatient);
+    return dataPatient;
+  } catch (error) {
+    console.error('Database Error:', error);
+    // throw new Error('Failed to fetch card data.');
+  }
+}
+
+export async function fetchKehamilanPatientById(id_pasien: any) {
+  try {
+    const response: AxiosResponse<any> = await axios.get(
+      `${process.env.API_ENDPOINT}/edit_kehamilan/edit_kehamilan?id_pasien=${id_pasien}`,
+    );
+    const dataPatient = response.data.data;
     return dataPatient;
   } catch (error) {
     console.error('Database Error:', error);

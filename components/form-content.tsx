@@ -21,6 +21,7 @@ import {
 } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Textarea } from '@/components/ui/textarea';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 type TitleSectionProps = {
   title: string;
@@ -102,6 +103,7 @@ export function InputField<TFieldValues extends FieldValues = FieldValues>({
   label?: string;
   data?: DataProps[] | [];
   description?: string;
+  suffix?: string;
   name: Path<TFieldValues>;
   form: UseFormReturn<TFieldValues>;
 }) {
@@ -183,17 +185,94 @@ export function InputField<TFieldValues extends FieldValues = FieldValues>({
         )}
       />
     );
+  } else if (props.type === 'date') {
+    return (
+      <FormField
+        control={form.control}
+        name={name}
+        render={({ field }) => {
+          // Convert date data from object to just "yyyy-MM-dd"
+          field.value = field.value.toISOString().split('T')[0];
+          return (
+            <FormItem className={cn('col-span-3', props.className)}>
+              <FormLabel>{props.label}</FormLabel>
+              <FormControl>
+                <Input type="date" {...props} {...field} />
+              </FormControl>
+              {props.description && (
+                <FormDescription>{props.description}</FormDescription>
+              )}
+              <FormMessage />
+            </FormItem>
+          );
+        }}
+      />
+    );
+  } else if (props.type === 'radio') {
+    return (
+      <FormField
+        control={form.control}
+        name={name}
+        render={({ field }) => (
+          <FormItem className="col-span-3">
+            <FormLabel>{props.label}</FormLabel>
+            <FormControl>
+              <RadioGroup
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+                className="flex h-10 items-center space-x-2"
+              >
+                {data && data.length > 0 ? (
+                  data.map((item) => (
+                    <FormItem key={item.value}>
+                      <FormControl>
+                        <RadioGroupItem value={item.value} />
+                        <FormLabel className="font-normal">
+                          {item.label}
+                        </FormLabel>
+                      </FormControl>
+                    </FormItem>
+                  ))
+                ) : (
+                  <>
+                    <FormItem className="flex items-center space-x-1 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="true" />
+                      </FormControl>
+                      <FormLabel className="font-normal">Iya</FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-1 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="false" />
+                      </FormControl>
+                      <FormLabel className="font-normal">Tidak</FormLabel>
+                    </FormItem>
+                  </>
+                )}
+              </RadioGroup>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    );
   } else {
     return (
       <FormField
         control={form.control}
         name={name}
         render={({ field }) => (
-          <FormItem className={cn('col-span-3', props.className)}>
+          <FormItem className={cn('relative col-span-3', props.className)}>
             <FormLabel>{props.label}</FormLabel>
             <FormControl>
               <Input {...props} {...field} />
             </FormControl>
+
+            {props.suffix && (
+              <span className="absolute bottom-2.5 right-2 text-end text-sm text-black/50">
+                {props.suffix}
+              </span>
+            )}
             {props.description && (
               <FormDescription>{props.description}</FormDescription>
             )}
