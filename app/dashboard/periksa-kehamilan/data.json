@@ -1,0 +1,241 @@
+{
+  "data": {
+    "generalInformation": {
+      "agama": "Islam",
+      "alamatDomisili": "Palangka Raya",
+      "desa": "Panarung",
+      "kabupaten": "Pahandut",
+      "kecamatan": "Panarung",
+      "namaLengkap": "Yuliana Susilowati",
+      "namaSuami": "Jerome",
+      "noIbu": "092/232/134",
+      "pekerjaan": "Guru",
+      "pendidikan": "SMA",
+      "provinsi": "Kalimantan Tengah",
+      "rtrw": "23/45",
+      "tanggalLahir": "1973-04-13T17:00:00.000Z",
+      "tanggalRegister": "2024-05-07T17:00:00.000Z",
+      "umur": 51
+    },
+    "kunjunganNifas": {
+      "akdr": {
+        "pelaksanaan": "Ini isi Pelaksanaan",
+        "rencana": "Ini isi Rencana"
+      },
+      "inplant": {
+        "pelaksanaan": "Ini isi Pelaksanaan",
+        "rencana": "Ini isi Rencana"
+      },
+      "kondom": {
+        "pelaksanaan": "Ini isi Pelaksanaan",
+        "rencana": "Ini isi Rencana"
+      },
+      "mal": {
+        "pelaksanaan": "Ini isi Pelaksanaan",
+        "rencana": "Ini isi Rencana"
+      },
+      "mop": {
+        "pelaksanaan": "Ini isi Pelaksanaan",
+        "rencana": "Ini isi Rencana"
+      },
+      "mow": {
+        "pelaksanaan": "Ini isi Pelaksanaan",
+        "rencana": "Ini isi Rencana"
+      },
+      "pil": {
+        "pelaksanaan": "Ini isi Pelaksanaan",
+        "rencana": "Ini isi Rencana"
+      },
+      "suntik": {
+        "pelaksanaan": "Ini isi Pelaksanaan",
+        "rencana": "Ini isi Rencana"
+      }
+    },
+    "mendeteksiFaktorResikoDanResikoTinggi": {
+      "faktorResiko": {
+        "abortus": "false",
+        "bayiBesar": "true",
+        "bb": "false",
+        "hb": "false",
+        "hpp": "false",
+        "paritas": "false",
+        "sakitKronis": "true",
+        "sc": "false",
+        "spasing": "false",
+        "tb": "true",
+        "umur": "false"
+      },
+      "resikoTinggi": {
+        "anakBesarHidramnion": "false",
+        "ancamanPrematur": "false",
+        "distocia": "false",
+        "hb": "false",
+        "infeksi": "true",
+        "infeksiDBD": "false",
+        "kelainanLetak": "true",
+        "kpd": "false",
+        "perdarahan": "true",
+        "preeklamsi": "true",
+        "terdapat2FaktroResiko": "true"
+      },
+      "resikoTinggiLainnya": {
+        "ditemukanTanggal": "2023-04-13T17:00:00.000Z",
+        "jenisResiko": "Ini adalah jenis resiko"
+      }
+    },
+    "pemeriksaanPNC": [
+      {
+        "ditujukKe": "RB",
+        "hariKeKF": "KF 2",
+        "integrasiProgram": {
+          "antiMalaria": "Ini Anti Malaria",
+          "antiTB": "Ini Anti TB",
+          "cd4": "Ini CD 4",
+          "fotoThorax": "+"
+        },
+        "keadaan": {
+          "pulang": "Mati",
+          "tiba": "Hidup"
+        },
+        "komplikasi": "HDK",
+        "pelayanan": {
+          "catatDiBukuKIA": true,
+          "fe": "Botol",
+          "vitA": false
+        },
+        "tandaVital": {
+          "suhu": 67,
+          "td": "80-120"
+        },
+        "tanggal": "2023-05-23T17:00:00.000Z"
+      }
+    ],
+    "persalinan": {
+      "alamatBersalin": "Jln. Sukapura No. 50",
+      "bayiLahir": {
+        "jam": "23:45:00",
+        "tanggal": "2024-06-03T17:00:00.000Z"
+      },
+      "beratBayi": 200,
+      "caraPersalinan": "Vacum",
+      "dirujukKe": "RSIA",
+      "integrasiProgram": {
+        "jenisObat": "Obat Anti TB",
+        "namaObat": "Obat Anti TB 2"
+      },
+      "kalaIAktif": {
+        "jam": "14:23:00",
+        "tanggal": "2024-02-18T17:00:00.000Z"
+      },
+      "kalaII": {
+        "jam": "12:34:00",
+        "tanggal": "2024-10-19T17:00:00.000Z"
+      },
+      "keadaanBayi": "Hidup",
+      "keadaanIbu": "Mati",
+      "keadaanPulang": "Mati",
+      "keadaanTiba": "Hidup",
+      "komplikasi": "HDK",
+      "manajemenAktifKalaIII": "Injeksi Oksitosin",
+      "pelayanan": "Catat di Buku KIA",
+      "penolong": "Dukun",
+      "perdarahanKalaIV": "Tidak ada sama sekali",
+      "plasentaLahir": {
+        "jam": "08:43:00",
+        "tanggal": "2024-05-07T17:00:00.000Z"
+      },
+      "presentasi": "Bokong",
+      "tempat": "Pustu",
+      "usiaHPHT": 3,
+      "usiaKehamilan": 6
+    },
+    "rencanaPersalinan": [
+      {
+        "pendamping": "Suami",
+        "pendonor": "Suami",
+        "penolong": "Keluarga",
+        "tanggal": "2024-05-07T17:00:00.000Z",
+        "tempat": "Rumah",
+        "transportasi": "Mobil"
+      },
+      {
+        "pendamping": "Keluarga",
+        "pendonor": "Keluarga",
+        "penolong": "Dukun",
+        "tanggal": "2000-03-02T17:00:00.000Z",
+        "tempat": "Poskesdes",
+        "transportasi": "Motor"
+      }
+    ],
+
+    "riwayatKehamilan": {
+      "a": 2,
+      "data": [
+        {
+          "bbl": "Ini bbl",
+          "hasilPersalinan": "LH",
+          "jenisKelamin": "Laki-laki",
+          "jenisPersalinan": "Sehat",
+          "keadaanSaatLahir": "Sehat",
+          "keterangan": "Tidak ada keterangan",
+          "lamaMenyusui": "Tidak lama",
+          "penolongPersalinan": "Saya sendiri",
+          "penyulit": "Tidak tahu",
+          "tahun": 2024
+        },
+        {
+          "bbl": "Ini bbl",
+          "hasilPersalinan": "LH",
+          "jenisKelamin": "Laki-laki",
+          "jenisPersalinan": "Sehat",
+          "keadaanSaatLahir": "Sehat",
+          "keterangan": "Tidak ada keterangan",
+          "lamaMenyusui": "Tidak lama",
+          "penolongPersalinan": "Saya sendiri",
+          "penyulit": "Tidak tahu",
+          "tahun": 2024
+        },
+        {
+          "bbl": "Ini bbl",
+          "hasilPersalinan": "LH",
+          "jenisKelamin": "Laki-laki",
+          "jenisPersalinan": "Sehat",
+          "keadaanSaatLahir": "Sehat",
+          "keterangan": "Tidak ada keterangan",
+          "lamaMenyusui": "Tidak lama",
+          "penolongPersalinan": "Saya sendiri",
+          "penyulit": "Tidak tahu",
+          "tahun": 2024
+        }
+      ],
+      "g": 3,
+      "p": 5
+    },
+    "section2": {
+      "posyandu": "Nama Posyandu",
+      "golDarah": "B",
+      "jamkesmas": "false",
+      "namaDukun": "Budiman",
+      "namaKader": "Sitiman",
+      "noTelp": "08123456789",
+      "pemeriksaanBidan": {
+        "persalinanSebelumnya": 2001,
+        "taksiranPersalinan": "2024-05-03T17:00:00.000Z",
+        "tanggalHPHT": "2024-04-30T17:00:00.000Z",
+        "tanggalPeriksa": "2024-05-04T17:00:00.000Z",
+        "bbSebelumHamil": 60,
+        "bukuKIA": "Memiliki",
+        "riwayatKomplikasiKebidanan": "Sehat banget",
+        "penyakitKronisDanAlergi": "Tidak ada",
+        "tb": 123
+      },
+      "riwayatObstetrik": {
+        "abortus": 2,
+        "gravida": 3,
+        "hidup": 4,
+        "partus": 2
+      }
+    }
+  },
+  "message": "success"
+}
