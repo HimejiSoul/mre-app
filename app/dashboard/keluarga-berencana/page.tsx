@@ -49,7 +49,7 @@ export default async function Page({
           Layanan Keluarga Berencana
         </h1>
         <span className="font-sm font-medium text-[#6F90BA]">
-          Total 321 Pasien
+          Total {allPatientKBArray.length} Pasien
         </span>
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">

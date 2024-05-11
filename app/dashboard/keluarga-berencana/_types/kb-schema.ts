@@ -41,19 +41,19 @@ export const KBSchema = z.object({
   }),
   otherInformation: z.object({
     jmlAnakHidup: z.object({
-      jmlAnakLaki: z.string().min(2, {
-        message: 'Harap Diisi',
+      jmlAnakLaki: z.string({
+        required_error: 'Harap Diisi',
       }),
-      jmlAnakPr: z.string().min(2, {
-        message: 'Harap Diisi',
+      jmlAnakPr: z.string({
+        required_error: 'Harap Diisi',
       }),
     }),
     umurAnakKecil: z.object({
-      umurKecilLaki: z.string().min(2, {
-        message: 'Harap Diisi',
+      umurKecilLaki: z.string({
+        required_error: 'Harap Diisi',
       }),
-      umurKecilPr: z.string().min(2, {
-        message: 'Harap Diisi',
+      umurKecilPr: z.string({
+        required_error: 'Harap Diisi',
       }),
     }),
     caraKBTerakhir: z.string().min(2, {
@@ -72,14 +72,14 @@ export const KBSchema = z.object({
         required_error: 'Harap Diisi',
       }),
       jumlahGpa: z.object({
-        gravida: z.string().min(2, {
-          message: 'Harap Diisi',
+        gravida: z.string({
+          required_error: 'Harap Diisi',
         }),
-        partus: z.string().min(2, {
-          message: 'Harap Diisi',
+        partus: z.string({
+          required_error: 'Harap Diisi',
         }),
-        abortus: z.string().min(2, {
-          message: 'Harap Diisi',
+        abortus: z.string({
+          required_error: 'Harap Diisi',
         }),
       }),
       riwayatPenyakitSebelumnya: z.object({
@@ -101,11 +101,11 @@ export const KBSchema = z.object({
       keadaanUmum: z.enum(['Baik', 'Sedang', 'Kurang'], {
         required_error: 'Harap Diisi',
       }),
-      beratBadan: z.string().min(1, {
-        message: 'Harap Diisi',
+      beratBadan: z.string({
+        required_error: 'Harap Diisi',
       }),
-      tekananDarah: z.string().min(1, {
-        message: 'Harap Diisi',
+      tekananDarah: z.string({
+        required_error: 'Harap Diisi',
       }),
       posisiRahim: z.enum(['Retrofleksi', 'Anterfleksi'], {
         required_error: 'Harap Diisi',

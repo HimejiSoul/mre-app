@@ -34,49 +34,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { KBSchema, defaultValues } from '@/lib/kb-schema';
+import {
+  KBSchema,
+  defaultValues,
+} from '@/app/dashboard/keluarga-berencana/_types/kb-schema';
 import { toast } from '@/components/ui/use-toast';
 import { ButtonSubmitForm } from '@/components/Buttons';
 import { useState } from 'react';
-
-const alatKontrasepsi = [
-  {
-    id: 'iud',
-    label: 'IUD',
-  },
-  {
-    id: 'mow',
-    label: 'MOW',
-  },
-  {
-    id: 'mop',
-    label: 'MOP',
-  },
-  {
-    id: 'suntikan',
-    label: 'Suntikan',
-  },
-  {
-    id: 'pil',
-    label: 'Pil',
-  },
-  {
-    id: 'inplanon',
-    label: 'Inplanon',
-  },
-  {
-    id: 'kondom',
-    label: 'Kondom',
-  },
-  {
-    id: 'obatVaginal',
-    label: 'Obat Vaginal',
-  },
-  {
-    id: 'implant',
-    label: 'Implant',
-  },
-] as const;
 
 export default function KBForm() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -618,6 +582,45 @@ const OtherInformation = ({ form }: any) => {
     </div>
   );
 };
+
+const alatKontrasepsi = [
+  {
+    id: 'IUD',
+    label: 'IUD',
+  },
+  {
+    id: 'MOW',
+    label: 'MOW',
+  },
+  {
+    id: 'MOP',
+    label: 'MOP',
+  },
+  {
+    id: 'Suntikan',
+    label: 'Suntikan',
+  },
+  {
+    id: 'Pil',
+    label: 'Pil',
+  },
+  {
+    id: 'Inplanon',
+    label: 'Inplanon',
+  },
+  {
+    id: 'Kondom',
+    label: 'Kondom',
+  },
+  {
+    id: 'ObatVaginal',
+    label: 'Obat Vaginal',
+  },
+  {
+    id: 'Implant',
+    label: 'Implant',
+  },
+] as const;
 
 const Skrining = ({ form }: any) => {
   return (
