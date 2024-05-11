@@ -1,17 +1,9 @@
 import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import {
   FormWrapper,
+  InputField,
   Row,
   TitleSection,
-} from '@/app/dashboard/periksa-kehamilan/create/_component/form-content';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+} from '@/components/form-content';
 import {
   Table,
   TableBody,
@@ -130,71 +122,11 @@ export default function FaktorResiko({ form }: any) {
               <TableRow key={d.id}>
                 <TableCell className="font-medium">{d.FRname}</TableCell>
                 <TableCell className="border-r-2">
-                  <FormField
-                    control={form.control}
-                    name={d.FRformName}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <RadioGroup
-                            onValueChange={field.onChange}
-                            defaultValue={field.value}
-                            className="flex h-10 items-center justify-center space-x-2"
-                          >
-                            <FormItem className="flex items-center space-x-1 space-y-0">
-                              <FormControl>
-                                <RadioGroupItem value="true" />
-                              </FormControl>
-                              <FormLabel className="font-normal">Ya</FormLabel>
-                            </FormItem>
-                            <FormItem className="flex items-center space-x-1 space-y-0">
-                              <FormControl>
-                                <RadioGroupItem value="false" />
-                              </FormControl>
-                              <FormLabel className="font-normal">
-                                Tidak
-                              </FormLabel>
-                            </FormItem>
-                          </RadioGroup>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  <InputField name={d.FRformName} form={form} type="radio" />
                 </TableCell>
                 <TableCell>{d.RTname}</TableCell>
                 <TableCell>
-                  <FormField
-                    control={form.control}
-                    name={d.RTformName}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <RadioGroup
-                            onValueChange={field.onChange}
-                            defaultValue={field.value}
-                            className="flex h-10 items-center justify-center space-x-2"
-                          >
-                            <FormItem className="flex items-center space-x-1 space-y-0">
-                              <FormControl>
-                                <RadioGroupItem value="true" />
-                              </FormControl>
-                              <FormLabel className="font-normal">Ya</FormLabel>
-                            </FormItem>
-                            <FormItem className="flex items-center space-x-1 space-y-0">
-                              <FormControl>
-                                <RadioGroupItem value="false" />
-                              </FormControl>
-                              <FormLabel className="font-normal">
-                                Tidak
-                              </FormLabel>
-                            </FormItem>
-                          </RadioGroup>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  <InputField name={d.RTformName} form={form} type="radio" />
                 </TableCell>
               </TableRow>
             ))}
@@ -202,35 +134,18 @@ export default function FaktorResiko({ form }: any) {
         </Table>
 
         <Row>
-          <FormField
-            control={form.control}
-            name="resikoTinggi.ditemukanTanggal"
-            render={({ field }) => (
-              <FormItem className="col-span-3">
-                <FormLabel>Ditemukan Tanggal</FormLabel>
-                <FormControl>
-                  <Input
-                    type="date"
-                    placeholder="Ditemukan tanggal"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+          <InputField
+            name="mendeteksiFaktorResikoDanResikoTinggi.resikoTinggiLainnya.ditemukanTanggal"
+            form={form}
+            label="Ditemukan Tanggal"
+            type="date"
           />
-          <FormField
-            control={form.control}
-            name="resikoTinggi.jenisResiko"
-            render={({ field }) => (
-              <FormItem className="col-span-6">
-                <FormLabel>Jenis Resiko</FormLabel>
-                <FormControl>
-                  <Input placeholder="Jenis resiko" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+          <InputField
+            name="mendeteksiFaktorResikoDanResikoTinggi.resikoTinggiLainnya.jenisResiko"
+            form={form}
+            label="Jenis Resiko"
+            placeholder="Masukan Jenis Resiko"
+            className="col-span-6"
           />
         </Row>
       </FormWrapper>
