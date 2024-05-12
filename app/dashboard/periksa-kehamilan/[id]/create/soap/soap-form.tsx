@@ -6,14 +6,14 @@ import { z } from 'zod';
 import {
   soapKehamilanFormSchema,
   defaultValues,
-} from '@/app/dashboard/periksa-kehamilan/_types/soap-kehamilan-types';
+} from '@/lib/types/soap-kehamilan-types';
 import { Form } from '@/components/ui/form';
 import {
   FormWrapper,
   InputField,
   Row,
   TitleSection,
-} from '@/app/dashboard/periksa-kehamilan/create/_component/form-content';
+} from '@/components/form-content';
 import { Separator } from '@/components/ui/separator';
 import { toast } from '@/components/ui/use-toast';
 import { createSoapKehamilanPatient } from '@/app/lib/actions';

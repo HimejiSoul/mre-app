@@ -1,30 +1,33 @@
-import Form from '@/app/ui/keluarga-berencana/edit-kb-form';
-import Breadcrumbs from '@/app/ui/keluarga-berencana/breadcrumbs';
-import { fetchInvoiceById, fetchCustomers } from '@/app/lib/data';
+import { SectionTitle } from '@/app/ui/section-title';
+import { fetchKehamilanPatientById, fetchPatientById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
+import KehamilanForm from '../../create/kehamilan-form';
+import jsonData from '@/app/dashboard/periksa-kehamilan/data.json';
+import { kehamilanFormSchema } from '../../../../../lib/types/periksa-kehamilan-types';
+import { fromZodError } from 'zod-validation-error';
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const id = params.id;
-  const [invoice, customers] = await Promise.all([
-    fetchInvoiceById(id),
-    fetchCustomers(),
-  ]);
-  if (!invoice) {
+  // FIXME: Remove if Zaidan already fix Schema
+  const id_pasien = 22;
+  const patientData = jsonData;
+
+  // const id_pasien = params.id;
+  // const patientData = await fetchKehamilanPatientById(id_pasien);
+
+  if (!patientData) {
     notFound();
   }
+
+  // Validation with Zod for every data before put into form (ithink this action need to run in action.ts too)
+  const response = kehamilanFormSchema.safeParse(patientData?.data);
+  if (!response.success) {
+    console.error(fromZodError(response.error));
+  }
+
   return (
     <main>
-      <Breadcrumbs
-        breadcrumbs={[
-          { label: 'Invoices', href: '/dashboard/invoices' },
-          {
-            label: 'Edit Invoice',
-            href: `/dashboard/invoices/${id}/edit`,
-            active: true,
-          },
-        ]}
-      />
-      <Form invoice={invoice} customers={customers} />
+      <SectionTitle>Edit Pasien Layanan Keluarga Berencana</SectionTitle>
+      <KehamilanForm value={response.data} id={id_pasien} />
     </main>
   );
 }

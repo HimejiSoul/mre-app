@@ -7,32 +7,45 @@ import { Form } from '@/components/ui/form';
 import {
   kehamilanFormSchema,
   defaultValues,
-} from '@/app/dashboard/periksa-kehamilan/_types/periksa-kehamilan-types';
-import { createKehamilanPatient } from '@/app/lib/actions';
+} from '@/lib/types/periksa-kehamilan-types';
+import {
+  createKehamilanPatient,
+  editKehamilanPatient,
+} from '@/app/lib/actions';
 import { useState } from 'react';
 import { ButtonSubmitForm } from '@/components/Buttons';
 
 // Form section component
-import GeneralInformation from '@/app/dashboard/periksa-kehamilan/create/_component/form-section/general-information';
-import Section2 from '@/app/dashboard/periksa-kehamilan/create/_component/form-section/section2';
-import RencanaPersalinan from '@/app/dashboard/periksa-kehamilan/create/_component/form-section/rencana-persalinan';
-import RiwayatKehamilan from '@/app/dashboard/periksa-kehamilan/create/_component/form-section/riwayat-kehamilan';
-import Persalinan from '@/app/dashboard/periksa-kehamilan/create/_component/form-section/persalinan';
-import PemeriksaanPNC from '@/app/dashboard/periksa-kehamilan/create/_component/form-section/pemeriksaan-pnc';
-import FaktorResiko from '@/app/dashboard/periksa-kehamilan/create/_component/form-section/faktor-resiko';
-import KunjunganNifas from '@/app/dashboard/periksa-kehamilan/create/_component/form-section/kunjungan-nifas';
+import GeneralInformation from '@/components/periksa-kehamilan/form-section/general-information';
+import Section2 from '@/components/periksa-kehamilan/form-section/section2';
+import RencanaPersalinan from '@/components/periksa-kehamilan/form-section/rencana-persalinan';
+import RiwayatKehamilan from '@/components/periksa-kehamilan/form-section/riwayat-kehamilan';
+import Persalinan from '@/components/periksa-kehamilan/form-section/persalinan';
+import PemeriksaanPNC from '@/components/periksa-kehamilan/form-section/pemeriksaan-pnc';
+import FaktorResiko from '@/components/periksa-kehamilan/form-section/faktor-resiko';
+import KunjunganNifas from '@/components/periksa-kehamilan/form-section/kunjungan-nifas';
 
-export default function KehamilanForm() {
+interface KehamilanFormProps {
+  id?: string | number;
+  value?: z.infer<typeof kehamilanFormSchema>;
+}
+
+export default function KehamilanForm({ id, value }: KehamilanFormProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const form = useForm<z.infer<typeof kehamilanFormSchema>>({
     resolver: zodResolver(kehamilanFormSchema),
-    defaultValues,
+    defaultValues: value ? value : defaultValues,
   });
 
-  // function onSubmit(data: z.infer<typeof kehamilanFormSchema>) {
-  async function onSubmit(data: any) {
-    setIsLoading(true);
-    await createKehamilanPatient(data);
+  async function onSubmit(data: z.infer<typeof kehamilanFormSchema>) {
+    // setIsLoading(true);
+
+    if (id) {
+      await editKehamilanPatient(data, id);
+    } else {
+      await createKehamilanPatient(data);
+    }
   }
 
   return (

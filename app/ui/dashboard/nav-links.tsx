@@ -55,7 +55,7 @@ export default function NavLinks() {
     }));
   };
 
-  if (session.status === 'loading') {
+  if (session.status === 'loading' || !session?.data?.user) {
     return (
       <div className="space-y-2">
         <Skeleton className="h-[48px] w-full bg-slate-200" />
