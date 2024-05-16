@@ -26,7 +26,7 @@ const links = [
   {
     name: 'Imunisasi',
     href: '/dashboard/imunisasi',
-    icon: Icon.Kehamilan,
+    icon: Icon.Imunisasi,
     role: 'bidan',
   },
   {
