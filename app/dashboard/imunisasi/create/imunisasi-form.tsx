@@ -7,33 +7,35 @@ import { Form } from '@/components/ui/form';
 import {
   imunisasiFormSchema,
   defaultValues,
-} from '@/app/dashboard/imunisasi/_types/imunisasi-types';
-import { createKehamilanPatient } from '@/app/lib/actions';
+} from '@/lib/types/imunisasi/imunisasi-types';
 import { useState } from 'react';
 import { ButtonSubmitForm } from '@/components/Buttons';
 
 // Form section component
-import GeneralInformation from '@/app/dashboard/imunisasi/create/_component/form-section/general-information';
-import DetailBayi from '@/app/dashboard/imunisasi/create/_component/form-section/detail-bayi';
-import RencanaPersalinan from '@/app/dashboard/imunisasi/create/_component/form-section/rencana-persalinan';
-import RiwayatKehamilan from '@/app/dashboard/imunisasi/create/_component/form-section/riwayat-kehamilan';
-import Persalinan from '@/app/dashboard/imunisasi/create/_component/form-section/persalinan';
-import PemeriksaanPNC from '@/app/dashboard/imunisasi/create/_component/form-section/pemeriksaan-pnc';
-import FaktorResiko from '@/app/dashboard/imunisasi/create/_component/form-section/faktor-resiko';
-import KunjunganNifas from '@/app/dashboard/imunisasi/create/_component/form-section/kunjungan-nifas';
+import GeneralInformation from '@/components/imunisasi/form-section/general-information';
+import DetailBayi from '@/components/imunisasi/form-section/detail-bayi';
+import PemeriksaanNeonatus from '@/components/imunisasi/form-section/pemeriksaan-neonatus';
+import PemeriksaanNeonatusLanjutan from '@/components/imunisasi/form-section/pemeriksaan-neonatus-lanjutan';
+import PemeriksaanBalita from '@/components/imunisasi/form-section/pemeriksaan-balita';
+import { createImunisasiPatient } from '@/app/lib/actions';
 
-export default function ImunisasiForm() {
+interface ImunisasiFormProps {
+  id?: string | number;
+  value?: z.infer<typeof imunisasiFormSchema>;
+}
+
+export default function ImunisasiForm({ id, value }: ImunisasiFormProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof imunisasiFormSchema>>({
     resolver: zodResolver(imunisasiFormSchema),
-    defaultValues,
+    defaultValues: value ? value : defaultValues,
   });
 
   // function onSubmit(data: z.infer<typeof kehamilanFormSchema>) {
   async function onSubmit(data: any) {
     setIsLoading(true);
-    await console.log(data);
-    // await createKehamilanPatient(data);
+    // await console.log(data);
+    await createImunisasiPatient(data);
   }
 
   return (
@@ -44,12 +46,9 @@ export default function ImunisasiForm() {
       >
         <GeneralInformation form={form} />
         <DetailBayi form={form} />
-        <RencanaPersalinan form={form} />
-        <RiwayatKehamilan form={form} />
-        <Persalinan form={form} />
-        <PemeriksaanPNC form={form} />
-        <KunjunganNifas form={form} />
-        <FaktorResiko form={form} />
+        <PemeriksaanNeonatus form={form} />
+        <PemeriksaanNeonatusLanjutan form={form} />
+        <PemeriksaanBalita form={form} />
         <ButtonSubmitForm isLoading={isLoading} />
       </form>
     </Form>
