@@ -1,0 +1,111 @@
+{
+  "data": {
+    "generalInformation": {
+      "nomor": "1234",
+      "puskesmas": "ABCD",
+      "bidan": "Jacky",
+      "nomorBayi": "0987",
+      "namaBayi": "James",
+      "namaIbu": "Rebecca",
+      "usiaIbu": 20,
+      "namaSuami": "Bade",
+      "usiaSuami": 25,
+      "alamat": "Sukapura",
+      "desa": "Sukamiskin",
+      "kecamatan": "Sukamaju",
+      "kabupaten": "Sukakaya",
+      "provinsi": "Sukamundur"
+    },
+    "detailBayi": {
+      "tglLahir": "2024-05-14T00:00:00.000Z",
+      "tempatLahir": "abcd",
+      "jenisPersalinan": "Normal",
+      "jenisKelamin": "Laki-Laki",
+      "golDarah": "A",
+      "beratBayi": 32,
+      "panjangBayi": 190,
+      "keadaanLahir": "Hidup",
+      "lingkarKepala": 100,
+      "anakKe": 2,
+      "bukuKIA": "Memiliki",
+      "komplikasi": ["Asfiksi"],
+      "resisutasi": "Ya",
+      "imd": "< 1 Jam",
+      "pencegahan": ["Salep Mata"],
+      "keadaanPulang": "Hidup"
+    },
+    "pemeriksaanNeonatus": [
+      {
+        "tglDatang": "2024-05-14T00:00:00.000Z",
+        "pemeriksaan": {
+          "kn": "KN 1",
+          "nakes": "Dokter",
+          "asiEkslusif": false,
+          "bb": 180,
+          "tb": 12,
+          "umur": 32
+        },
+        "pencegahan": ["Vit. K"],
+        "integrasiProgram": ["Pemberian Susu Formula"],
+        "diagnosis": ["Diare"],
+        "mbtm": "Diare",
+        "dirujukKe": "RS",
+        "keadaanPulang": "Hidup",
+        "keadaan": "Hidup"
+      }
+    ],
+    "pemeriksaanNeonatusLanjutan": [
+      {
+        "tglDatang": "2024-05-14T00:00:00.000Z",
+        "pemeriksaan": {
+          "asiEkslusif": false,
+          "mpasi": false,
+          "sdidtk": false,
+          "umurbi": 0,
+          "umurhr": 0,
+          "umurth": 0
+        },
+        "gizi": {
+          "bb": 0,
+          "status": "Ok",
+          "tb": 0
+        },
+        "pencegahan": {
+          "bcg": false,
+          "dpthbib": "DPT HB HIB 1",
+          "polio": "POLIO 2",
+          "campak": false,
+          "ipv": false,
+          "vitA": false
+        },
+        "integrasiProgram": ["CD4"],
+        "ket": "Ok"
+      }
+    ],
+    "pemeriksaanBalita": [
+      {
+        "tglDatang": "2024-05-14T00:00:00.000Z",
+        "umur": {
+          "tahun": 0,
+          "bulan": 0,
+          "hari": 0
+        },
+        "pemeriksaan": {
+          "asiEkslusif": false,
+          "mpasi": false,
+          "sdidtk": false
+        },
+        "gizi": {
+          "bb": 0,
+          "tb": 0,
+          "status": "Ok",
+          "vitA": false
+        },
+        "integrasiProgram": [],
+        "imunisasi": [],
+        "ket": "Ok"
+      }
+    ]
+  },
+  "message": "success"
+}
