@@ -24,6 +24,12 @@ const links = [
     role: 'bidan',
   },
   {
+    name: 'Imunisasi',
+    href: '/dashboard/imunisasi',
+    icon: Icon.Imunisasi,
+    role: 'bidan',
+  },
+  {
     name: 'Manajemen Akun',
     href: '/dashboard/manajemen-akun',
     icon: Icon.ManajemenAkun,

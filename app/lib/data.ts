@@ -15,7 +15,7 @@ import axios, { AxiosResponse } from 'axios';
 export async function fetchAllPatientFind(query: any, id_layanan: any) {
   try {
     const response: AxiosResponse<any> = await axios.get(
-      `${process.env.API_ENDPOINT}/find_pasien_endpoint/find_pasien?keyword=${query}&id_layanan=${id_layanan}`,
+      `${process.env.API_ENDPOINT_AZURE}/findpasien?keyword=${query}&id_layanan=${id_layanan}`,
     );
     const allDataPatient = response.data.id_pasien;
     // console.log(allDataPatient);
@@ -43,7 +43,7 @@ export async function fetchAllPatientTable(id_layanan: any) {
 export async function fetchPatientTable(id_pasien: any, id_layanan: any) {
   try {
     const response: AxiosResponse<any> = await axios.get(
-      `${process.env.API_ENDPOINT}/table_kb/table_kb?id_pasien=${id_pasien}&id_layanan=${id_layanan}`,
+      `${process.env.API_ENDPOINT_AZURE}/tablekb?id_pasien=${id_pasien}`,
     );
     const dataPatient = response.data.data;
     // console.log(dataPatient);
@@ -58,6 +58,32 @@ export async function fetchPatientTableKehamilan(id_pasien: any) {
   try {
     const response: AxiosResponse<any> = await axios.get(
       `${process.env.API_ENDPOINT}/table_kehamilan/table_kehamilan?id_pasien=${id_pasien}`,
+    );
+    const dataPatient = response.data.data;
+    // console.log(dataPatient);
+    return dataPatient;
+  } catch (error) {
+    console.error('Database Error:', error);
+    // throw new Error('Failed to fetch card data.');
+  }
+}
+export async function fetchPatientTableImunisasi(id_pasien: any) {
+  try {
+    const response: AxiosResponse<any> = await axios.get(
+      `${process.env.API_ENDPOINT_AZURE}/tableimunisasi?id_pasien=${id_pasien}`,
+    );
+    const dataPatient = response.data.data;
+    // console.log(dataPatient);
+    return dataPatient;
+  } catch (error) {
+    console.error('Database Error:', error);
+    // throw new Error('Failed to fetch card data.');
+  }
+}
+export async function fetchTableBidan() {
+  try {
+    const response: AxiosResponse<any> = await axios.get(
+      `${process.env.API_ENDPOINT_AZURE}/getallbidan`,
     );
     const dataPatient = response.data.data;
     // console.log(dataPatient);
@@ -88,6 +114,19 @@ export async function fetchKehamilanPatientById(id_pasien: any) {
       `${process.env.API_ENDPOINT}/edit_kehamilan/edit_kehamilan?id_pasien=${id_pasien}`,
     );
     const dataPatient = response.data.data;
+    return dataPatient;
+  } catch (error) {
+    console.error('Database Error:', error);
+    // throw new Error('Failed to fetch card data.');
+  }
+}
+export async function fetchImunisasiPatientById(id_pasien: any) {
+  try {
+    const response: AxiosResponse<any> = await axios.get(
+      `${process.env.API_ENDPOINT_AZURE}/editimunisasi?id_pasien=${id_pasien}`,
+    );
+    const dataPatient = response.data.data;
+    // console.log(dataPatient);
     return dataPatient;
   } catch (error) {
     console.error('Database Error:', error);

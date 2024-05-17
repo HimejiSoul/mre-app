@@ -14,7 +14,7 @@ import { Metadata } from 'next';
 import { ButtonLink } from '@/components/Buttons';
 
 export const metadata: Metadata = {
-  title: 'Layanan KB',
+  title: 'Keluarga Berencana',
 };
 
 export default async function Page({
