@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+const phoneRegex = new RegExp(
+  /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
+);
+
 export const bidanFormSchema = z.object({
   email: z
     .string({ required_error: 'Silahkan Masukkan Email' })
@@ -7,10 +11,7 @@ export const bidanFormSchema = z.object({
   full_name: z.string({ required_error: 'Silahkan Mengisi Nama Panjang' }),
   username: z.string({ required_error: 'Silahkan Mengisi Username' }),
   password: z.string({ required_error: 'Silahkan Mengisi Password' }),
-  phone_number: z.coerce.number({
-    required_error: 'Silahkan Mengisi Nomor Telepon',
-    invalid_type_error: 'Silahkan Mengisi Nomor Telepon',
-  }),
+  phone_number: z.string({ required_error: 'Silahkan Mengisi No. HP' }),
 });
 
 export const defaultValues: Partial<z.infer<typeof bidanFormSchema>> = {
@@ -18,5 +19,5 @@ export const defaultValues: Partial<z.infer<typeof bidanFormSchema>> = {
   full_name: 'sadad',
   username: '234',
   password: '2323@asdAsada',
-  phone_number: 23235235,
+  phone_number: '+6223235235',
 };

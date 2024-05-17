@@ -92,162 +92,28 @@ type TableProps<TData> = {
 // const dataPatients: Patient[] = pasienData.data;
 // console.log(dataPatients);
 
-const FormSchema = z.object({
-  tglKirim: z.any(),
-  waktuKirim: z.string(),
-  isiPesan: z.string(),
-});
-
-function SubmitButton() {
-  return (
-    <Button
-      type="submit"
-      className=" flex w-fit bg-blue-600 hover:bg-blue-400 "
-    >
-      <p>Kirim Pesan</p>
-      <ChevronRight className="ml-2 h-5 w-5 " />
-    </Button>
-  );
-}
-
-const DialogWA = ({ patientname }: any) => {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      tglKirim: '',
-      waktuKirim: '',
-      isiPesan: '',
-    },
-  });
-
-  function onSubmit(data: z.infer<typeof FormSchema>) {}
-  return (
-    <div className="rounded-md bg-[#D0E4FF] px-4 py-6">
-      <h1 className={`${urbanist.className} text-lg font-bold`}>
-        Kirim Reminder ke {patientname}
-      </h1>
-      <span className="text-sm font-medium text-[#6F90BA]">
-        Tentukan tanggal kirim dan waktu kirim reminder Whatsapp
-      </span>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex w-full flex-col"
-        >
-          <div className="my-2 mb-8 flex w-full flex-col gap-3 rounded-md bg-white p-4 ">
-            <div className="flex w-full gap-4">
-              <div className="w-1/2">
-                <FormField
-                  control={form.control}
-                  name="tglKirim"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Pilih Tanggal Kirim</FormLabel>
-                      <FormControl>
-                        <Input type="date" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="w-1/2">
-                <FormField
-                  control={form.control}
-                  name="waktuKirim"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Waktu Reservasi yang Tersedia</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="00:00" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="10:00">10:00</SelectItem>
-                          <SelectItem value="12:00">12:00</SelectItem>
-                          <SelectItem value="14:00">14:00</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            </div>
-            <div>
-              <FormField
-                control={form.control}
-                name="isiPesan"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Isi Pesan</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Masukkan Pesan..."
-                        className="resize-none"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-          </div>
-        </form>
-      </Form>
-      <div className="flex w-full justify-end">
-        <SubmitButton />
-      </div>
-    </div>
-  );
-};
-
 const columns: ColumnDef<Patient>[] = [
+  // {
+  //   accessorKey: 'id_pasien',
+  //   header: () => 'ID',
+  //   footer: (props) => props.column.id,
+  // },
   {
-    id: 'expander',
-    header: () => null,
-    cell: ({ row }) => {
-      return row.getCanExpand() ? (
-        <button
-          {...{
-            onClick: row.getToggleExpandedHandler(),
-            style: { cursor: 'pointer' },
-          }}
-        >
-          {row.getIsExpanded() ? (
-            <ChevronUp size={18} />
-          ) : (
-            <ChevronDown size={18} />
-          )}
-        </button>
-      ) : (
-        '🔵'
-      );
-    },
-  },
-  {
-    accessorKey: 'id_pasien',
-    header: () => 'ID',
-    footer: (props) => props.column.id,
-  },
-  {
-    accessorKey: 'name',
-    header: 'Nama',
+    accessorKey: 'username',
+    header: 'Username',
     // cell: ({ row, getValue }) => <div>{getValue<string>()}</div>,
     footer: (props) => props.column.id,
   },
   {
-    accessorKey: 'tglDatang',
-    header: () => 'Terakhir Online',
+    accessorKey: 'full_name',
+    header: () => 'Nama Lengkap',
     footer: (props) => props.column.id,
   },
-
+  {
+    accessorKey: 'phone_number',
+    header: () => 'No. HP',
+    footer: (props) => props.column.id,
+  },
   {
     id: 'action',
     header: () => '',
@@ -273,19 +139,13 @@ const columns: ColumnDef<Patient>[] = [
   },
 ];
 
-export default function ManajemenAkunTable({
-  dataPatient,
-}: {
-  dataPatient: any;
-}) {
-  const dataPatients = dataPatient;
-
+export default function ManajemenAkunTable({ bidan }: { bidan: any }) {
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
           <TableComponent
-            data={dataPatients}
+            data={bidan}
             columns={columns}
             getRowCanExpand={() => true}
             renderSubComponent={renderSubComponent}

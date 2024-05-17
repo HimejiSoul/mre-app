@@ -33,15 +33,16 @@ export default function ManajemenAkunForm() {
     setIsLoading(true);
     try {
       const response = await createBidan(data);
-      console.log(response);
+      router.prefetch('/dashboard/manajemen-akun');
+      router.push('/dashboard/manajemen-akun');
       toast({
         title: `${response}`,
       });
-      router.push('/dashboard/manajemen-akun');
     } catch (error) {
       toast({
-        title: `Gagal Membuat Akun Bidan`,
+        title: `${error}`,
       });
+      setIsLoading(false);
     }
   };
 
@@ -78,7 +79,6 @@ export default function ManajemenAkunForm() {
                 placeholder="No. HP"
                 label="Masukkan No. HP"
                 form={form}
-                type="number"
               />
             </Row>
             <Row>
