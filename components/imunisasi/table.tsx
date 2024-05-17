@@ -237,13 +237,8 @@ const columns: ColumnDef<Patient>[] = [
   },
   {
     accessorKey: 'name',
-    header: 'Nama',
+    header: 'Nama Bayi',
     // cell: ({ row, getValue }) => <div>{getValue<string>()}</div>,
-    footer: (props) => props.column.id,
-  },
-  {
-    accessorKey: 'usia',
-    header: () => 'Usia',
     footer: (props) => props.column.id,
   },
   {
@@ -252,8 +247,13 @@ const columns: ColumnDef<Patient>[] = [
     footer: (props) => props.column.id,
   },
   {
-    accessorKey: 'namaSuami',
-    header: () => 'Nama Suami',
+    accessorKey: 'namaAyah',
+    header: () => 'Nama Ayah',
+    footer: (props) => props.column.id,
+  },
+  {
+    accessorKey: 'namaIbu',
+    header: () => 'Nama Ibu',
     footer: (props) => props.column.id,
   },
   {
@@ -262,7 +262,7 @@ const columns: ColumnDef<Patient>[] = [
     cell: ({ row }) => (
       <div className="flex justify-end gap-3">
         <Link
-          href={`/dashboard/periksa-kehamilan/${row.original.id_pasien}/edit`}
+          href={`/dashboard/imunisasi/${row.original.id_pasien}/edit`}
           className="rounded-md border p-2 hover:bg-gray-100"
         >
           <PencilIcon className="w-5" />
@@ -284,7 +284,7 @@ const columns: ColumnDef<Patient>[] = [
                 <DialogClose asChild>
                   <ChevronLeft className="mr-3 h-5 w-5" />
                 </DialogClose>
-                <p>Reminder Pasien Layanan KB</p>
+                <p>Reminder Pasien Layanan Imunisasi</p>
               </DialogTitle>
             </DialogHeader>
             <DialogWA patientname={row.original.name} />
@@ -410,12 +410,22 @@ function renderSubComponent({ row }: { row: Row<Patient> }) {
       <h1 className="text-lg font-bold">History</h1>
       <Table className="rounded-lg bg-white">
         <TableHeader>
+          <TableRow>
+            <TableHead colSpan={2}></TableHead>
+            <TableHead colSpan={4} className="text-center">
+              O
+            </TableHead>
+          </TableRow>
           <TableRow className="">
             <TableHead>Tanggal</TableHead>
             <TableHead>S</TableHead>
-            <TableHead>O</TableHead>
+            <TableHead>TD</TableHead>
+            <TableHead>LK</TableHead>
+            <TableHead>PB</TableHead>
+            <TableHead>TD</TableHead>
             <TableHead>A</TableHead>
             <TableHead>P</TableHead>
+            <TableHead>Ket.</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -424,9 +434,13 @@ function renderSubComponent({ row }: { row: Row<Patient> }) {
               <TableRow key={i}>
                 <TableCell>{d.tglDatang}</TableCell>
                 <TableCell>{d.s}</TableCell>
-                <TableCell>{d.o}</TableCell>
+                <TableCell>{d.o.td}</TableCell>
+                <TableCell>{d.o.pb}</TableCell>
+                <TableCell>{d.o.lk}</TableCell>
+                <TableCell>{d.o.lain2}</TableCell>
                 <TableCell>{d.a}</TableCell>
                 <TableCell>{d.p}</TableCell>
+                <TableCell>{d.ket}</TableCell>
               </TableRow>
             );
           })}
@@ -437,9 +451,7 @@ function renderSubComponent({ row }: { row: Row<Patient> }) {
         variant={'outline'}
         className="w-full border-rme-blue-500 bg-transparent text-rme-blue-500 hover:bg-white hover:text-rme-blue-500"
       >
-        <Link
-          href={`/dashboard/periksa-kehamilan/${row.original.id_pasien}/create/soap`}
-        >
+        <Link href={`/dashboard/imunisasi/${row.original.id_pasien}/soap`}>
           Tambah Histori Kedatangan
         </Link>
       </Button>

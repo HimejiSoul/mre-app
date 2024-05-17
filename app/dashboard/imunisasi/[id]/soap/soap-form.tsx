@@ -67,9 +67,9 @@ export function SoapImunisasiForm({ params }: { params: { id: string } }) {
             </Row>
             <Row>
               <InputField
-                name="p"
-                placeholder="Soap (P)"
-                label="Soap (P)"
+                name="s"
+                placeholder="Soap (S)"
+                label="Soap (S)"
                 form={form}
                 type="textarea"
                 className="col-span-4"

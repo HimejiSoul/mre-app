@@ -135,6 +135,23 @@ export async function editKehamilanPatient(
   //   console.error('Error:', error);
   // }
 }
+export async function editImunisasiPatient(
+  formData: z.infer<typeof imunisasiFormSchema>,
+  id_pasien: string | number,
+) {
+  const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/editimunisasi`;
+  const data = { data: formData, id_pasien: id_pasien };
+  try {
+    const response = await axios.post(apiEndpoint, data);
+    console.log(response);
+    redirect(`/dashboard/imunisasi`);
+  } catch (error) {
+    if (isRedirectError(error)) {
+      throw error;
+    }
+    console.error('Error:', error);
+  }
+}
 
 export async function createSoapKehamilanPatient(formData: FormData, id: any) {
   const data = { data: { id_pasien: id, ...formData } };
@@ -153,13 +170,19 @@ export async function createBidan(formData: FormData) {
   console.log('ini data', data);
   try {
     const response = await axios.post(apiEndpoint, data);
-    console.log(response.data);
+    console.log(response.data.message);
+    // Return the response data first
     return response.data.message;
-  } catch (error: any) {
-    console.error('Error:', error);
-    const errorMessage = error.data;
-    console.log(typeof errorMessage);
-    return errorMessage;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const errorMessage =
+        error.response?.data?.message || 'Failed to create bidan';
+      console.error(errorMessage);
+      throw new Error(errorMessage);
+    } else {
+      console.error('Unexpected error', error);
+      throw new Error('An unexpected error occurred');
+    }
   }
 }
 

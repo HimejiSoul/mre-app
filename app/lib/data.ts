@@ -17,8 +17,8 @@ export async function fetchAllPatientFind(query: any, id_layanan: any) {
     const response: AxiosResponse<any> = await axios.get(
       `${process.env.API_ENDPOINT_AZURE}/findpasien?keyword=${query}&id_layanan=${id_layanan}`,
     );
-    const allDataPatient = response.data.id_pasien_list;
-    console.log(allDataPatient);
+    const allDataPatient = response.data.id_pasien;
+    // console.log(allDataPatient);
     return allDataPatient;
   } catch (error) {
     console.error('Database Error:', error);
@@ -70,7 +70,20 @@ export async function fetchPatientTableKehamilan(id_pasien: any) {
 export async function fetchPatientTableImunisasi(id_pasien: any) {
   try {
     const response: AxiosResponse<any> = await axios.get(
-      `${process.env.API_ENDPOINT_AZURE}/table_kehamilan/table_kehamilan?id_pasien=${id_pasien}`,
+      `${process.env.API_ENDPOINT_AZURE}/tableimunisasi?id_pasien=${id_pasien}`,
+    );
+    const dataPatient = response.data.data;
+    // console.log(dataPatient);
+    return dataPatient;
+  } catch (error) {
+    console.error('Database Error:', error);
+    // throw new Error('Failed to fetch card data.');
+  }
+}
+export async function fetchTableBidan() {
+  try {
+    const response: AxiosResponse<any> = await axios.get(
+      `${process.env.API_ENDPOINT_AZURE}/getallbidan`,
     );
     const dataPatient = response.data.data;
     // console.log(dataPatient);
@@ -101,6 +114,19 @@ export async function fetchKehamilanPatientById(id_pasien: any) {
       `${process.env.API_ENDPOINT}/edit_kehamilan/edit_kehamilan?id_pasien=${id_pasien}`,
     );
     const dataPatient = response.data.data;
+    return dataPatient;
+  } catch (error) {
+    console.error('Database Error:', error);
+    // throw new Error('Failed to fetch card data.');
+  }
+}
+export async function fetchImunisasiPatientById(id_pasien: any) {
+  try {
+    const response: AxiosResponse<any> = await axios.get(
+      `${process.env.API_ENDPOINT_AZURE}/editimunisasi?id_pasien=${id_pasien}`,
+    );
+    const dataPatient = response.data.data;
+    // console.log(dataPatient);
     return dataPatient;
   } catch (error) {
     console.error('Database Error:', error);

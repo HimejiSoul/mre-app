@@ -17,7 +17,11 @@ import DetailBayi from '@/components/imunisasi/form-section/detail-bayi';
 import PemeriksaanNeonatus from '@/components/imunisasi/form-section/pemeriksaan-neonatus';
 import PemeriksaanNeonatusLanjutan from '@/components/imunisasi/form-section/pemeriksaan-neonatus-lanjutan';
 import PemeriksaanBalita from '@/components/imunisasi/form-section/pemeriksaan-balita';
-import { createImunisasiPatient } from '@/app/lib/actions';
+import {
+  createImunisasiPatient,
+  editImunisasiPatient,
+} from '@/app/lib/actions';
+import { usePathname } from 'next/navigation';
 
 interface ImunisasiFormProps {
   id?: string | number;
@@ -30,12 +34,19 @@ export default function ImunisasiForm({ id, value }: ImunisasiFormProps) {
     resolver: zodResolver(imunisasiFormSchema),
     defaultValues: value ? value : defaultValues,
   });
-
   // function onSubmit(data: z.infer<typeof kehamilanFormSchema>) {
+  const pathname = usePathname();
+  const manyPathname = pathname.split('/');
+  const lastPathname = manyPathname[manyPathname.length - 1];
+  console.log('Pathname', pathname);
+  console.log('Many Pathname', manyPathname);
+  console.log('Last pathname', lastPathname);
+
   async function onSubmit(data: any) {
     setIsLoading(true);
     // await console.log(data);
-    await createImunisasiPatient(data);
+    if (lastPathname == 'edit' && id) await editImunisasiPatient(data, id);
+    else await createImunisasiPatient(data);
   }
 
   return (
