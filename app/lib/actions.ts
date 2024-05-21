@@ -161,17 +161,19 @@ export async function createSoapKehamilanPatient(formData: FormData, id: any) {
   } catch (error) {
     console.error('Error:', error);
   }
+  revalidatePath('/dashboard/periksa-kehamilan');
   redirect('/dashboard/periksa-kehamilan');
 }
 
 export async function createBidan(formData: FormData) {
   const data = { ...formData, role: 'bidan' };
   const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/registbidan`;
-  console.log('ini data', data);
+  // console.log('ini data', data);
   try {
     const response = await axios.post(apiEndpoint, data);
     console.log(response.data.message);
     // Return the response data first
+    revalidatePath('/dashboard/manajemen-akun');
     return response.data.message;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -222,6 +224,18 @@ export async function createSoapImunisasiPatient(formData: FormData, id: any) {
     console.error('Error:', error);
   }
   redirect('/dashboard/imunisasi');
+}
+
+export async function deleteBidan(id: any) {
+  const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/deletebidan?id_bidan=${id}`;
+  try {
+    const response = await axios.get(apiEndpoint);
+    console.log(response.data.message);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+  // revalidatePath('/dashboard/manajemen-akun');
+  // redirect('/dashboard/manajemen-akun');
 }
 
 export async function createInvoice(prevState: State, formData: FormData) {

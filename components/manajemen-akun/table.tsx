@@ -16,7 +16,7 @@ import {
   PencilIcon,
 } from 'lucide-react';
 import Link from 'next/link';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import {
   Table,
   TableBody,
@@ -62,37 +62,87 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { ChevronLeft } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { deleteBidan } from '@/app/lib/actions';
+import { useRouter } from 'next/navigation';
+import { fetchTableBidan } from '@/app/lib/data';
 
-type SubPatient = {
-  tglDatang: string;
-  s: string;
-  td: string;
-  bb: number;
-  lain2: string;
-  a: string;
-  p: string;
-};
-
-type Patient = {
-  id_pasien: number;
-  name: string;
-  usia: number;
-  tglDatang: string;
-  metodeKontrasepsi: string;
-  subRows?: SubPatient[];
+type Bidan = {
+  _id: string;
+  email: string;
+  full_name: number;
+  phone_number: string;
+  role: string;
+  username: string;
 };
 
 type TableProps<TData> = {
   data: TData[];
   columns: ColumnDef<TData>[];
-  renderSubComponent: (props: { row: Row<TData> }) => React.ReactElement;
+  // renderSubComponent: (props: { row: Row<TData> }) => React.ReactElement;
   getRowCanExpand: (row: Row<TData>) => boolean;
 };
 
 // const dataPatients: Patient[] = pasienData.data;
 // console.log(dataPatients);
 
-const columns: ColumnDef<Patient>[] = [
+const AlertDialogExample = ({ id }: any) => {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleContinueClick = async () => {
+    setLoading(true);
+    const response = await deleteBidan(id);
+    console.log(response);
+    location.reload();
+    setLoading(false);
+  };
+
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger>
+        <Badge className="bg-[#F8DEDD] text-[#DF645F] hover:bg-[#F8DEDD]/50">
+          Delete
+        </Badge>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>
+            Do you want to delete this account?
+          </AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete your
+            account and remove your data from our servers.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel onClick={() => setLoading(false)}>
+            Cancel
+          </AlertDialogCancel>
+          <AlertDialogAction
+            onClick={handleContinueClick}
+            disabled={loading}
+            className="bg-red-500 hover:bg-red-300"
+          >
+            {loading ? 'Processing...' : 'Continue'}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+};
+
+const columns: ColumnDef<Bidan>[] = [
   // {
   //   accessorKey: 'id_pasien',
   //   header: () => 'ID',
@@ -119,20 +169,34 @@ const columns: ColumnDef<Patient>[] = [
     header: () => '',
     cell: ({ row }) => (
       <div className="flex justify-center gap-3">
-        <Link
-          href={`/dashboard/periksa-kehamilan/${row.original.id_pasien}/edit`}
-        >
+        <Link href={`/dashboard/periksa-kehamilan/${row.original._id}/edit`}>
           <Badge className="bg-[#D7E8FF] text-[#001C41] hover:bg-[#D7E8FF]/50">
             Update
           </Badge>
         </Link>
-        <Link
-          href={`/dashboard/periksa-kehamilan/${row.original.id_pasien}/edit`}
-        >
-          <Badge className="bg-[#F8DEDD] text-[#DF645F] hover:bg-[#F8DEDD]/50">
-            Delete
-          </Badge>
-        </Link>
+        <AlertDialogExample id={row.original._id} />
+        {/* <AlertDialog>
+          <AlertDialogTrigger>
+            <Badge className="bg-[#F8DEDD] text-[#DF645F] hover:bg-[#F8DEDD]/50">
+              Delete
+            </Badge>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>
+                Do you want to delete this account?
+              </AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete your
+                account and remove your data from our servers.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction>Continue</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog> */}
       </div>
     ),
     footer: (props) => props.column.id,
@@ -148,7 +212,7 @@ export default function ManajemenAkunTable({ bidan }: { bidan: any }) {
             data={bidan}
             columns={columns}
             getRowCanExpand={() => true}
-            renderSubComponent={renderSubComponent}
+            // renderSubComponent={renderSubComponent}
           />
         </div>
       </div>
@@ -158,10 +222,10 @@ export default function ManajemenAkunTable({ bidan }: { bidan: any }) {
 function TableComponent({
   data,
   columns,
-  renderSubComponent,
+  // renderSubComponent,
   getRowCanExpand,
-}: TableProps<Patient>): JSX.Element {
-  const table = useReactTable<Patient>({
+}: TableProps<Bidan>): JSX.Element {
+  const table = useReactTable<Bidan>({
     data,
     columns,
     getRowCanExpand,
@@ -224,66 +288,12 @@ function TableComponent({
                       );
                     })}
                   </tr>
-                  {row.getIsExpanded() && (
-                    <tr>
-                      {/* 2nd row is a custom 1 cell row */}
-                      <td colSpan={row.getVisibleCells().length}>
-                        {/* <p>{row.getVisibleCells().length}</p> */}
-                        {renderSubComponent({ row })}
-                      </td>
-                    </tr>
-                  )}
                 </Fragment>
               );
             })
           )}
         </tbody>
       </table>
-    </div>
-  );
-}
-
-function renderSubComponent({ row }: { row: Row<Patient> }) {
-  let data = row.original.subRows || [];
-
-  return (
-    <div className="m-4 space-y-4 rounded-xl bg-[#F1F4F8] p-4">
-      <h1 className="text-lg font-bold">History</h1>
-      <Table className="rounded-lg bg-white">
-        <TableHeader>
-          <TableRow className="">
-            <TableHead>Tanggal</TableHead>
-            <TableHead>S</TableHead>
-            <TableHead>O</TableHead>
-            <TableHead>A</TableHead>
-            <TableHead>P</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data.map((d: any, i: number) => {
-            return (
-              <TableRow key={i}>
-                <TableCell>{d.tglDatang}</TableCell>
-                <TableCell>{d.s}</TableCell>
-                <TableCell>{d.o}</TableCell>
-                <TableCell>{d.a}</TableCell>
-                <TableCell>{d.p}</TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-      <Button
-        asChild
-        variant={'outline'}
-        className="w-full border-rme-blue-500 bg-transparent text-rme-blue-500 hover:bg-white hover:text-rme-blue-500"
-      >
-        <Link
-          href={`/dashboard/periksa-kehamilan/${row.original.id_pasien}/create/soap`}
-        >
-          Tambah Histori Kedatangan
-        </Link>
-      </Button>
     </div>
   );
 }
