@@ -1,111 +1,215 @@
 import { z } from 'zod';
 
+export const ENUM_VALUES = {
+  boolean: ['true', 'false', ''],
+  plusMinus: ['+', '-', ''],
+  table1: {
+    register: {
+      caraMasuk: [
+        'APS: Atas Permintaan Sendiri',
+        'Dr: Rujukan Dokter',
+        'Bd: Rujukan Bidan',
+        'Dn: Rujukan Dukun',
+        'Pol: Rujukan Polindes',
+        'Pst: Rujukan Pustu',
+        'Pks: Rujukan Puskesmas',
+        'RB: Rujukan Rumah Bersalin',
+        'RSIA: Rujukan RS Ibu dan Anak',
+        '',
+      ],
+    },
+    pemeriksaan: {
+      ibu: {
+        statusGizi: [
+          'LILA < 23,5 cm: KEK (K)',
+          'LILA > 23,5 cm: Normal (N)',
+          '',
+        ],
+        refleksPatella: ['+', '-', ''],
+      },
+      bayi: {
+        kepalaTerhadapPAP: ['Masuk: M', 'Belum Masuk: BM', ''],
+        presentasi: [
+          'KP: Kepala',
+          'BS: Bokong/Sungsang',
+          'LLO: Letak Lintang/Oblique',
+          '',
+        ],
+        jumlahJanin: ['T: Tunggal', 'G: Ganda', ''],
+      },
+    },
+    statusImunisasiTT: ['TD', 'T1', 'T2', 'T3', 'T4', 'T5', ''],
+    pelayanan: {
+      fe: ['Tab', 'Botol', ''],
+    },
+    laboratorium: {
+      periksaHB: {
+        anemia: ['+', '-', ''],
+      },
+      proteinUrin: ['+', '-', ''],
+      thalasemia: ['+', '-', ''],
+      sifilis: ['+', '-', ''],
+      hbsag: ['+', '-', ''],
+    },
+    integrasiProgram: {
+      pmtct: {
+        serologi: ['+', '-', ''],
+      },
+      malaria: {
+        malaria: ['+', '-', ''],
+      },
+      tb: {
+        tbc: ['+', '-', ''],
+      },
+    },
+  },
+  table2: {
+    resikoTerdeteksiPertamaKaliOleh: [
+      'Pasien',
+      'Keluarga',
+      'Masyarakat',
+      'Dukun',
+      'Kader',
+      'Bidan',
+      'Perawat',
+      'Dokter',
+      'DSOG',
+      '',
+    ],
+    komplikasi: [
+      'HDK',
+      'Abortus',
+      'Perdarahan',
+      'Infeksi',
+      'KPD',
+      'Lain-lain',
+      '',
+    ],
+    dirujukKe: ['Puskesmas', 'RB', 'RSIA/RSB', 'RS', 'Lain-lain', ''],
+    keadaan: {
+      tiba: ['Hidup', 'Mati', ''],
+      pulang: ['Hidup', 'Mati', ''],
+    },
+  },
+} as const;
+
 export const soapKehamilanFormSchema = z.object({
   table1: z.object({
     register: z.object({
-      tanggal: z.string().optional(),
-      jamkesmas: z.string().optional(),
-      caraMasuk: z.string().optional(),
-      usiaKlinis: z.string().optional(),
-      trimesterKe: z.string().optional(),
+      tanggal: z
+        .string()
+        .or(z.date())
+        .transform((arg) => new Date(arg)),
+      jamkesmas: z.string().max(50).optional(),
+      caraMasuk: z.enum(ENUM_VALUES.table1.register.caraMasuk),
+      usiaKlinis: z.coerce.number().int().min(0).max(9999),
+      trimesterKe: z.coerce.number().int().min(0).max(9999),
     }),
     pemeriksaan: z.object({
       ibu: z.object({
-        anamnesis: z.string().optional(),
-        bb: z.string().optional(),
-        td: z.string().optional(),
-        lila: z.string().optional(),
-        statusGizi: z.string().optional(),
-        tfu: z.string().optional(),
-        refleksPatella: z.string().optional(),
+        anamnesis: z.string().max(150).optional(),
+        bb: z.coerce.number().int().min(0).max(9999),
+        td: z.string().max(50).optional(),
+        lila: z.coerce.number().int().min(0).max(9999),
+        statusGizi: z.enum(ENUM_VALUES.table1.pemeriksaan.ibu.statusGizi),
+        tfu: z.string().max(150).optional(),
+        refleksPatella: z.enum(
+          ENUM_VALUES.table1.pemeriksaan.ibu.refleksPatella,
+        ),
       }),
       bayi: z.object({
-        djj: z.string().optional(),
-        kepalaTerhadapPAP: z.string().optional(),
-        tbj: z.string().optional(),
-        presentasi: z.string().optional(),
-        jumlahJanin: z.string().optional(),
+        djj: z.string().max(150).optional(),
+        kepalaTerhadapPAP: z.enum(
+          ENUM_VALUES.table1.pemeriksaan.bayi.kepalaTerhadapPAP,
+        ),
+        tbj: z.coerce.number().int().min(0).max(9999),
+        presentasi: z.enum(ENUM_VALUES.table1.pemeriksaan.bayi.presentasi),
+        jumlahJanin: z.enum(ENUM_VALUES.table1.pemeriksaan.bayi.jumlahJanin),
       }),
     }),
-    statusImunisasiTT: z.string().optional(),
+    statusImunisasiTT: z.enum(ENUM_VALUES.table1.statusImunisasiTT),
     pelayanan: z.object({
-      injeksiTT: z.string().optional(),
-      catatDiBukuKIA: z.string().optional(),
-      fe: z.string().optional(),
+      injeksiTT: z.string().max(150).optional(),
+      catatDiBukuKIA: z.boolean(),
+      fe: z.enum(ENUM_VALUES.table1.pelayanan.fe),
     }),
     laboratorium: z.object({
       periksaHB: z.object({
-        dilakukan: z.string().optional(),
-        hasil: z.string().optional(),
-        anemia: z.string().optional(),
+        dilakukan: z.boolean(),
+        hasil: z.boolean(),
+        anemia: z.enum(ENUM_VALUES.table1.laboratorium.periksaHB.anemia),
       }),
-      proteinUrin: z.string().optional(),
-      gulaDarah: z.string().optional(),
-      thalasemia: z.string().optional(),
-      sifilis: z.string().optional(),
-      hbsag: z.string().optional(),
+      proteinUrin: z.enum(ENUM_VALUES.table1.laboratorium.proteinUrin),
+      gulaDarah: z.string().max(150).optional(),
+      thalasemia: z.enum(ENUM_VALUES.table1.laboratorium.thalasemia),
+      sifilis: z.enum(ENUM_VALUES.table1.laboratorium.sifilis),
+      hbsag: z.enum(ENUM_VALUES.table1.laboratorium.hbsag),
     }),
     integrasiProgram: z.object({
       pmtct: z.object({
-        vct: z.string().optional(),
-        periksaDarah: z.string().optional(),
-        serologi: z.string().optional(),
-        profilaksis: z.string().optional(),
-        arv: z.string().optional(),
+        vct: z.boolean(),
+        periksaDarah: z.string().max(150).optional(),
+        serologi: z.enum(ENUM_VALUES.table1.integrasiProgram.pmtct.serologi),
+        profilaksis: z.string().max(150).optional(),
+        arv: z.boolean(),
       }),
       malaria: z.object({
-        periksaDarah: z.string().optional(),
-        malaria: z.string().optional(),
-        obat: z.string().optional(),
-        kelambuBerinsektisida: z.string().optional(),
+        periksaDarah: z.boolean(),
+        malaria: z.enum(ENUM_VALUES.table1.integrasiProgram.malaria.malaria),
+        obat: z.boolean(),
+        kelambuBerinsektisida: z.boolean(),
       }),
       tb: z.object({
-        periksaDahak: z.string().optional(),
-        tbc: z.string().optional(),
-        obat: z.string().optional(),
+        periksaDahak: z.boolean(),
+        tbc: z.enum(ENUM_VALUES.table1.integrasiProgram.tb.tbc),
+        obat: z.boolean(),
       }),
     }),
-    keterangan: z.string().optional(),
+    keterangan: z.string().max(999).optional(),
   }),
   table2: z.object({
-    tanggal: z.string().optional(),
-    keterangan: z.string().optional(),
-  }),
-  table3: z.object({
-    tanggal: z.string().optional(),
-    resikoTerdeteksiPertamaKaliOleh: z.string().optional(),
-    komplikasi: z.string().optional(),
-    dirujukKe: z.string().optional(),
+    tanggal: z
+      .string()
+      .or(z.date())
+      .transform((arg) => new Date(arg)),
+    resikoTerdeteksiPertamaKaliOleh: z.enum(
+      ENUM_VALUES.table2.resikoTerdeteksiPertamaKaliOleh,
+    ),
+    komplikasi: z.enum(ENUM_VALUES.table2.komplikasi),
+    dirujukKe: z.enum(ENUM_VALUES.table2.dirujukKe),
     keadaan: z.object({
-      tiba: z.string().optional(),
-      pulang: z.string().optional(),
+      tiba: z.enum(ENUM_VALUES.table2.keadaan.tiba),
+      pulang: z.enum(ENUM_VALUES.table2.keadaan.pulang),
     }),
-    keterangan: z.string().optional(),
+    keterangan: z.string().max(999).optional(),
   }),
   soapAnc: z.object({
-    tanggal: z.string().optional(),
-    s: z.string().optional(),
-    o: z.string().optional(),
-    a: z.string().optional(),
-    p: z.string().optional(),
+    tanggal: z
+      .string()
+      .or(z.date())
+      .transform((arg) => new Date(arg)),
+    s: z.string().max(999).optional(),
+    o: z.string().max(999).optional(),
+    a: z.string().max(999).optional(),
+    p: z.string().max(999).optional(),
   }),
 });
 
 export const defaultValues: Partial<z.infer<typeof soapKehamilanFormSchema>> = {
   table1: {
     register: {
-      tanggal: '',
+      tanggal: new Date(),
       jamkesmas: '',
       caraMasuk: '',
-      usiaKlinis: '',
-      trimesterKe: '',
+      usiaKlinis: 0,
+      trimesterKe: 0,
     },
     pemeriksaan: {
       ibu: {
         anamnesis: '',
-        bb: '',
+        bb: 0,
         td: '',
-        lila: '',
+        lila: 0,
         statusGizi: '',
         tfu: '',
         refleksPatella: '',
@@ -113,7 +217,7 @@ export const defaultValues: Partial<z.infer<typeof soapKehamilanFormSchema>> = {
       bayi: {
         djj: '',
         kepalaTerhadapPAP: '',
-        tbj: '',
+        tbj: 0,
         presentasi: '',
         jumlahJanin: '',
       },
@@ -121,13 +225,13 @@ export const defaultValues: Partial<z.infer<typeof soapKehamilanFormSchema>> = {
     statusImunisasiTT: '',
     pelayanan: {
       injeksiTT: '',
-      catatDiBukuKIA: '',
+      catatDiBukuKIA: false,
       fe: '',
     },
     laboratorium: {
       periksaHB: {
-        dilakukan: '',
-        hasil: '',
+        dilakukan: false,
+        hasil: false,
         anemia: '',
       },
       proteinUrin: '',
@@ -138,32 +242,28 @@ export const defaultValues: Partial<z.infer<typeof soapKehamilanFormSchema>> = {
     },
     integrasiProgram: {
       pmtct: {
-        vct: '',
+        vct: false,
         periksaDarah: '',
         serologi: '',
         profilaksis: '',
-        arv: '',
+        arv: false,
       },
       malaria: {
-        periksaDarah: '',
+        periksaDarah: false,
         malaria: '',
-        obat: '',
-        kelambuBerinsektisida: '',
+        obat: false,
+        kelambuBerinsektisida: false,
       },
       tb: {
-        periksaDahak: '',
+        periksaDahak: false,
         tbc: '',
-        obat: '',
+        obat: false,
       },
     },
     keterangan: '',
   },
   table2: {
-    tanggal: '',
-    keterangan: '',
-  },
-  table3: {
-    tanggal: '',
+    tanggal: new Date(),
     resikoTerdeteksiPertamaKaliOleh: '',
     komplikasi: '',
     dirujukKe: '',
@@ -174,7 +274,7 @@ export const defaultValues: Partial<z.infer<typeof soapKehamilanFormSchema>> = {
     keterangan: '',
   },
   soapAnc: {
-    tanggal: '',
+    tanggal: new Date(),
     s: '',
     o: '',
     a: '',

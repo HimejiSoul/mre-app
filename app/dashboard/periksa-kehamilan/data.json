@@ -167,7 +167,6 @@
         "transportasi": "Motor"
       }
     ],
-
     "riwayatKehamilan": {
       "a": 2,
       "data": [
@@ -235,7 +234,17 @@
         "hidup": 4,
         "partus": 2
       }
-    }
+    },
+    "skriningTT": [
+      {
+        "tanggal": "2024-05-18T13:06:40.466Z",
+        "keterangan": "Ini adalah cotoh keterangan"
+      },
+      {
+        "tanggal": "2024-05-18T13:06:40.466Z",
+        "keterangan": "Ini adalah cotoh keterangan 2"
+      }
+    ]
   },
   "message": "success"
 }

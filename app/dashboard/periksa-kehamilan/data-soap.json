@@ -1,0 +1,89 @@
+{
+  "data": {
+    "table1": {
+      "register": {
+        "tanggal": "2024-05-18T13:06:40.466Z",
+        "jamkesmas": "Telkom University",
+        "caraMasuk": "APS: Atas Permintaan Sendiri",
+        "usiaKlinis": 23,
+        "trimesterKe": 3
+      },
+      "pemeriksaan": {
+        "ibu": {
+          "anamnesis": "Gejala Anamnesis",
+          "bb": 65,
+          "td": "120-129",
+          "lila": 0,
+          "statusGizi": "LILA < 23,5 cm: KEK (K)",
+          "tfu": "24-25 cm",
+          "refleksPatella": "-"
+        },
+        "bayi": {
+          "djj": "120-130",
+          "kepalaTerhadapPAP": "Masuk: M",
+          "tbj": 234,
+          "presentasi": "KP: Kepala",
+          "jumlahJanin": "T: Tunggal"
+        }
+      },
+      "statusImunisasiTT": "T2",
+      "pelayanan": {
+        "injeksiTT": "Nilai TT",
+        "catatDiBukuKIA": true,
+        "fe": "Botol"
+      },
+      "laboratorium": {
+        "periksaHB": {
+          "dilakukan": true,
+          "hasil": false,
+          "anemia": "+"
+        },
+        "proteinUrin": "-",
+        "gulaDarah": "Nilai Gula Darah",
+        "thalasemia": "-",
+        "sifilis": "-",
+        "hbsag": "+"
+      },
+      "integrasiProgram": {
+        "pmtct": {
+          "vct": true,
+          "periksaDarah": "Nilai periksa darah",
+          "serologi": "+",
+          "profilaksis": "Nilai profilaksis",
+          "arv": true
+        },
+        "malaria": {
+          "periksaDarah": false,
+          "malaria": "-",
+          "obat": true,
+          "kelambuBerinsektisida": false
+        },
+        "tb": {
+          "periksaDahak": true,
+          "tbc": "-",
+          "obat": false
+        }
+      },
+      "keterangan": "Ini adalah contoh dari isi keterangan yang akan diisi oleh bidan"
+    },
+    "table2": {
+      "tanggal": "2024-05-18T13:06:40.466Z",
+      "resikoTerdeteksiPertamaKaliOleh": "Keluarga",
+      "komplikasi": "Infeksi",
+      "dirujukKe": "RB",
+      "keadaan": {
+        "tiba": "Hidup",
+        "pulang": "Mati"
+      },
+      "keterangan": "Ini adalah contoh keterangan yang ada pada bagian Table 2"
+    },
+    "soapAnc": {
+      "tanggal": "2024-05-18T13:06:40.466Z",
+      "s": "Ini adalah contoh nilai S yang merupakan textarea",
+      "o": "Ini adalah contoh nilai O yang merupakan textarea",
+      "a": "Ini adalah contoh nilai A yang merupakan textarea",
+      "p": "Ini adalah contoh nilai P yang merupakan textarea"
+    }
+  },
+  "message": "success"
+}

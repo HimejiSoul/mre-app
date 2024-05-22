@@ -24,6 +24,7 @@ import Persalinan from '@/components/periksa-kehamilan/form-section/persalinan';
 import PemeriksaanPNC from '@/components/periksa-kehamilan/form-section/pemeriksaan-pnc';
 import FaktorResiko from '@/components/periksa-kehamilan/form-section/faktor-resiko';
 import KunjunganNifas from '@/components/periksa-kehamilan/form-section/kunjungan-nifas';
+import SkriningTT from '@/components/periksa-kehamilan/form-section/skrining-tt';
 
 interface KehamilanFormProps {
   id?: string | number;
@@ -58,10 +59,11 @@ export default function KehamilanForm({ id, value }: KehamilanFormProps) {
         <Section2 form={form} />
         <RencanaPersalinan form={form} />
         <RiwayatKehamilan form={form} />
+        <FaktorResiko form={form} />
         <Persalinan form={form} />
         <PemeriksaanPNC form={form} />
         <KunjunganNifas form={form} />
-        <FaktorResiko form={form} />
+        <SkriningTT form={form} />
         <ButtonSubmitForm isLoading={isLoading} />
       </form>
     </Form>
