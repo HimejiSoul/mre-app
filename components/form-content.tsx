@@ -1,4 +1,5 @@
-import { HTMLAttributes, ReactNode } from 'react';
+'use client';
+import { HTMLAttributes, HTMLInputTypeAttribute, ReactNode } from 'react';
 import { urbanist } from '@/app/ui/fonts';
 import { cn } from '@/lib/utils';
 import { FieldValues, Path, UseFormReturn } from 'react-hook-form';
@@ -24,6 +25,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Minus, Plus } from 'lucide-react';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { useState } from 'react';
 
 type TitleSectionProps = {
   title: string;
@@ -110,6 +112,7 @@ export function InputField<TFieldValues extends FieldValues = FieldValues>({
   name: Path<TFieldValues>;
   form: UseFormReturn<TFieldValues>;
 }) {
+  const [showPassword, setShowPassword] = useState(false);
   if (props.type === 'checkbox') {
     return (
       <FormField
@@ -118,7 +121,7 @@ export function InputField<TFieldValues extends FieldValues = FieldValues>({
         render={({ field }) => (
           <FormItem
             className={cn(
-              'col-span-3 flex flex-col justify-evenly',
+              'col-span-3 flex flex-col items-center justify-evenly',
               props.className,
             )}
           >
@@ -215,6 +218,29 @@ export function InputField<TFieldValues extends FieldValues = FieldValues>({
         }}
       />
     );
+  } else if (props.type === 'datetime-local') {
+    return (
+      <FormField
+        control={form.control}
+        name={name}
+        render={({ field }) => {
+          // Convert date data from object to just ""yyyy-MM-ddThh:mm""
+          field.value = field.value.toISOString().slice(0, 16);
+          return (
+            <FormItem className={cn('col-span-3', props.className)}>
+              <FormLabel>{props.label}</FormLabel>
+              <FormControl>
+                <Input type="datetime" {...props} {...field} />
+              </FormControl>
+              {props.description && (
+                <FormDescription>{props.description}</FormDescription>
+              )}
+              <FormMessage />
+            </FormItem>
+          );
+        }}
+      />
+    );
   } else if (props.type === 'radio') {
     return (
       <FormField
@@ -258,6 +284,61 @@ export function InputField<TFieldValues extends FieldValues = FieldValues>({
                 )}
               </RadioGroup>
             </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    );
+  } else if (props.type === 'password') {
+    const togglePasswordVisibility = () => {
+      setShowPassword((prev): any => !prev);
+    };
+
+    return (
+      <FormField
+        control={form.control}
+        name={name}
+        render={({ field }) => (
+          <FormItem className={cn('relative col-span-3', props.className)}>
+            <FormLabel>{props.label}</FormLabel>
+            <FormControl>
+              <Input
+                {...props}
+                {...field}
+                type={showPassword ? 'text' : 'password'}
+              />
+            </FormControl>
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute end-1 top-3.5 rounded-e-md px-2 py-5"
+            >
+              <svg
+                className="size-3.5 flex-shrink-0 text-gray-400 dark:text-neutral-600"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {showPassword ? (
+                  <>
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </>
+                ) : (
+                  <>
+                    <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                    <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+                    <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                    <line x1="2" x2="22" y1="2" y2="22"></line>
+                  </>
+                )}
+              </svg>
+            </button>
             <FormMessage />
           </FormItem>
         )}

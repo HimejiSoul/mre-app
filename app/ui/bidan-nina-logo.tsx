@@ -1,4 +1,4 @@
-import { lusitana } from '@/app/ui/fonts';
+import { urbanist } from '@/app/ui/fonts';
 import Link from 'next/link';
 import Image from 'next/image';
 import Logo from '@/public/bidan-nina-logo.png';
@@ -10,7 +10,7 @@ export default function BidanNinaLogo() {
       href="/"
     >
       <div
-        className={`${lusitana.className} flex w-full flex-row items-center gap-2 align-middle text-[#56C1EB]`}
+        className={`${urbanist.className} flex w-full flex-row items-center gap-2 align-middle font-semibold text-[#56C1EB]`}
       >
         <Image alt="Logo Bidan Nina" src={Logo} width={32} height={32} />
         <p className="text-[24px]">Bidan Nina</p>
