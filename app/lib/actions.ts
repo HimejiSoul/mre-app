@@ -9,6 +9,7 @@ import axios from 'axios';
 import { isRedirectError } from 'next/dist/client/components/redirect';
 import { kehamilanFormSchema } from '../../lib/types/periksa-kehamilan-types';
 import { imunisasiFormSchema } from '@/lib/types/imunisasi/imunisasi-types';
+import { soapKehamilanFormSchema } from '@/lib/types/soap-kehamilan-types';
 
 const FormSchema = z.object({
   id: z.string(),
@@ -153,15 +154,24 @@ export async function editImunisasiPatient(
   }
 }
 
-export async function createSoapKehamilanPatient(formData: FormData, id: any) {
-  const data = { data: { id_pasien: id, ...formData } };
-  const apiEndpoint = `${process.env.API_ENDPOINT}/soap_kehamilan/soap_kehamilan`;
-  try {
-    await axios.post(apiEndpoint, data);
-  } catch (error) {
-    console.error('Error:', error);
+export async function createSoapKehamilanPatient(
+  formData: z.infer<typeof soapKehamilanFormSchema>,
+  id_pasien?: string | number,
+) {
+  // Validation with Zod before data sent to database
+  const response = soapKehamilanFormSchema.safeParse(formData);
+  if (!response.success) {
+    return console.error(response.error);
   }
-  redirect('/dashboard/periksa-kehamilan');
+
+  const data = { data: { id_pasien: id_pasien, ...response.data } };
+  // const apiEndpoint = `${process.env.API_ENDPOINT}/soap_kehamilan/soap_kehamilan`;
+  // try {
+  //   await axios.post(apiEndpoint, data);
+  // } catch (error) {
+  //   console.error('Error:', error);
+  // }
+  // redirect('/dashboard/periksa-kehamilan');
 }
 
 export async function createBidan(formData: FormData) {

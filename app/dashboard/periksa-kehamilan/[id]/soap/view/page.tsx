@@ -1,32 +1,32 @@
+import { SoapKehamilanForm } from '@/app/dashboard/periksa-kehamilan/[id]/soap/soap-form';
 import { SectionTitle } from '@/app/ui/section-title';
-import { fetchKehamilanPatientById, fetchPatientById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
-import KehamilanForm from '../../create/kehamilan-form';
-import jsonData from '@/app/dashboard/periksa-kehamilan/data.json';
-import { kehamilanFormSchema } from '../../../../../lib/types/periksa-kehamilan-types';
+import jsonData from '@/app/dashboard/periksa-kehamilan/data-soap.json';
 import { fromZodError } from 'zod-validation-error';
+import { soapKehamilanFormSchema } from '@/lib/types/soap-kehamilan-types';
 
 export default async function Page({ params }: { params: { id: string } }) {
   // XXX: Remove if Zaidan already fix Schema
-  const id_pasien = 22;
+  const id_pasien = params.id;
   const patientData = jsonData;
   // const id_pasien = params.id;
   // const patientData = await fetchKehamilanPatientById(id_pasien);
 
-  if (!patientData) {
+  if (!id_pasien) {
     notFound();
   }
 
   // TODO: Validation with Zod for every data before put into form (ithink this action need to run in action.ts too)
-  const response = kehamilanFormSchema.safeParse(patientData?.data);
+  const response = soapKehamilanFormSchema.safeParse(patientData?.data);
   if (!response.success) {
     console.error(fromZodError(response.error));
+    notFound();
   }
 
   return (
     <main>
-      <SectionTitle>Edit Pasien Layanan Keluarga Berencana</SectionTitle>
-      <KehamilanForm value={response.data} id={id_pasien} />
+      <SectionTitle>Lihat SOAP Pasien Layanan Kehamilan</SectionTitle>
+      <SoapKehamilanForm value={response.data} id={id_pasien} />
     </main>
   );
 }

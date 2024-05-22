@@ -23,6 +23,8 @@ import {
 import { Checkbox } from '@/components/ui/checkbox';
 import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Minus, Plus } from 'lucide-react';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { useState } from 'react';
 
 type TitleSectionProps = {
@@ -93,6 +95,7 @@ type InputType =
   | 'url'
   | 'week'
   | 'textarea'
+  | 'toggle-group'
   | 'select';
 
 export function InputField<TFieldValues extends FieldValues = FieldValues>({
@@ -112,14 +115,13 @@ export function InputField<TFieldValues extends FieldValues = FieldValues>({
   const [showPassword, setShowPassword] = useState(false);
   if (props.type === 'checkbox') {
     return (
-      // TODO: Still messed up 🥹
       <FormField
         control={form.control}
         name={name}
         render={({ field }) => (
           <FormItem
             className={cn(
-              'col-span-3 flex flex-col items-center',
+              'col-span-3 flex flex-col items-center justify-evenly',
               props.className,
             )}
           >
@@ -245,7 +247,7 @@ export function InputField<TFieldValues extends FieldValues = FieldValues>({
         control={form.control}
         name={name}
         render={({ field }) => (
-          <FormItem className="col-span-3">
+          <FormItem className={cn('col-span-3', props.className)}>
             <FormLabel>{props.label}</FormLabel>
             <FormControl>
               <RadioGroup
@@ -337,6 +339,67 @@ export function InputField<TFieldValues extends FieldValues = FieldValues>({
                 )}
               </svg>
             </button>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    );
+  } else if (props.type === 'toggle-group') {
+    // TODO: Perbaiki ToogleGroupItem pada map agar icon bisa berubah sesuai input user
+    return (
+      <FormField
+        control={form.control}
+        name={name}
+        render={({ field }) => (
+          <FormItem className={cn('col-span-3', props.className)}>
+            <FormLabel>{props.label}</FormLabel>
+            <FormControl>
+              <ToggleGroup
+                variant={'outline'}
+                type="single"
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+                className="w-fit"
+              >
+                {data && data.length > 0 ? (
+                  data.map((item) => (
+                    <FormItem key={item.value}>
+                      <FormControl>
+                        <ToggleGroupItem
+                          value={item.value}
+                          className=" data-[state=on]:border-blue-600 data-[state=on]:text-blue-600"
+                        >
+                          {item.label}
+                        </ToggleGroupItem>
+                      </FormControl>
+                    </FormItem>
+                  ))
+                ) : (
+                  <>
+                    <FormItem>
+                      <FormControl>
+                        <ToggleGroupItem
+                          value="+"
+                          className=" data-[state=on]:border-blue-600 data-[state=on]:text-blue-600"
+                        >
+                          <Plus className="h-4 w-4" />
+                        </ToggleGroupItem>
+                      </FormControl>
+                    </FormItem>
+                    <FormItem>
+                      <FormControl>
+                        <ToggleGroupItem
+                          value="-"
+                          className=" data-[state=on]:border-blue-600 data-[state=on]:text-blue-600"
+                        >
+                          <Minus className="h-4 w-4" />
+                        </ToggleGroupItem>
+                      </FormControl>
+                    </FormItem>
+                  </>
+                )}
+              </ToggleGroup>
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}

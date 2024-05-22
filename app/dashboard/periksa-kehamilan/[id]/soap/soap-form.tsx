@@ -6,6 +6,7 @@ import { z } from 'zod';
 import {
   soapKehamilanFormSchema,
   defaultValues,
+  ENUM_VALUES,
 } from '@/lib/types/soap-kehamilan-types';
 import { Form } from '@/components/ui/form';
 import {
@@ -20,17 +21,22 @@ import { createSoapKehamilanPatient } from '@/app/lib/actions';
 import { useState } from 'react';
 import { ButtonSubmitForm } from '@/components/Buttons';
 
-export function SoapKehamilanForm({ params }: { params: { id: string } }) {
+interface SoapKehamilanFormProps {
+  id?: string | number;
+  value?: z.infer<typeof soapKehamilanFormSchema>;
+}
+
+export function SoapKehamilanForm({ id, value }: SoapKehamilanFormProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof soapKehamilanFormSchema>>({
     resolver: zodResolver(soapKehamilanFormSchema),
-    defaultValues,
+    defaultValues: value ? value : defaultValues,
   });
 
-  // function onSubmit(data: z.infer<typeof soapKehamilanFormSchema>) {
-  const onSubmit = async (data: any) => {
-    const id = params.id;
+  async function onSubmit(data: z.infer<typeof soapKehamilanFormSchema>) {
+    console.log(data.table1);
     setIsLoading(true);
+
     try {
       await createSoapKehamilanPatient(data, id);
       toast({
@@ -41,7 +47,7 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
         title: `Gagal Menginputkan Data Pasien`,
       });
     }
-  };
+  }
 
   return (
     <Form {...form}>
@@ -74,44 +80,12 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
                 label="Cara Masuk"
                 placeholder="Cara masuk"
                 type="select"
-                data={[
-                  {
-                    value: 'APS: Atas Permintaan Sendiri',
-                    label: 'APS: Atas Permintaan Sendiri',
-                  },
-                  {
-                    value: 'Dr: Rujukan Dokter',
-                    label: 'Dr: Rujukan Dokter',
-                  },
-                  {
-                    value: 'Bd: Rujukan Bidan',
-                    label: 'Bd: Rujukan Bidan',
-                  },
-                  {
-                    value: 'Dn: Rujukan Dukun',
-                    label: 'Dn: Rujukan Dukun',
-                  },
-                  {
-                    value: 'Pol: Rujukan Polindes',
-                    label: 'Pol: Rujukan Polindes',
-                  },
-                  {
-                    value: 'Pst: Rujukan Pustu',
-                    label: 'Pst: Rujukan Pustu',
-                  },
-                  {
-                    value: 'Pks: Rujukan Puskesmas',
-                    label: 'Pks: Rujukan Puskesmas',
-                  },
-                  {
-                    value: 'RB: Rujukan Rumah Bersalin',
-                    label: 'RB: Rujukan Rumah Bersalin',
-                  },
-                  {
-                    value: 'RSIA: Rujukan RS Ibu dan Anak',
-                    label: 'RSIA: Rujukan RS Ibu dan Anak',
-                  },
-                ]}
+                data={ENUM_VALUES.table1.register.caraMasuk
+                  .filter((data) => data !== '')
+                  .map((data) => ({
+                    value: data,
+                    label: data,
+                  }))}
               />
               <InputField
                 name="table1.register.usiaKlinis"
@@ -150,7 +124,6 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
                 form={form}
                 label="TD (mmHg)"
                 placeholder="Nilai TD"
-                type="number"
                 className="col-span-2"
               />
               <InputField
@@ -169,16 +142,12 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
                 label="Status Gizi"
                 placeholder="Status gizi"
                 type="select"
-                data={[
-                  {
-                    value: 'LILA < 23,5 cm: KEK (K)',
-                    label: 'LILA < 23,5 cm: KEK (K)',
-                  },
-                  {
-                    value: 'LILA > 23,5 cm: Normal (N)',
-                    label: 'LILA > 23,5 cm: Normal (N)',
-                  },
-                ]}
+                data={ENUM_VALUES.table1.pemeriksaan.ibu.statusGizi
+                  .filter((data) => data !== '')
+                  .map((data) => ({
+                    value: data,
+                    label: data,
+                  }))}
               />
               <InputField
                 name="table1.pemeriksaan.ibu.tfu"
@@ -191,6 +160,7 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
                 form={form}
                 label="Refleks Patella (+/-)"
                 placeholder="Nilai Refleks Patella"
+                type="toggle-group"
               />
             </Row>
             <h1 className="pt-4 text-base font-medium">Pemeriksaan Bayi</h1>
@@ -207,16 +177,12 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
                 label="Kepala Terhadap PAP"
                 placeholder="Kepala terhadap PAP"
                 type="select"
-                data={[
-                  {
-                    value: 'Masuk: M',
-                    label: 'Masuk: M',
-                  },
-                  {
-                    value: 'Belum Masuk: BM',
-                    label: 'Belum Masuk: BM',
-                  },
-                ]}
+                data={ENUM_VALUES.table1.pemeriksaan.bayi.kepalaTerhadapPAP
+                  .filter((data) => data !== '')
+                  .map((data) => ({
+                    value: data,
+                    label: data,
+                  }))}
               />
               <InputField
                 name="table1.pemeriksaan.bayi.tbj"
@@ -233,20 +199,12 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
                 label="Presentasi"
                 placeholder="Presentasi"
                 type="select"
-                data={[
-                  {
-                    value: 'KP: Kepala',
-                    label: 'KP: Kepala',
-                  },
-                  {
-                    value: 'BS: Bokong/Sungsang',
-                    label: 'BS: Bokong/Sungsang',
-                  },
-                  {
-                    value: 'LLO: Letak Lintang/Oblique',
-                    label: 'LLO: Letak Lintang/Oblique',
-                  },
-                ]}
+                data={ENUM_VALUES.table1.pemeriksaan.bayi.presentasi
+                  .filter((data) => data !== '')
+                  .map((data) => ({
+                    value: data,
+                    label: data,
+                  }))}
               />
               <InputField
                 name="table1.pemeriksaan.bayi.jumlahJanin"
@@ -254,16 +212,12 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
                 label="Jumlah Janin"
                 placeholder="Jumlah Janin"
                 type="select"
-                data={[
-                  {
-                    value: 'T: Tunggal',
-                    label: 'T: Tunggal',
-                  },
-                  {
-                    value: 'G: Ganda',
-                    label: 'G: Ganda',
-                  },
-                ]}
+                data={ENUM_VALUES.table1.pemeriksaan.bayi.jumlahJanin
+                  .filter((data) => data !== '')
+                  .map((data) => ({
+                    value: data,
+                    label: data,
+                  }))}
               />
             </Row>
             <Separator />
@@ -274,32 +228,12 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
                 label="Status Imunisasi TT"
                 placeholder="Status Imunisasi"
                 type="select"
-                data={[
-                  {
-                    value: 'TD',
-                    label: 'TD',
-                  },
-                  {
-                    value: 'T1',
-                    label: 'T1',
-                  },
-                  {
-                    value: 'T2',
-                    label: 'T2',
-                  },
-                  {
-                    value: 'T3',
-                    label: 'T3',
-                  },
-                  {
-                    value: 'T4',
-                    label: 'T4',
-                  },
-                  {
-                    value: 'T5',
-                    label: 'T5',
-                  },
-                ]}
+                data={ENUM_VALUES.table1.statusImunisasiTT
+                  .filter((data) => data !== '')
+                  .map((data) => ({
+                    value: data,
+                    label: data,
+                  }))}
               />
             </Row>
             <Separator />
@@ -316,12 +250,20 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
                 form={form}
                 label="Catat di Buku KIA"
                 placeholder="Catat di buku KIA"
+                type="checkbox"
               />
               <InputField
                 name="table1.pelayanan.fe"
                 form={form}
                 label="Fe (tab/botol)"
                 placeholder="Nilai Fe"
+                type="select"
+                data={ENUM_VALUES.table1.pelayanan.fe
+                  .filter((data) => data !== '')
+                  .map((data) => ({
+                    value: data,
+                    label: data,
+                  }))}
               />
             </Row>
             <Separator />
@@ -332,24 +274,28 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
                 form={form}
                 label="Periksa HB: Dilakukan"
                 placeholder="Dilakukan?"
+                type="checkbox"
               />
               <InputField
                 name="table1.laboratorium.periksaHB.hasil"
                 form={form}
                 label="Periksa HB: Hasil"
                 placeholder="Hasil?"
+                type="checkbox"
               />
               <InputField
                 name="table1.laboratorium.periksaHB.anemia"
                 form={form}
                 label="Periksa HB: Anemia (+/-)"
                 placeholder="Anemia?"
+                type="toggle-group"
               />
               <InputField
                 name="table1.laboratorium.proteinUrin"
                 form={form}
                 label="Protein Urin (+/-)"
                 placeholder="Protein Urin?"
+                type="toggle-group"
               />
             </Row>
             <Row>
@@ -364,18 +310,21 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
                 form={form}
                 label="Thalasemia (+/-)"
                 placeholder="Thalasemia"
+                type="toggle-group"
               />
               <InputField
                 name="table1.laboratorium.sifilis"
                 form={form}
                 label="Sifilis (+/-)"
                 placeholder="Sifilis"
+                type="toggle-group"
               />
               <InputField
                 name="table1.laboratorium.hbsag"
                 form={form}
                 label="HBSAg (+/-)"
                 placeholder="HBSAg"
+                type="toggle-group"
               />
             </Row>
             <Separator />
@@ -388,6 +337,8 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
                 form={form}
                 label="VCT"
                 placeholder="Nilai VCT"
+                type="checkbox"
+                className="col-span-1"
               />
               <InputField
                 name="table1.integrasiProgram.pmtct.periksaDarah"
@@ -400,6 +351,8 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
                 form={form}
                 label="Serologi (+/-)"
                 placeholder="Nilai serologi"
+                type="toggle-group"
+                className="col-span-2"
               />
               <InputField
                 name="table1.integrasiProgram.pmtct.profilaksis"
@@ -412,6 +365,8 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
                 form={form}
                 label="ARV"
                 placeholder="Nilai ARV"
+                type="checkbox"
+                className="col-span-1"
               />
             </Row>
             <Separator />
@@ -430,18 +385,21 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
                 form={form}
                 label="Malaria (+/-)"
                 placeholder="Nilai malaria"
+                type="toggle-group"
               />
               <InputField
                 name="table1.integrasiProgram.malaria.obat"
                 form={form}
                 label="Obat"
                 placeholder="Nilai obat"
+                type="checkbox"
               />
               <InputField
                 name="table1.integrasiProgram.malaria.kelambuBerinsektisida"
                 form={form}
                 label="Kelambu Berinsektisida"
                 placeholder="Nilai kelambu"
+                type="checkbox"
               />
             </Row>
             <Separator />
@@ -454,18 +412,21 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
                 form={form}
                 label="Periksa Dahak"
                 placeholder="Nilai periksa dahak"
+                type="checkbox"
               />
               <InputField
                 name="table1.integrasiProgram.tb.tbc"
                 form={form}
                 label="TBC (+/-)"
                 placeholder="Nilai malaria"
+                type="toggle-group"
               />
               <InputField
                 name="table1.integrasiProgram.tb.obat"
                 form={form}
                 label="Obat"
                 placeholder="Nilai obat"
+                type="checkbox"
               />
             </Row>
             <Separator />
@@ -481,8 +442,8 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
             </Row>
           </FormWrapper>
         </section>
-        <section className="_SKRINING_TT space-y-4">
-          <TitleSection title="Skrining TT" subtitle="Masukkan data pasien" />
+        <section className="_TABLE_2 space-y-4">
+          <TitleSection title="Table 2" subtitle="Masukkan data pasien" />
           <FormWrapper>
             <Row>
               <InputField
@@ -491,175 +452,79 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
                 label="Tanggal"
                 type="date"
               />
-              <InputField
-                name="table2.keterangan"
-                form={form}
-                label="Keterangan"
-                placeholder="Keterangan"
-                className="col-span-6"
-              />
-            </Row>
-          </FormWrapper>
-        </section>
-        <section className="_TABLE_3 space-y-4">
-          <TitleSection title="Table 3" subtitle="Masukkan data pasien" />
-          <FormWrapper>
-            <Row>
-              <InputField
-                name="table3.tanggal"
-                form={form}
-                label="Tanggal"
-                type="date"
-              />
             </Row>
             <Row>
               <InputField
-                name="table3.resikoTerdeteksiPertamaKaliOleh"
+                name="table2.resikoTerdeteksiPertamaKaliOleh"
                 form={form}
                 label="Resiko Terdeteksi Pertama Kali Oleh"
                 placeholder="Resiko terdeteksi pertama kali oleh"
                 type="select"
-                data={[
-                  {
-                    value: 'Pasien',
-                    label: 'Pasien',
-                  },
-                  {
-                    value: 'Keluarga',
-                    label: 'Keluarga',
-                  },
-                  {
-                    value: 'Masyarakat',
-                    label: 'Masyarakat',
-                  },
-                  {
-                    value: 'Dukun',
-                    label: 'Dukun',
-                  },
-                  {
-                    value: 'Kader',
-                    label: 'Kader',
-                  },
-                  {
-                    value: 'Bidan',
-                    label: 'Bidan',
-                  },
-                  {
-                    value: 'Perawat',
-                    label: 'Perawat',
-                  },
-                  {
-                    value: 'Dokter',
-                    label: 'Dokter',
-                  },
-                  {
-                    value: 'DSOG',
-                    label: 'DSOG',
-                  },
-                ]}
+                data={ENUM_VALUES.table2.resikoTerdeteksiPertamaKaliOleh
+                  .filter((data) => data !== '')
+                  .map((data) => ({
+                    value: data,
+                    label: data,
+                  }))}
               />
               <InputField
-                name="table3.komplikasi"
+                name="table2.komplikasi"
                 form={form}
                 label="Komplikasi"
                 placeholder="Komplikasi"
                 className="col-span-2"
                 type="select"
-                data={[
-                  {
-                    value: 'HDK',
-                    label: 'HDK',
-                  },
-                  {
-                    value: 'Abortus',
-                    label: 'Abortus',
-                  },
-                  {
-                    value: 'Perdarahan',
-                    label: 'Perdarahan',
-                  },
-                  {
-                    value: 'Infeksi',
-                    label: 'Infeksi',
-                  },
-                  {
-                    value: 'KPD',
-                    label: 'KPD',
-                  },
-                  {
-                    value: 'Lain-lain',
-                    label: 'Lain-lain',
-                  },
-                ]}
+                data={ENUM_VALUES.table2.komplikasi
+                  .filter((data) => data !== '')
+                  .map((data) => ({
+                    value: data,
+                    label: data,
+                  }))}
               />
               <InputField
-                name="table3.dirujukKe"
+                name="table2.dirujukKe"
                 form={form}
                 label="Dirujuk Ke"
                 placeholder="Dirujuk ke"
                 className="col-span-2"
                 type="select"
-                data={[
-                  {
-                    value: 'Puskesmas',
-                    label: 'Puskesmas',
-                  },
-                  {
-                    value: 'RB',
-                    label: 'RB',
-                  },
-                  {
-                    value: 'RSIA/RSB',
-                    label: 'RSIA/RSB',
-                  },
-                  {
-                    value: 'RS',
-                    label: 'RS',
-                  },
-                  {
-                    value: 'Lain-lain',
-                    label: 'Lain-lain',
-                  },
-                ]}
+                data={ENUM_VALUES.table2.dirujukKe
+                  .filter((data) => data !== '')
+                  .map((data) => ({
+                    value: data,
+                    label: data,
+                  }))}
               />
               <InputField
-                name="table3.keadaan.tiba"
+                name="table2.keadaan.tiba"
                 form={form}
                 label="Keadaan Tiba"
                 placeholder="Keadaan tiba"
                 className="col-span-2"
                 type="select"
-                data={[
-                  {
-                    value: 'Hidup',
-                    label: 'Hidup',
-                  },
-                  {
-                    value: 'Mati',
-                    label: 'Mati',
-                  },
-                ]}
+                data={ENUM_VALUES.table2.keadaan.tiba
+                  .filter((data) => data !== '')
+                  .map((data) => ({
+                    value: data,
+                    label: data,
+                  }))}
               />
               <InputField
-                name="table3.keadaan.pulang"
+                name="table2.keadaan.pulang"
                 form={form}
                 label="Keadaan Pulang"
                 placeholder="Keadaan pulang"
                 className="col-span-2"
                 type="select"
-                data={[
-                  {
-                    value: 'Hidup',
-                    label: 'Hidup',
-                  },
-                  {
-                    value: 'Mati',
-                    label: 'Mati',
-                  },
-                ]}
+                data={ENUM_VALUES.table2.keadaan.pulang
+                  .filter((data) => data !== '')
+                  .map((data) => ({
+                    value: data,
+                    label: data,
+                  }))}
               />
               <InputField
-                name="table3.keterangan"
+                name="table2.keterangan"
                 form={form}
                 label="Keterangan"
                 placeholder="Keterangan"
@@ -686,29 +551,37 @@ export function SoapKehamilanForm({ params }: { params: { id: string } }) {
                 form={form}
                 label="S (Keluhan)"
                 placeholder="Keluhan"
+                type="textarea"
+                className="col-span-6"
               />
               <InputField
                 name="soapAnc.o"
                 form={form}
                 label="O (Pemeriksaan)"
                 placeholder="Pemeriksaan"
+                type="textarea"
+                className="col-span-6"
               />
               <InputField
                 name="soapAnc.a"
                 form={form}
                 label="A (Diagnosa/Masalah)"
                 placeholder="Diagnosa/Masalah"
+                type="textarea"
+                className="col-span-6"
               />
               <InputField
                 name="soapAnc.p"
                 form={form}
                 label="P (Penatalaksanaan)"
                 placeholder="Penatalaksanaan"
+                type="textarea"
+                className="col-span-6"
               />
             </Row>
           </FormWrapper>
         </section>
-        <ButtonSubmitForm isLoading={isLoading} />
+        {!value && <ButtonSubmitForm isLoading={isLoading} />}
       </form>
     </Form>
   );

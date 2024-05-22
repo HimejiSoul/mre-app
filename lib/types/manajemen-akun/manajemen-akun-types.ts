@@ -15,9 +15,9 @@ export const bidanFormSchema = z.object({
 });
 
 export const defaultValues: Partial<z.infer<typeof bidanFormSchema>> = {
-  email: 'safsfa@gmail.com',
-  full_name: 'sadad',
-  username: '234',
-  password: '2323@asdAsada',
-  phone_number: '+6223235235',
+  email: '',
+  full_name: '',
+  username: '',
+  password: '',
+  phone_number: '',
 };

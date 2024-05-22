@@ -234,6 +234,41 @@ export const kehamilanFormSchema = z.object({
       }),
     ),
   }),
+  mendeteksiFaktorResikoDanResikoTinggi: z.object({
+    faktorResiko: z.object({
+      umur: z.enum(ENUM_VALUES.boolean),
+      paritas: z.enum(ENUM_VALUES.boolean),
+      spasing: z.enum(ENUM_VALUES.boolean),
+      bb: z.enum(ENUM_VALUES.boolean),
+      tb: z.enum(ENUM_VALUES.boolean),
+      sakitKronis: z.enum(ENUM_VALUES.boolean),
+      abortus: z.enum(ENUM_VALUES.boolean),
+      sc: z.enum(ENUM_VALUES.boolean),
+      hpp: z.enum(ENUM_VALUES.boolean),
+      bayiBesar: z.enum(ENUM_VALUES.boolean),
+      hb: z.enum(ENUM_VALUES.boolean),
+    }),
+    resikoTinggi: z.object({
+      kpd: z.enum(ENUM_VALUES.boolean),
+      perdarahan: z.enum(ENUM_VALUES.boolean),
+      infeksi: z.enum(ENUM_VALUES.boolean),
+      preeklamsi: z.enum(ENUM_VALUES.boolean),
+      hb: z.enum(ENUM_VALUES.boolean),
+      kelainanLetak: z.enum(ENUM_VALUES.boolean),
+      anakBesarHidramnion: z.enum(ENUM_VALUES.boolean),
+      ancamanPrematur: z.enum(ENUM_VALUES.boolean),
+      infeksiDBD: z.enum(ENUM_VALUES.boolean),
+      distocia: z.enum(ENUM_VALUES.boolean),
+      terdapat2FaktroResiko: z.enum(ENUM_VALUES.boolean),
+    }),
+    resikoTinggiLainnya: z.object({
+      ditemukanTanggal: z
+        .string()
+        .or(z.date())
+        .transform((arg) => new Date(arg)),
+      jenisResiko: z.string().max(150).optional(),
+    }),
+  }),
   persalinan: z.object({
     kalaIAktif: z.object({
       tanggal: z
@@ -351,41 +386,16 @@ export const kehamilanFormSchema = z.object({
       pelaksanaan: z.string().max(150).optional(),
     }),
   }),
-  mendeteksiFaktorResikoDanResikoTinggi: z.object({
-    faktorResiko: z.object({
-      umur: z.enum(ENUM_VALUES.boolean),
-      paritas: z.enum(ENUM_VALUES.boolean),
-      spasing: z.enum(ENUM_VALUES.boolean),
-      bb: z.enum(ENUM_VALUES.boolean),
-      tb: z.enum(ENUM_VALUES.boolean),
-      sakitKronis: z.enum(ENUM_VALUES.boolean),
-      abortus: z.enum(ENUM_VALUES.boolean),
-      sc: z.enum(ENUM_VALUES.boolean),
-      hpp: z.enum(ENUM_VALUES.boolean),
-      bayiBesar: z.enum(ENUM_VALUES.boolean),
-      hb: z.enum(ENUM_VALUES.boolean),
-    }),
-    resikoTinggi: z.object({
-      kpd: z.enum(ENUM_VALUES.boolean),
-      perdarahan: z.enum(ENUM_VALUES.boolean),
-      infeksi: z.enum(ENUM_VALUES.boolean),
-      preeklamsi: z.enum(ENUM_VALUES.boolean),
-      hb: z.enum(ENUM_VALUES.boolean),
-      kelainanLetak: z.enum(ENUM_VALUES.boolean),
-      anakBesarHidramnion: z.enum(ENUM_VALUES.boolean),
-      ancamanPrematur: z.enum(ENUM_VALUES.boolean),
-      infeksiDBD: z.enum(ENUM_VALUES.boolean),
-      distocia: z.enum(ENUM_VALUES.boolean),
-      terdapat2FaktroResiko: z.enum(ENUM_VALUES.boolean),
-    }),
-    resikoTinggiLainnya: z.object({
-      ditemukanTanggal: z
+
+  skriningTT: z.array(
+    z.object({
+      tanggal: z
         .string()
         .or(z.date())
         .transform((arg) => new Date(arg)),
-      jenisResiko: z.string().max(150).optional(),
+      keterangan: z.string().max(150).optional(),
     }),
-  }),
+  ),
 });
 
 // This can come from your database or API.
@@ -460,6 +470,38 @@ export const defaultValues: Partial<z.infer<typeof kehamilanFormSchema>> = {
         keterangan: '',
       },
     ],
+  },
+  mendeteksiFaktorResikoDanResikoTinggi: {
+    faktorResiko: {
+      umur: '',
+      paritas: '',
+      spasing: '',
+      bb: '',
+      tb: '',
+      sakitKronis: '',
+      abortus: '',
+      sc: '',
+      hpp: '',
+      bayiBesar: '',
+      hb: '',
+    },
+    resikoTinggi: {
+      kpd: '',
+      perdarahan: '',
+      infeksi: '',
+      preeklamsi: '',
+      hb: '',
+      kelainanLetak: '',
+      anakBesarHidramnion: '',
+      ancamanPrematur: '',
+      infeksiDBD: '',
+      distocia: '',
+      terdapat2FaktroResiko: '',
+    },
+    resikoTinggiLainnya: {
+      ditemukanTanggal: new Date(),
+      jenisResiko: '',
+    },
   },
   persalinan: {
     kalaIAktif: {
@@ -561,36 +603,10 @@ export const defaultValues: Partial<z.infer<typeof kehamilanFormSchema>> = {
       pelaksanaan: '',
     },
   },
-  mendeteksiFaktorResikoDanResikoTinggi: {
-    faktorResiko: {
-      umur: '',
-      paritas: '',
-      spasing: '',
-      bb: '',
-      tb: '',
-      sakitKronis: '',
-      abortus: '',
-      sc: '',
-      hpp: '',
-      bayiBesar: '',
-      hb: '',
+  skriningTT: [
+    {
+      tanggal: new Date(),
+      keterangan: '',
     },
-    resikoTinggi: {
-      kpd: '',
-      perdarahan: '',
-      infeksi: '',
-      preeklamsi: '',
-      hb: '',
-      kelainanLetak: '',
-      anakBesarHidramnion: '',
-      ancamanPrematur: '',
-      infeksiDBD: '',
-      distocia: '',
-      terdapat2FaktroResiko: '',
-    },
-    resikoTinggiLainnya: {
-      ditemukanTanggal: new Date(),
-      jenisResiko: '',
-    },
-  },
+  ],
 };
