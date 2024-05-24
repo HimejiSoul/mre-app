@@ -85,9 +85,9 @@ export async function fetchTableBidan() {
     const response: AxiosResponse<any> = await axios.get(
       `${process.env.API_ENDPOINT_AZURE}/getallbidan`,
     );
-    const dataPatient = response.data.data;
-    // console.log(dataPatient);
-    return dataPatient;
+    const dataBidan = response.data.data;
+    console.log(dataBidan);
+    return dataBidan;
   } catch (error) {
     console.error('Database Error:', error);
     // throw new Error('Failed to fetch card data.');
@@ -175,7 +175,7 @@ export async function fetchLatestInvoices() {
 }
 
 export async function fetchPatientData(id_layanan: string) {
-  const apiEndpoint = `${process.env.API_ENDPOINT}/count_endpoint/count`;
+  const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/count`;
   try {
     const response: AxiosResponse<any> = await axios.get(
       `${apiEndpoint}?id_layanan=${id_layanan}`,

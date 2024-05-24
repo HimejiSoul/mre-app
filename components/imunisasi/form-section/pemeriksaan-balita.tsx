@@ -23,12 +23,12 @@ import { TableButtonGroup } from '@/components/Buttons';
 
 export default function PemeriksaanBalita({ form }: any) {
   const { fields, append, remove } = useFieldArray({
-    name: 'pemeriksaanNeonatusLanjutan',
+    name: 'pemeriksaanBalita',
     control: form.control,
   });
 
   return (
-    <section className="_PEMERIKSAANNEONATUSLANJUTAN space-y-4">
+    <section className="_PEMERIKSAANBALITA space-y-4">
       <TitleSection
         // title="Pemeriksaan Balita ( > 1 - 5 Tahun )"
         title="Pemeriksaan Balita ( &gt; 1 - 5 Tahun )"
@@ -243,7 +243,7 @@ export default function PemeriksaanBalita({ form }: any) {
           remove={remove}
           append={append}
           fields={fields}
-          data={defaultValues.pemeriksaanNeonatusLanjutan}
+          data={defaultValues.pemeriksaanBalita}
         />
       </FormWrapper>
     </section>

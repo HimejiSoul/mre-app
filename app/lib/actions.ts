@@ -55,7 +55,7 @@ export async function editKBPatient(formData: FormData, id_pasien: any) {
 }
 export async function createKBPatient(formData: FormData) {
   const KBData = { data: formData };
-  const apiEndpoint = `${process.env.API_ENDPOINT}/regist_kb/regist_kb`;
+  const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/inputkb`;
   try {
     const response = await axios.post(apiEndpoint, KBData);
     // console.log(response.data);
@@ -70,7 +70,7 @@ export async function createKBPatient(formData: FormData) {
 }
 export async function createKBSOAPPatient(formData: FormData, id: any) {
   const KBSOAPData = { data: { id_pasien: id, ...formData } };
-  const apiEndpoint = `${process.env.API_ENDPOINT}/soap_kb/soap_kb`;
+  const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/soapkb`;
   try {
     const response = await axios.post(apiEndpoint, KBSOAPData);
     // console.log(response.data);
@@ -164,6 +164,7 @@ export async function createSoapKehamilanPatient(
     return console.error(response.error);
   }
 
+
   const data = { data: { id_pasien: id_pasien, ...response.data } };
   // const apiEndpoint = `${process.env.API_ENDPOINT}/soap_kehamilan/soap_kehamilan`;
   // try {
@@ -177,11 +178,12 @@ export async function createSoapKehamilanPatient(
 export async function createBidan(formData: FormData) {
   const data = { ...formData, role: 'bidan' };
   const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/registbidan`;
-  console.log('ini data', data);
+  // console.log('ini data', data);
   try {
     const response = await axios.post(apiEndpoint, data);
     console.log(response.data.message);
     // Return the response data first
+    revalidatePath('/dashboard/manajemen-akun');
     return response.data.message;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -232,6 +234,18 @@ export async function createSoapImunisasiPatient(formData: FormData, id: any) {
     console.error('Error:', error);
   }
   redirect('/dashboard/imunisasi');
+}
+
+export async function deleteBidan(id: any) {
+  const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/deletebidan?id_bidan=${id}`;
+  try {
+    const response = await axios.get(apiEndpoint);
+    console.log(response.data.message);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+  // revalidatePath('/dashboard/manajemen-akun');
+  // redirect('/dashboard/manajemen-akun');
 }
 
 export async function createInvoice(prevState: State, formData: FormData) {

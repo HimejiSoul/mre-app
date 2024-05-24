@@ -53,7 +53,7 @@ export default async function Page({
         </span>
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-        <Search placeholder="Search invoices..." />
+        <Search placeholder="Search Pasien KB..." />
         <ButtonLink
           href="/dashboard/keluarga-berencana/create"
           name="Tambah pasien"

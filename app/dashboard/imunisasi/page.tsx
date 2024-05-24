@@ -37,6 +37,7 @@ export default async function Page({
     JSON.stringify(slicedIdPatient),
   );
   const totalPatient = idPatient.length;
+  console.log(totalPatient);
 
   return (
     <MainContainer>
