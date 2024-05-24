@@ -54,7 +54,7 @@ export async function editKBPatient(formData: FormData, id_pasien: any) {
 }
 export async function createKBPatient(formData: FormData) {
   const KBData = { data: formData };
-  const apiEndpoint = `${process.env.API_ENDPOINT}/regist_kb/regist_kb`;
+  const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/inputkb`;
   try {
     const response = await axios.post(apiEndpoint, KBData);
     // console.log(response.data);
@@ -69,7 +69,7 @@ export async function createKBPatient(formData: FormData) {
 }
 export async function createKBSOAPPatient(formData: FormData, id: any) {
   const KBSOAPData = { data: { id_pasien: id, ...formData } };
-  const apiEndpoint = `${process.env.API_ENDPOINT}/soap_kb/soap_kb`;
+  const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/soapkb`;
   try {
     const response = await axios.post(apiEndpoint, KBSOAPData);
     // console.log(response.data);

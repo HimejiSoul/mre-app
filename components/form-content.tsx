@@ -200,7 +200,9 @@ export function InputField<TFieldValues extends FieldValues = FieldValues>({
         name={name}
         render={({ field }) => {
           // Convert date data from object to just "yyyy-MM-dd"
-          field.value = field.value.toISOString().split('T')[0];
+          if (typeof field.value === 'object') {
+            field.value = field.value.toISOString().split('T')[0];
+          }
           return (
             <FormItem className={cn('col-span-3', props.className)}>
               <FormLabel>{props.label}</FormLabel>
@@ -223,7 +225,9 @@ export function InputField<TFieldValues extends FieldValues = FieldValues>({
         name={name}
         render={({ field }) => {
           // Convert date data from object to just ""yyyy-MM-ddThh:mm""
-          field.value = field.value.toISOString().slice(0, 16);
+          if (typeof field.value === 'object') {
+            field.value = field.value.toISOString().slice(0, 16);
+          }
           return (
             <FormItem className={cn('col-span-3', props.className)}>
               <FormLabel>{props.label}</FormLabel>
