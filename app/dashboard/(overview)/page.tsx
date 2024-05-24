@@ -1,4 +1,4 @@
-import RevenueChart from '@/app/ui/dashboard/revenue-chart';
+import PatientChart from '@/app/ui/dashboard/patient-chart';
 import { urbanist } from '@/app/ui/fonts';
 import { Suspense } from 'react';
 import { RevenueChartSkeleton, CardsSkeleton } from '@/app/ui/skeletons';
@@ -19,7 +19,7 @@ export default function Page() {
       </div>
       <div className="mt-6">
         <Suspense fallback={<RevenueChartSkeleton />}>
-          <RevenueChart />
+          <PatientChart />
         </Suspense>
         {/* <Suspense fallback={<LatestInvoicesSkeleton />}>
           <LatestInvoices />

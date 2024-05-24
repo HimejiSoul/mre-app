@@ -134,22 +134,20 @@ export async function fetchImunisasiPatientById(id_pasien: any) {
   }
 }
 
-export async function fetchRevenue() {
+export async function fecthChart() {
   // Add noStore() here to prevent the response from being cached.
   // This is equivalent to in fetch(..., {cache: 'no-store'}).
   noStore();
   try {
-    // Artificially delay a response for demo purposes.
-    // Don't do this in production :)
-
-    const data = await sql<Revenue>`SELECT * FROM revenue`;
-
-    // console.log('Data fetch completed after 3 seconds.');
-
-    return data.rows;
+    const response: AxiosResponse<any> = await axios.get(
+      `${process.env.API_ENDPOINT_AZURE}/chart`,
+    );
+    const chart = response.data.data;
+    console.log(chart);
+    return chart;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch revenue data.');
+    // throw new Error('Failed to fetch card data.');
   }
 }
 
