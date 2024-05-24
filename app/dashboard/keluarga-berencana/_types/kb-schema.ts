@@ -68,7 +68,7 @@ export const KBSchema = z.object({
       haidTerakhir: z.any({
         required_error: 'Harap Diisi',
       }),
-      hamil: z.enum(['true', 'false'], {
+      hamil: z.enum(['true', 'false', ''], {
         required_error: 'Harap Diisi',
       }),
       jumlahGpa: z.object({
@@ -98,7 +98,7 @@ export const KBSchema = z.object({
       }),
     }),
     pemeriksaan: z.object({
-      keadaanUmum: z.enum(['Baik', 'Sedang', 'Kurang'], {
+      keadaanUmum: z.enum(['Baik', 'Sedang', 'Kurang', ''], {
         required_error: 'Harap Diisi',
       }),
       beratBadan: z.string({
@@ -107,26 +107,26 @@ export const KBSchema = z.object({
       tekananDarah: z.string({
         required_error: 'Harap Diisi',
       }),
-      posisiRahim: z.enum(['Retrofleksi', 'Anterfleksi'], {
+      posisiRahim: z.enum(['Retrofleksi', 'Anterfleksi', ''], {
         required_error: 'Harap Diisi',
       }),
-      tandaRadang: z.enum(['true', 'false'], {
+      tandaRadang: z.enum(['true', 'false', ''], {
         required_error: 'Harap Diisi',
       }),
-      tumor: z.enum(['true', 'false'], {
+      tumor: z.enum(['true', 'false', ''], {
         required_error: 'Harap Diisi',
       }),
       tambahan: z.object({
-        tandaDiabet: z.enum(['true', 'false'], {
+        tandaDiabet: z.enum(['true', 'false', ''], {
           required_error: 'Harap Diisi',
         }),
-        kelainanPembekuanDarah: z.enum(['true', 'false'], {
+        kelainanPembekuanDarah: z.enum(['true', 'false', ''], {
           required_error: 'Harap Diisi',
         }),
-        radangOrchild: z.enum(['true', 'false'], {
+        radangOrchild: z.enum(['true', 'false', ''], {
           required_error: 'Harap Diisi',
         }),
-        tumor: z.enum(['true', 'false'], {
+        tumor: z.enum(['true', 'false', ''], {
           required_error: 'Harap Diisi',
         }),
       }),
@@ -217,89 +217,89 @@ export const KBSchema = z.object({
 
 export const defaultValues: Partial<z.infer<typeof KBSchema>> = {
   generalInformation: {
-    noFaskes: '12345',
-    noSeriKartu: '12345',
-    namaPeserta: 'Siapa',
-    usia: '20',
-    namaPasangan: 'Beiau itu',
-    jenisPasangan: 'suami',
-    pendidikanAkhir: 'Tidak Tamat SD',
-    alamat: 'Jl Raya',
-    pekerjaanPasangan: 'Pegawai Pemerintahan',
-    statusJkn: 'guru',
+    noFaskes: '',
+    noSeriKartu: '',
+    namaPeserta: '',
+    usia: '',
+    namaPasangan: '',
+    jenisPasangan: '',
+    pendidikanAkhir: '',
+    alamat: '',
+    pekerjaanPasangan: '',
+    statusJkn: '',
     tglDatang: new Date(),
     tglLahir: new Date('1999-1-1'),
   },
   otherInformation: {
     jmlAnakHidup: {
-      jmlAnakLaki: '20',
-      jmlAnakPr: '30',
+      jmlAnakLaki: '',
+      jmlAnakPr: '',
     },
     umurAnakKecil: {
-      umurKecilLaki: '50',
-      umurKecilPr: '80',
+      umurKecilLaki: '',
+      umurKecilPr: '',
     },
-    caraKBTerakhir: 'IUD',
-    statusPesertaKB: 'Baru Pertama Kali',
+    caraKBTerakhir: '',
+    statusPesertaKB: '',
   },
   skrining: {
     anamsesa: {
       jumlahGpa: {
-        abortus: '10',
-        gravida: '20',
-        partus: '30',
+        abortus: '',
+        gravida: '',
+        partus: '',
       },
       riwayatPenyakitSebelumnya: {
-        keputihanLama: 'true',
-        perdarahanVaginam: 'false',
-        sakitKuning: 'false',
-        tumor: 'true',
+        keputihanLama: '',
+        perdarahanVaginam: '',
+        sakitKuning: '',
+        tumor: '',
       },
       haidTerakhir: new Date(),
-      hamil: 'false',
+      hamil: '',
     },
     pemeriksaan: {
-      beratBadan: '100',
-      tekananDarah: '80',
-      alatKontrasepsi: ['IUD', 'MOW'],
-      keadaanUmum: 'Baik',
-      posisiRahim: 'Anterfleksi',
+      beratBadan: '',
+      tekananDarah: '',
+      alatKontrasepsi: [],
+      keadaanUmum: '',
+      posisiRahim: '',
       tambahan: {
-        kelainanPembekuanDarah: 'false',
-        radangOrchild: 'false',
-        tandaDiabet: 'false',
-        tumor: 'false',
+        kelainanPembekuanDarah: '',
+        radangOrchild: '',
+        tandaDiabet: '',
+        tumor: '',
       },
-      tandaRadang: 'false',
-      tumor: 'false',
+      tandaRadang: '',
+      tumor: '',
     },
   },
   hasil: {
-    metodeKontrasepsi: 'IUD',
+    metodeKontrasepsi: '',
     tglDicabut: new Date(),
     tglDilayani: new Date(),
     tglDipesanKembali: new Date(),
   },
   penapisanKB: {
-    diabetes: 'true',
-    hipertensi: 'false',
-    hiv: 'true',
-    ims: 'false',
-    kankerPayudara: 'true',
-    kankerServiks: 'false',
-    kardiovaskuler: 'false',
-    kistaOvarium: 'false',
-    merokok: 'false',
-    miomaUteri: 'false',
-    neoplasiaServikal: 'false',
-    nullipara: 'false',
-    obatLain: 'true',
-    obesitas: 'true',
-    perdarahanVaginam: 'true',
-    postpartum: 'true',
-    radangPanggul: 'true',
-    remaja: 'true',
-    sepsis: 'true',
-    TeV: 'true',
+    diabetes: '',
+    hipertensi: '',
+    hiv: '',
+    ims: '',
+    kankerPayudara: '',
+    kankerServiks: '',
+    kardiovaskuler: '',
+    kistaOvarium: '',
+    merokok: '',
+    miomaUteri: '',
+    neoplasiaServikal: '',
+    nullipara: '',
+    obatLain: '',
+    obesitas: '',
+    perdarahanVaginam: '',
+    postpartum: '',
+    radangPanggul: '',
+    remaja: '',
+    sepsis: '',
+    TeV: '',
   },
 };
