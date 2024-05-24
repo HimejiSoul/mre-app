@@ -2,7 +2,7 @@ import { generateYAxis } from '@/app/lib/utils';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { urbanist } from '@/app/ui/fonts';
 import { Revenue } from '@/app/lib/definitions';
-import { fetchRevenue } from '@/app/lib/data';
+import { fecthChart } from '@/app/lib/data';
 
 // This component is representational only.
 // For data visualization UI, check out:
@@ -10,8 +10,8 @@ import { fetchRevenue } from '@/app/lib/data';
 // https://www.chartjs.org/
 // https://airbnb.io/visx/
 
-export default async function RevenueChart() {
-  // const revenue = await fetchRevenue();
+export default async function PatientChart() {
+  const chart = await fecthChart();
   // console.table(revenue);
   const chartHeight = 350;
   // NOTE: comment in this code when you get to this point in the course
@@ -31,9 +31,9 @@ export default async function RevenueChart() {
     { month: 'Dec', revenue: 48 },
   ];
 
-  const { yAxisLabels, topLabel } = generateYAxis(tabel);
+  const { yAxisLabels, topLabel } = generateYAxis(chart);
 
-  if (!tabel || tabel.length === 0) {
+  if (!chart || chart.length === 0) {
     return <p className="mt-4 text-gray-400">No data available.</p>;
   }
 
@@ -57,7 +57,7 @@ export default async function RevenueChart() {
             ))}
           </div>
           <div className="grid w-full grid-cols-12 items-end gap-3">
-            {tabel.map((month) => (
+            {chart.map((month: any) => (
               <div
                 key={month.month}
                 className="flex flex-col items-center gap-2 "
