@@ -1,4 +1,4 @@
-import KBForm from '@/app/ui/keluarga-berencana/kb-form';
+import KBForm from '@/app/dashboard/keluarga-berencana/create/kb-form';
 import { SectionTitle } from '@/app/ui/section-title';
 
 export default async function Page() {

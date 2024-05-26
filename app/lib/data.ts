@@ -43,7 +43,7 @@ export async function fetchAllPatientTable(id_layanan: any) {
 export async function fetchPatientTable(id_pasien: any, id_layanan: any) {
   try {
     const response: AxiosResponse<any> = await axios.get(
-      `${process.env.API_ENDPOINT_AZURE}/tablekb?id_pasien=${id_pasien}`,
+      `${process.env.API_ENDPOINT_AZURE}/table?id_pasien=${id_pasien}&id_layanan=${id_layanan}`,
     );
     const dataPatient = response.data.data;
     // console.log(dataPatient);
@@ -70,7 +70,7 @@ export async function fetchPatientTableKehamilan(id_pasien: any) {
 export async function fetchPatientTableImunisasi(id_pasien: any) {
   try {
     const response: AxiosResponse<any> = await axios.get(
-      `${process.env.API_ENDPOINT_AZURE}/tableimunisasi?id_pasien=${id_pasien}`,
+      `${process.env.API_ENDPOINT_AZURE}/table?id_pasien=${id_pasien}&id_layanan=2`,
     );
     const dataPatient = response.data.data;
     // console.log(dataPatient);
@@ -94,10 +94,10 @@ export async function fetchTableBidan() {
   }
 }
 
-export async function fetchPatientById(id_pasien: any) {
+export async function fetchPatientById(id_pasien: any, id_layanan: any) {
   try {
     const response: AxiosResponse<any> = await axios.get(
-      `${process.env.API_ENDPOINT}/edit_kb/edit_kb?id_pasien=${id_pasien}`,
+      `${process.env.API_ENDPOINT_AZURE}/edit?id_pasien=${id_pasien}&id_layanan=${id_layanan}`,
     );
     const dataPatient = response.data.data;
     // console.log(dataPatient);

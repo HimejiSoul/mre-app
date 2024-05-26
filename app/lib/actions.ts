@@ -38,14 +38,30 @@ export type State = {
   message?: string | null;
 };
 
-export async function editKBPatient(formData: FormData, id_pasien: any) {
+export async function editKBPatient(
+  formData: FormData,
+  id_pasien: any,
+  id_layanan: any,
+) {
   console.log(id_pasien);
-  const KBData = { data: formData };
-  const apiEndpoint = `${process.env.API_ENDPOINT}/edit_kb/edit_kb?id_pasien=${id_pasien}`;
+  const KBData = {
+    id_pasien: id_pasien,
+    id_layanan: id_layanan,
+    data: formData,
+  };
+  const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/edit`;
   try {
     const response = await axios.post(apiEndpoint, KBData);
     console.log(response.data);
-    redirect(`/dashboard/keluarga-berencana`);
+    if (id_layanan == 0) {
+      redirect(`/dashboard/keluarga-berencana`);
+    } else if (id_layanan == 1) {
+      redirect(`/dashboard/periksa-kehamilan`);
+    } else if (id_layanan == 2) {
+      redirect(`/dashboard/imunisasi`);
+    } else {
+      redirect(`/dashboard`);
+    }
   } catch (error) {
     if (isRedirectError(error)) {
       throw error;
@@ -163,7 +179,6 @@ export async function createSoapKehamilanPatient(
   if (!response.success) {
     return console.error(response.error);
   }
-
 
   const data = { data: { id_pasien: id_pasien, ...response.data } };
   // const apiEndpoint = `${process.env.API_ENDPOINT}/soap_kehamilan/soap_kehamilan`;

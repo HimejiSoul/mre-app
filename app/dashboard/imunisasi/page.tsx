@@ -1,7 +1,8 @@
-import Pagination from '@/app/ui/keluarga-berencana/pagination';
+import Pagination from '@/components/keluarga-berencana/pagination';
 import Search from '@/app/ui/search';
 import {
   fetchAllPatientFind,
+  fetchPatientTable,
   fetchPatientTableImunisasi,
 } from '@/app/lib/data';
 import { Metadata } from 'next';
@@ -33,8 +34,9 @@ export default async function Page({
   console.log(idPatient);
   const slicedIdPatient = idPatient.slice(startiIndex, lastIndex);
   const totalPages = Math.ceil(idPatient.length / dataPerPage);
-  const patientData = await fetchPatientTableImunisasi(
+  const patientData = await fetchPatientTable(
     JSON.stringify(slicedIdPatient),
+    2,
   );
   const totalPatient = idPatient.length;
   console.log(totalPatient);
