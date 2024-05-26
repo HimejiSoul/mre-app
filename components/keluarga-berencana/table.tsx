@@ -298,8 +298,8 @@ const columns: ColumnDef<Patient>[] = [
 
 export default function KBTable({
   dataPatient, // query,
-  // currentPage,
-}: {
+} // currentPage,
+: {
   dataPatient: any;
   // query: string;
   // currentPage: number;
@@ -366,34 +366,45 @@ function TableComponent({
           ))}
         </thead>
         <tbody className="bg-white">
-          {table.getRowModel().rows.map((row) => {
-            return (
-              <Fragment key={row.id}>
-                <tr className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
-                  {/* first row is a normal row */}
-                  {row.getVisibleCells().map((cell) => {
-                    return (
-                      <td className="whitespace-nowrap px-3 py-3" key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      </td>
-                    );
-                  })}
-                </tr>
-                {row.getIsExpanded() && (
-                  <tr>
-                    {/* 2nd row is a custom 1 cell row */}
-                    <td colSpan={row.getVisibleCells().length}>
-                      {/* <p>{row.getVisibleCells().length}</p> */}
-                      {renderSubComponent({ row })}
-                    </td>
+          {table.getRowModel().rows.length === 0 ? (
+            <tr className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
+              <td colSpan={7} className="bg-[#F1F4F8] p-6 text-center">
+                <p>No patient data</p>
+              </td>
+            </tr>
+          ) : (
+            table.getRowModel().rows.map((row) => {
+              return (
+                <Fragment key={row.id}>
+                  <tr className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
+                    {/* first row is a normal row */}
+                    {row.getVisibleCells().map((cell) => {
+                      return (
+                        <td
+                          className="whitespace-nowrap px-3 py-3"
+                          key={cell.id}
+                        >
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </td>
+                      );
+                    })}
                   </tr>
-                )}
-              </Fragment>
-            );
-          })}
+                  {row.getIsExpanded() && (
+                    <tr>
+                      {/* 2nd row is a custom 1 cell row */}
+                      <td colSpan={row.getVisibleCells().length}>
+                        {/* <p>{row.getVisibleCells().length}</p> */}
+                        {renderSubComponent({ row })}
+                      </td>
+                    </tr>
+                  )}
+                </Fragment>
+              );
+            })
+          )}
         </tbody>
       </table>
     </div>

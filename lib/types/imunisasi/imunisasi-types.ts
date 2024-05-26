@@ -167,30 +167,22 @@ export const ENUM_VALUES = {
 
 export const imunisasiFormSchema = z.object({
   generalInformation: z.object({
-    nomor: z.string().max(50).optional(),
-    puskesmas: z.string().min(2, {
-      message: 'Nama Puskesmas harus lebih dari 2 karakter.',
-    }),
-    bidan: z.string().min(2, {
-      message: 'Nama Bidan harus lebih dari 2 karakter.',
-    }),
-    nomorBayi: z.string().max(50).optional(),
-    namaBayi: z.string().min(2, {
-      message: 'Nama Bayi harus lebih dari 2 karakter.',
-    }),
-    namaIbu: z.string().min(2, {
-      message: 'Nama Ibu harus lebih dari 2 karakter.',
-    }),
-    usiaIbu: z.coerce.number().optional(),
+    nomor: z.string(),
+    puskesmas: z.string(),
+    bidan: z.string(),
+    nomorBayi: z.string(),
+    namaBayi: z.string(),
+    namaIbu: z.string(),
+    usiaIbu: z.coerce.number({ invalid_type_error: 'Required' }),
     namaAyah: z.string().min(2, {
       message: 'Nama Ibu harus lebih dari 2 karakter.',
     }),
-    usiaAyah: z.coerce.number().optional(),
-    alamat: z.string().optional(),
-    desa: z.string().optional(),
-    kecamatan: z.string().optional(),
-    kabupaten: z.string().optional(),
-    provinsi: z.string().optional(),
+    usiaAyah: z.coerce.number({ invalid_type_error: 'Required' }),
+    alamat: z.string(),
+    desa: z.string(),
+    kecamatan: z.string(),
+    kabupaten: z.string(),
+    provinsi: z.string(),
   }),
   detailBayi: z.object({
     tglLahir: z
@@ -201,110 +193,108 @@ export const imunisasiFormSchema = z.object({
     jenisPersalinan: z.enum(['', 'Normal', 'SC']),
     jenisKelamin: z.enum(['', 'Laki-Laki', 'Perempuan']),
     golDarah: z.enum(['', 'A', 'B', 'AB', 'O']),
-    beratBayi: z.coerce.number().optional(),
-    panjangBayi: z.coerce.number().optional(),
-    lingkarKepala: z.coerce.number().optional(),
-    anakKe: z.coerce.number().optional(),
+    beratBayi: z.coerce.number({ invalid_type_error: 'Required' }),
+    panjangBayi: z.coerce.number({ invalid_type_error: 'Required' }),
+    lingkarKepala: z.coerce.number({ invalid_type_error: 'Required' }),
+    anakKe: z.coerce.number({ invalid_type_error: 'Required' }),
     keadaanLahir: z.enum(['', 'Hidup', 'Mati']),
     bukuKIA: z.enum(['', 'Memiliki', 'Tidak Memiliki']),
-    komplikasi: z
-      .array(z.string())
-      .refine((value) => value.some((alatKontrasepsi) => alatKontrasepsi), {
-        message: 'Silahkan pilih salah satu.',
-      }),
+    komplikasi: z.array(z.string()).optional(),
     resisutasi: z.enum(['', 'Ya', 'Tidak']),
     imd: z.enum(['', '< 1 Jam', '> 1 Jam']),
-    pencegahan: z
-      .array(z.string())
-      .refine((value) => value.some((alatKontrasepsi) => alatKontrasepsi), {
-        message: 'Silahkan pilih salah satu.',
-      }),
+    pencegahan: z.array(z.string()).optional(),
     keadaanPulang: z.enum(['', 'Hidup', 'Mati', 'Dirujuk']),
   }),
-  pemeriksaanNeonatus: z.array(
-    z.object({
-      tglDatang: z
-        .string()
-        .or(z.date())
-        .transform((arg) => new Date(arg)),
-      pemeriksaan: z.object({
-        umur: z.coerce.number().optional(),
-        kn: z.enum(ENUM_VALUES.pemeriksaanNeonatus.kn),
-        nakes: z.enum(ENUM_VALUES.pemeriksaanNeonatus.nakes),
-        asiEkslusif: z.coerce
-          .boolean()
-          .or(z.enum(ENUM_VALUES.boolean))
-          .optional(),
-        bb: z.coerce.number().optional(),
-        tb: z.coerce.number().optional(),
+  pemeriksaanNeonatus: z
+    .array(
+      z.object({
+        tglDatang: z
+          .string()
+          .or(z.date())
+          .transform((arg) => new Date(arg)),
+        pemeriksaan: z.object({
+          umur: z.coerce.number({ invalid_type_error: 'Required' }),
+          kn: z.enum(ENUM_VALUES.pemeriksaanNeonatus.kn),
+          nakes: z.enum(ENUM_VALUES.pemeriksaanNeonatus.nakes),
+          asiEkslusif: z.coerce
+            .boolean()
+            .or(z.enum(ENUM_VALUES.boolean))
+            .optional(),
+          bb: z.coerce.number({ invalid_type_error: 'Required' }),
+          tb: z.coerce.number({ invalid_type_error: 'Required' }),
+        }),
+        pencegahan: z.array(z.string()),
+        integrasiProgram: z.array(z.string()),
+        diagnosis: z.array(z.string()),
+        mbtm: z.enum(ENUM_VALUES.pemeriksaanNeonatus.mbtm),
+        keadaanPulang: z.enum(ENUM_VALUES.pemeriksaanNeonatus.keadaanPulang),
+        dirujukKe: z.enum(ENUM_VALUES.pemeriksaanNeonatus.dirujukKe),
+        keadaan: z.enum(ENUM_VALUES.pemeriksaanNeonatus.keadaan),
       }),
-      pencegahan: z.array(z.string()),
-      integrasiProgram: z.array(z.string()),
-      diagnosis: z.array(z.string()),
-      mbtm: z.enum(ENUM_VALUES.pemeriksaanNeonatus.mbtm),
-      keadaanPulang: z.enum(ENUM_VALUES.pemeriksaanNeonatus.keadaanPulang),
-      dirujukKe: z.enum(ENUM_VALUES.pemeriksaanNeonatus.dirujukKe),
-      keadaan: z.enum(ENUM_VALUES.pemeriksaanNeonatus.keadaan),
-    }),
-  ),
-  pemeriksaanNeonatusLanjutan: z.array(
-    z.object({
-      tglDatang: z
-        .string()
-        .or(z.date())
-        .transform((arg) => new Date(arg)),
-      pemeriksaan: z.object({
-        umurth: z.coerce.number().optional(),
-        umurbi: z.coerce.number().optional(),
-        umurhr: z.coerce.number().optional(),
-        asiEkslusif: z.coerce.boolean().optional(),
-        mpasi: z.coerce.boolean().optional(),
-        sdidtk: z.coerce.boolean().optional(),
+    )
+    .optional(),
+  pemeriksaanNeonatusLanjutan: z
+    .array(
+      z.object({
+        tglDatang: z
+          .string()
+          .or(z.date())
+          .transform((arg) => new Date(arg)),
+        pemeriksaan: z.object({
+          umurth: z.coerce.number({ invalid_type_error: 'Required' }),
+          umurbi: z.coerce.number({ invalid_type_error: 'Required' }),
+          umurhr: z.coerce.number({ invalid_type_error: 'Required' }),
+          asiEkslusif: z.coerce.boolean().optional(),
+          mpasi: z.coerce.boolean().optional(),
+          sdidtk: z.coerce.boolean().optional(),
+        }),
+        gizi: z.object({
+          bb: z.coerce.number({ invalid_type_error: 'Required' }),
+          tb: z.coerce.number({ invalid_type_error: 'Required' }),
+          status: z.string().optional(),
+        }),
+        pencegahan: z.object({
+          bcg: z.coerce.boolean().optional(),
+          dpthbib: z.enum(ENUM_VALUES.pemeriksaanNeonatusLanjutan.dpthbib),
+          polio: z.enum(ENUM_VALUES.pemeriksaanNeonatusLanjutan.polio),
+          campak: z.coerce.boolean(),
+          ipv: z.coerce.boolean().optional(),
+          vitA: z.coerce.boolean().optional(),
+        }),
+        integrasiProgram: z.array(z.string()),
+        ket: z.string().optional(),
       }),
-      gizi: z.object({
-        bb: z.coerce.number().optional(),
-        tb: z.coerce.number().optional(),
-        status: z.string().optional(),
+    )
+    .optional(),
+  pemeriksaanBalita: z
+    .array(
+      z.object({
+        tglDatang: z
+          .string()
+          .or(z.date())
+          .transform((arg) => new Date(arg)),
+        umur: z.object({
+          tahun: z.coerce.number({ invalid_type_error: 'Required' }),
+          bulan: z.coerce.number({ invalid_type_error: 'Required' }),
+          hari: z.coerce.number({ invalid_type_error: 'Required' }),
+        }),
+        pemeriksaan: z.object({
+          asiEkslusif: z.coerce.boolean().optional(),
+          mpasi: z.coerce.boolean().optional(),
+          sdidtk: z.coerce.boolean().optional(),
+        }),
+        gizi: z.object({
+          bb: z.coerce.number({ invalid_type_error: 'Required' }),
+          tb: z.coerce.number({ invalid_type_error: 'Required' }),
+          status: z.string().optional(),
+          vitA: z.coerce.boolean().optional(),
+        }),
+        integrasiProgram: z.array(z.string()),
+        imunisasi: z.array(z.string()),
+        ket: z.string().optional(),
       }),
-      pencegahan: z.object({
-        bcg: z.coerce.boolean().optional(),
-        dpthbib: z.enum(ENUM_VALUES.pemeriksaanNeonatusLanjutan.dpthbib),
-        polio: z.enum(ENUM_VALUES.pemeriksaanNeonatusLanjutan.polio),
-        campak: z.coerce.boolean(),
-        ipv: z.coerce.boolean().optional(),
-        vitA: z.coerce.boolean().optional(),
-      }),
-      integrasiProgram: z.array(z.string()),
-      ket: z.string().optional(),
-    }),
-  ),
-  pemeriksaanBalita: z.array(
-    z.object({
-      tglDatang: z
-        .string()
-        .or(z.date())
-        .transform((arg) => new Date(arg)),
-      umur: z.object({
-        tahun: z.coerce.number().optional(),
-        bulan: z.coerce.number().optional(),
-        hari: z.coerce.number().optional(),
-      }),
-      pemeriksaan: z.object({
-        asiEkslusif: z.coerce.boolean().optional(),
-        mpasi: z.coerce.boolean().optional(),
-        sdidtk: z.coerce.boolean().optional(),
-      }),
-      gizi: z.object({
-        bb: z.coerce.number().optional(),
-        tb: z.coerce.number().optional(),
-        status: z.string().optional(),
-        vitA: z.coerce.boolean().optional(),
-      }),
-      integrasiProgram: z.array(z.string()),
-      imunisasi: z.array(z.string()),
-      ket: z.string().optional(),
-    }),
-  ),
+    )
+    .optional(),
 });
 
 // This can come from your database or API.

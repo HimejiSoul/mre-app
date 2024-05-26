@@ -1,7 +1,7 @@
 // 'use client';
-import Pagination from '@/app/ui/keluarga-berencana/pagination';
+import Pagination from '@/components/keluarga-berencana/pagination';
 import Search from '@/app/ui/search';
-import KBTable from '@/app/ui/keluarga-berencana/table';
+import KBTable from '@/components/keluarga-berencana/table';
 import { urbanist } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
@@ -23,25 +23,27 @@ export default async function Page({
   searchParams?: {
     query?: string;
     page?: string;
-    allPatientKB?: any;
   };
 }) {
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
-  // console.log(query);
-  // console.log(currentPage);
-  const start_index = (currentPage - 1) * 5;
-  const last_index = currentPage * 5;
-  const allPatientKBArray = await fetchAllPatientFind(query, 0);
-  const datapasien = allPatientKBArray.slice(start_index, last_index);
-  const totalPages = Math.ceil(allPatientKBArray.length / 5);
-  const allPatientKB = await fetchPatientTable(JSON.stringify(datapasien), 0);
-  // console.log(allPatientKBArray);
-  // console.log(allPatientKB);
-  // console.log(allPatientKB);
-  // console.log(start_index);
-  // console.log(last_index);
-  // console.log(datapasien);
+  const dataPerPage = 5;
+
+  const startiIndex = (currentPage - 1) * dataPerPage;
+  const lastIndex = currentPage * dataPerPage;
+  const idPatient = await fetchAllPatientFind(query, 0); //output: [52, 53]
+
+  const totalPatient = idPatient.length;
+  const totalPages = Math.ceil(idPatient.length / dataPerPage);
+  const slicedIdPatient = idPatient.slice(startiIndex, lastIndex);
+  const patientData =
+    JSON.stringify(slicedIdPatient) === '[]'
+      ? []
+      : await fetchPatientTable(JSON.stringify(slicedIdPatient), 0);
+  console.log('id pasien', idPatient.length);
+  console.log(totalPatient);
+  console.log(slicedIdPatient);
+
   return (
     <div className="w-full rounded-2xl bg-[#D0E4FF] p-5">
       <div className="flex w-full flex-col justify-between">
@@ -49,7 +51,7 @@ export default async function Page({
           Layanan Keluarga Berencana
         </h1>
         <span className="font-sm font-medium text-[#6F90BA]">
-          Total {allPatientKBArray.length} Pasien
+          Total {totalPatient} Pasien
         </span>
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
@@ -63,7 +65,7 @@ export default async function Page({
         <KBTable
           // query={query}
           //  currentPage={currentPage}
-          dataPatient={allPatientKB}
+          dataPatient={patientData}
         />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">
