@@ -17,11 +17,9 @@ import DetailBayi from '@/components/imunisasi/form-section/detail-bayi';
 import PemeriksaanNeonatus from '@/components/imunisasi/form-section/pemeriksaan-neonatus';
 import PemeriksaanNeonatusLanjutan from '@/components/imunisasi/form-section/pemeriksaan-neonatus-lanjutan';
 import PemeriksaanBalita from '@/components/imunisasi/form-section/pemeriksaan-balita';
-import {
-  createImunisasiPatient,
-  editImunisasiPatient,
-} from '@/app/lib/actions';
+import { createImunisasiPatient, editKBPatient } from '@/app/lib/actions';
 import { usePathname } from 'next/navigation';
+import { toast } from '@/components/ui/use-toast';
 
 interface ImunisasiFormProps {
   id?: string | number;
@@ -45,8 +43,29 @@ export default function ImunisasiForm({ id, value }: ImunisasiFormProps) {
   async function onSubmit(data: any) {
     setIsLoading(true);
     // await console.log(data);
-    if (lastPathname == 'edit' && id) await editImunisasiPatient(data, id);
-    else await createImunisasiPatient(data);
+    if (lastPathname == 'edit' && id) {
+      try {
+        await editKBPatient(data, id, '2');
+        toast({
+          title: `Berhasil Edit Data Pasien`,
+        });
+      } catch {
+        toast({
+          title: `Gagal Edit Data Pasien`,
+        });
+      }
+    } else {
+      try {
+        await createImunisasiPatient(data);
+        toast({
+          title: `Berhasil Menginputkan Data Pasien`,
+        });
+      } catch {
+        toast({
+          title: `Gagal Menginputkan Data Pasien`,
+        });
+      }
+    }
   }
 
   return (

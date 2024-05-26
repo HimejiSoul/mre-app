@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { fromZodError } from 'zod-validation-error';
 import { imunisasiFormSchema } from '@/lib/types/imunisasi/imunisasi-types';
 import ImunisasiForm from '../../create/imunisasi-form';
-import { fetchImunisasiPatientById } from '@/app/lib/data';
+import { fetchPatientById } from '@/app/lib/data';
 
 export default async function Page({ params }: { params: { id: string } }) {
   // FIXME: Remove if Zaidan already fix Schema
@@ -11,7 +11,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   // const patientData = jsonData;
 
   const id_pasien = params.id;
-  const patientData = await fetchImunisasiPatientById(id_pasien);
+  const patientData = await fetchPatientById(id_pasien, 2);
 
   if (!patientData) {
     notFound();

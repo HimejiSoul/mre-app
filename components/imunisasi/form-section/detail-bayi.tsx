@@ -165,13 +165,17 @@ export default function DetailBayi({ form }: any) {
                       <Checkbox
                         checked={field.value?.includes(item.id)}
                         onCheckedChange={(checked) => {
-                          return checked
-                            ? field.onChange([...field.value, item.id])
-                            : field.onChange(
-                                field.value?.filter(
-                                  (value: any) => value !== item.id,
-                                ),
-                              );
+                          if (checked) {
+                            field.value
+                              ? field.onChange([...field.value, item.id])
+                              : field.onChange([item.id]);
+                          } else {
+                            field.onChange(
+                              field.value?.filter(
+                                (value: any) => value !== item.id,
+                              ),
+                            );
+                          }
                         }}
                       />
                     </FormControl>
@@ -228,13 +232,17 @@ export default function DetailBayi({ form }: any) {
                       <Checkbox
                         checked={field.value?.includes(item.id)}
                         onCheckedChange={(checked) => {
-                          return checked
-                            ? field.onChange([...field.value, item.id])
-                            : field.onChange(
-                                field.value?.filter(
-                                  (value: any) => value !== item.id,
-                                ),
-                              );
+                          if (checked) {
+                            field.value
+                              ? field.onChange([...field.value, item.id])
+                              : field.onChange([item.id]);
+                          } else {
+                            field.onChange(
+                              field.value?.filter(
+                                (value: any) => value !== item.id,
+                              ),
+                            );
+                          }
                         }}
                       />
                     </FormControl>

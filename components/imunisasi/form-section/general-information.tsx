@@ -1,29 +1,9 @@
 import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import {
   FormWrapper,
   InputField,
   Row,
   TitleSection,
 } from '@/components/form-content';
-import { CalendarIcon } from 'lucide-react';
-import { format } from 'date-fns';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { Calendar, CalendarLahir } from '@/components/ui/calendar';
 import { useState } from 'react';
 import { calculateAge } from '@/lib/calculate-age';
 
