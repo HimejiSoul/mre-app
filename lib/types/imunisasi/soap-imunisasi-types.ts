@@ -23,15 +23,15 @@ export const soapImunisasiFormSchema = z.object({
 });
 
 export const defaultValues: Partial<z.infer<typeof soapImunisasiFormSchema>> = {
-  tglDatang: new Date(),
-  s: '',
-  o: {
-    td: '',
-    pb: '',
-    lk: '',
-    lain2: '',
-  },
-  a: '',
-  p: '',
-  ket: '',
+  // tglDatang: new Date(),
+  // s: '',
+  // o: {
+  //   td: '',
+  //   pb: '',
+  //   lk: '',
+  //   lain2: '',
+  // },
+  // a: '',
+  // p: '',
+  // ket: '',
 };
