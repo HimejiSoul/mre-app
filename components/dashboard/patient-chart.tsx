@@ -1,7 +1,7 @@
 import { generateYAxis } from '@/lib/utils';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { urbanist } from '@/components/fonts';
-import { Revenue } from '@/app/lib/definitions';
+import { Revenue } from '@/lib/definitions';
 import { fecthChart } from '@/lib/data';
 
 // This component is representational only.
