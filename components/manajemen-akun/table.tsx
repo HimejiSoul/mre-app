@@ -73,7 +73,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { deleteBidan } from '@/app/lib/actions';
+import { deleteBidan } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
 import { fetchTableBidan } from '@/lib/data';
 

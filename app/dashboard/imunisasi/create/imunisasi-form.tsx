@@ -17,7 +17,7 @@ import DetailBayi from '@/components/imunisasi/form-section/detail-bayi';
 import PemeriksaanNeonatus from '@/components/imunisasi/form-section/pemeriksaan-neonatus';
 import PemeriksaanNeonatusLanjutan from '@/components/imunisasi/form-section/pemeriksaan-neonatus-lanjutan';
 import PemeriksaanBalita from '@/components/imunisasi/form-section/pemeriksaan-balita';
-import { createImunisasiPatient, editKBPatient } from '@/app/lib/actions';
+import { createImunisasiPatient, editKBPatient } from '@/lib/actions';
 import { usePathname } from 'next/navigation';
 import { toast } from '@/components/ui/use-toast';
 

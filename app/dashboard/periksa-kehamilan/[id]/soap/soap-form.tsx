@@ -17,7 +17,7 @@ import {
 } from '@/components/form-content';
 import { Separator } from '@/components/ui/separator';
 import { toast } from '@/components/ui/use-toast';
-import { createSoapKehamilanPatient } from '@/app/lib/actions';
+import { createSoapKehamilanPatient } from '@/lib/actions';
 import { useState } from 'react';
 import { ButtonSubmitForm } from '@/components/Buttons';
 

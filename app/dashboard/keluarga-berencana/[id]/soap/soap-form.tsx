@@ -17,7 +17,7 @@ import {
 import { toast } from '@/components/ui/use-toast';
 import { useState } from 'react';
 import { ButtonSubmitForm } from '@/components/Buttons';
-import { createKBSOAPPatient } from '@/app/lib/actions';
+import { createKBSOAPPatient } from '@/lib/actions';
 
 export function SoapKBForm({ params }: { params: { id: string } }) {
   const [isLoading, setIsLoading] = useState<boolean>(false);

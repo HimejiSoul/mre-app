@@ -19,7 +19,7 @@ import { Separator } from '@/components/ui/separator';
 import { toast } from '@/components/ui/use-toast';
 import { useState } from 'react';
 import { ButtonSubmitForm } from '@/components/Buttons';
-import { createSoapImunisasiPatient } from '@/app/lib/actions';
+import { createSoapImunisasiPatient } from '@/lib/actions';
 
 export function SoapImunisasiForm({ params }: { params: { id: string } }) {
   const [isLoading, setIsLoading] = useState<boolean>(false);

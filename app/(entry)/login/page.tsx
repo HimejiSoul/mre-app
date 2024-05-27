@@ -3,7 +3,7 @@
 import { AtSign, KeyRound, AlertCircle, Loader2Icon } from 'lucide-react';
 import { Button } from '@/components/button';
 import { useFormState, useFormStatus } from 'react-dom';
-import { authenticate } from '@/app/lib/actions';
+import { authenticate } from '@/lib/actions';
 import { urbanist } from '@/components/fonts';
 
 export default function Page() {

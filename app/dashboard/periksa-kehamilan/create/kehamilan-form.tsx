@@ -8,10 +8,7 @@ import {
   kehamilanFormSchema,
   defaultValues,
 } from '@/lib/types/periksa-kehamilan-types';
-import {
-  createKehamilanPatient,
-  editKehamilanPatient,
-} from '@/app/lib/actions';
+import { createKehamilanPatient, editKehamilanPatient } from '@/lib/actions';
 import { useState } from 'react';
 import { ButtonSubmitForm } from '@/components/Buttons';
 
