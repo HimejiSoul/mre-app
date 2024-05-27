@@ -1,4 +1,4 @@
-import { SectionTitle } from '@/app/ui/section-title';
+import { SectionTitle } from '@/components/section-title';
 import { SoapKBForm } from '@/app/dashboard/keluarga-berencana/[id]/soap/soap-form';
 
 export default async function Page({ params }: { params: { id: string } }) {

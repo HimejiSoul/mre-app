@@ -19,7 +19,6 @@ export const soapImunisasiFormSchema = z.object({
   }),
   a: z.string().optional(),
   p: z.string().optional(),
-  ket: z.string().optional(),
 });
 
 export const defaultValues: Partial<z.infer<typeof soapImunisasiFormSchema>> = {
@@ -33,5 +32,4 @@ export const defaultValues: Partial<z.infer<typeof soapImunisasiFormSchema>> = {
   },
   a: '',
   p: '',
-  ket: '',
 };

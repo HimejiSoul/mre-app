@@ -1,5 +1,5 @@
 import ImunisasiForm from '@/app/dashboard/imunisasi/create/imunisasi-form';
-import { SectionTitle } from '@/app/ui/section-title';
+import { SectionTitle } from '@/components/section-title';
 
 export default async function Page() {
   return (

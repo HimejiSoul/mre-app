@@ -1,9 +1,9 @@
-import { SectionTitle } from '@/app/ui/section-title';
+import { SectionTitle } from '@/components/section-title';
 import { notFound } from 'next/navigation';
 import { fromZodError } from 'zod-validation-error';
 import { imunisasiFormSchema } from '@/lib/types/imunisasi/imunisasi-types';
 import ImunisasiForm from '../../create/imunisasi-form';
-import { fetchPatientById } from '@/app/lib/data';
+import { fetchPatientById } from '@/lib/data';
 
 export default async function Page({ params }: { params: { id: string } }) {
   // FIXME: Remove if Zaidan already fix Schema

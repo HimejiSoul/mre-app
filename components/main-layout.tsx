@@ -1,4 +1,4 @@
-import { urbanist } from '@/app/ui/fonts';
+import { urbanist } from '@/components/fonts';
 
 export function Heading({
   title,

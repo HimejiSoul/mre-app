@@ -1,6 +1,6 @@
-import { urbanist } from '@/app/ui/fonts';
-import { fetchPatientData } from '@/app/lib/data';
-import * as Icon from '@/app/ui/icons';
+import { urbanist } from '@/components/fonts';
+import { fetchPatientData } from '@/lib/data';
+import * as Icon from '@/components/icons';
 import { Separator } from '@/components/ui/separator';
 
 const iconMap = {

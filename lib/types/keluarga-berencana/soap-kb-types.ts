@@ -14,7 +14,6 @@ export const soapKBSchema = z.object({
   }),
   a: z.string().optional(),
   p: z.string().optional(),
-  ket: z.string().optional(),
 });
 
 export const defaultValues: Partial<z.infer<typeof soapKBSchema>> = {
@@ -28,5 +27,4 @@ export const defaultValues: Partial<z.infer<typeof soapKBSchema>> = {
   },
   a: '',
   p: '',
-  ket: '',
 };

@@ -14,11 +14,10 @@ import {
   Row,
   TitleSection,
 } from '@/components/form-content';
-import { Separator } from '@/components/ui/separator';
 import { toast } from '@/components/ui/use-toast';
 import { useState } from 'react';
 import { ButtonSubmitForm } from '@/components/Buttons';
-import { createSoapImunisasiPatient } from '@/app/lib/actions';
+import { createKBSOAPPatient } from '@/lib/actions';
 
 export function SoapKBForm({ params }: { params: { id: string } }) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -33,7 +32,7 @@ export function SoapKBForm({ params }: { params: { id: string } }) {
     setIsLoading(true);
     try {
       // await console.log(data);
-      await createSoapImunisasiPatient(data, id);
+      await createKBSOAPPatient(data, id);
       toast({
         title: `Berhasil Menginputkan SOAP Pasien`,
       });
@@ -108,7 +107,7 @@ export function SoapKBForm({ params }: { params: { id: string } }) {
                 form={form}
               />
               <InputField
-                name="ket"
+                name="o.lain2"
                 placeholder="Lain-Lain"
                 label="Isi Lain-Lain"
                 form={form}

@@ -1,11 +1,8 @@
 import { Metadata } from 'next';
-import {
-  fetchAllPatientFind,
-  fetchPatientTableKehamilan,
-} from '@/app/lib/data';
+import { fetchAllPatientFind, fetchPatientTableKehamilan } from '@/lib/data';
 
 // component
-import Search from '@/app/ui/search';
+import Search from '@/components/search';
 import { ButtonLink } from '@/components/Buttons';
 import Pagination from '@/components/periksa-kehamilan/pagination';
 import KehamilanTable from '@/components/periksa-kehamilan/table';

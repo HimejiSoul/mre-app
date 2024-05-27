@@ -38,7 +38,7 @@ import {
   DialogFooter,
   DialogClose,
 } from '@/components/ui/dialog';
-import { urbanist } from '@/app/ui/fonts';
+import { urbanist } from '@/components/fonts';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -73,9 +73,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { deleteBidan } from '@/app/lib/actions';
+import { deleteBidan } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
-import { fetchTableBidan } from '@/app/lib/data';
+import { fetchTableBidan } from '@/lib/data';
 
 type Bidan = {
   _id: string;

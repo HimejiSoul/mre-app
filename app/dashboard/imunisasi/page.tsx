@@ -1,10 +1,10 @@
 import Pagination from '@/components/keluarga-berencana/pagination';
-import Search from '@/app/ui/search';
+import Search from '@/components/search';
 import {
   fetchAllPatientFind,
   fetchPatientTable,
   fetchPatientTableImunisasi,
-} from '@/app/lib/data';
+} from '@/lib/data';
 import { Metadata } from 'next';
 import { ButtonLink } from '@/components/Buttons';
 import { MainContainer } from '@/components/main-layout';

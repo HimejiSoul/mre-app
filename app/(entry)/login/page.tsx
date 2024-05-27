@@ -1,10 +1,10 @@
 'use client';
 
 import { AtSign, KeyRound, AlertCircle, Loader2Icon } from 'lucide-react';
-import { Button } from '@/app/ui/button';
+import { Button } from '@/components/button';
 import { useFormState, useFormStatus } from 'react-dom';
-import { authenticate } from '@/app/lib/actions';
-import { urbanist } from '@/app/ui/fonts';
+import { authenticate } from '@/lib/actions';
+import { urbanist } from '@/components/fonts';
 
 export default function Page() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);

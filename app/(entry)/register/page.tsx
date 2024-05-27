@@ -1,6 +1,6 @@
 import { AtSign, KeyRound, CircleUser, Phone } from 'lucide-react';
-import { Button } from '@/app/ui/button';
-import { urbanist } from '@/app/ui/fonts';
+import { Button } from '@/components/button';
+import { urbanist } from '@/components/fonts';
 import Link from 'next/link';
 
 export default function Register() {

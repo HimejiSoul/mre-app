@@ -1,6 +1,6 @@
-import SideNav from '@/app/ui/dashboard/sidenav';
-import SearchBar from '@/app/ui/dashboard/searchBar';
-import Rightbar from '@/app/ui/dashboard/rightBar';
+import SideNav from '@/components/dashboard/sidenav';
+import SearchBar from '@/components/dashboard/searchBar';
+import Rightbar from '@/components/dashboard/rightBar';
 import { Toaster } from '@/components/ui/toaster';
 
 export default function Layout({ children }: { children: React.ReactNode }) {

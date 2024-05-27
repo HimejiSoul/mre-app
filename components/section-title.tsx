@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { ChevronLeft } from 'lucide-react';
-import { urbanist } from '@/app/ui/fonts';
+import { urbanist } from '@/components/fonts';
 
 interface Props {
   children: string;

@@ -1,4 +1,4 @@
-import { urbanist } from '@/app/ui/fonts';
+import { urbanist } from '@/components/fonts';
 import Link from 'next/link';
 import Image from 'next/image';
 import Logo from '@/public/bidan-nina-logo.png';

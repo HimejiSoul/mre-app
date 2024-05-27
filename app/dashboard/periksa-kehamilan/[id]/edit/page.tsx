@@ -1,5 +1,5 @@
-import { SectionTitle } from '@/app/ui/section-title';
-import { fetchKehamilanPatientById, fetchPatientById } from '@/app/lib/data';
+import { SectionTitle } from '@/components/section-title';
+import { fetchKehamilanPatientById, fetchPatientById } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import KehamilanForm from '../../create/kehamilan-form';
 import jsonData from '@/app/dashboard/periksa-kehamilan/data.json';

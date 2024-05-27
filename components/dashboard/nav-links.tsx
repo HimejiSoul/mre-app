@@ -1,5 +1,5 @@
 'use client';
-import * as Icon from '../icons';
+import * as Icon from '@/components/icons';
 import Link from 'next/link';
 import { redirect, usePathname } from 'next/navigation';
 import clsx from 'clsx';

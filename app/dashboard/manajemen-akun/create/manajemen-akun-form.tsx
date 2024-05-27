@@ -17,7 +17,7 @@ import {
 import { toast } from '@/components/ui/use-toast';
 import { useState } from 'react';
 import { ButtonSubmitForm } from '@/components/Buttons';
-import { createBidan } from '@/app/lib/actions';
+import { createBidan } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
 
 export default function ManajemenAkunForm() {
