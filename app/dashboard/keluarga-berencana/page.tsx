@@ -1,15 +1,15 @@
 // 'use client';
 import Pagination from '@/components/keluarga-berencana/pagination';
-import Search from '@/app/ui/search';
+import Search from '@/components/search';
 import KBTable from '@/components/keluarga-berencana/table';
-import { urbanist } from '@/app/ui/fonts';
-import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
+import { urbanist } from '@/components/fonts';
+import { InvoicesTableSkeleton } from '@/components/skeletons';
 import { Suspense } from 'react';
 import {
   fetchAllPatientFind,
   fetchAllPatientTable,
   fetchPatientTable,
-} from '@/app/lib/data';
+} from '@/lib/data';
 import { Metadata } from 'next';
 import { ButtonLink } from '@/components/Buttons';
 

@@ -112,7 +112,7 @@ export function SoapImunisasiForm({ params }: { params: { id: string } }) {
                 form={form}
               />
               <InputField
-                name="ket"
+                name="o.lain2"
                 placeholder="Lain-Lain"
                 label="Isi Lain-Lain"
                 form={form}

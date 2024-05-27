@@ -1,6 +1,6 @@
 'use client';
 import { HTMLAttributes, HTMLInputTypeAttribute, ReactNode } from 'react';
-import { urbanist } from '@/app/ui/fonts';
+import { urbanist } from '@/components/fonts';
 import { cn } from '@/lib/utils';
 import { FieldValues, Path, UseFormReturn } from 'react-hook-form';
 import {

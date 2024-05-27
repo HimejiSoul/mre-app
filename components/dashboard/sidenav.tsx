@@ -1,8 +1,8 @@
-import NavLinks from '@/app/ui/dashboard/nav-links';
+import NavLinks from '@/components/dashboard/nav-links';
 import { signOut } from '@/auth';
 import { LogOut } from '../icons';
 import AuthProvider from '@/components/AuthProvider';
-import BidanNinaLogo from '@/app/ui/bidan-nina-logo';
+import BidanNinaLogo from '@/components/bidan-nina-logo';
 
 export default function SideNav() {
   const LogOutIcon = LogOut;

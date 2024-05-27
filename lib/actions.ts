@@ -7,7 +7,7 @@ import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 import axios from 'axios';
 import { isRedirectError } from 'next/dist/client/components/redirect';
-import { kehamilanFormSchema } from '../../lib/types/periksa-kehamilan-types';
+import { kehamilanFormSchema } from '@/lib/types/periksa-kehamilan-types';
 import { imunisasiFormSchema } from '@/lib/types/imunisasi/imunisasi-types';
 import { soapKehamilanFormSchema } from '@/lib/types/soap-kehamilan-types';
 

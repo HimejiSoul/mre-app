@@ -1,8 +1,8 @@
-import PatientChart from '@/app/ui/dashboard/patient-chart';
-import { urbanist } from '@/app/ui/fonts';
+import PatientChart from '@/components/dashboard/patient-chart';
+import { urbanist } from '@/components/fonts';
 import { Suspense } from 'react';
-import { RevenueChartSkeleton, CardsSkeleton } from '@/app/ui/skeletons';
-import CardWrapper from '@/app/ui/dashboard/cards';
+import { RevenueChartSkeleton, CardsSkeleton } from '@/components/skeletons';
+import CardWrapper from '@/components/dashboard/cards';
 
 export default function Page() {
   return (
@@ -10,7 +10,7 @@ export default function Page() {
       <h1
         className={`${urbanist.className} mb-4 text-xl font-bold md:text-2xl`}
       >
-        Total Pasien tiap Layanan
+        Total Layanan Bulan ini
       </h1>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
         <Suspense fallback={<CardsSkeleton />}>

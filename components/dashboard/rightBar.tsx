@@ -4,11 +4,31 @@ import { urbanist } from '../fonts';
 import { Profile } from '@/components/Profile';
 import AuthProvider from '@/components/AuthProvider';
 import { Calendar } from '@/components/ui/calendar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Separator } from '@/components/ui/separator';
+import { fetchReservasi } from '@/lib/data';
 
 export default function Rightbar() {
   const [date, setDate] = useState<Date | undefined>(new Date());
+
+  const formatDate = (date: Date | undefined) => {
+    if (!date) return '';
+    return date.toLocaleDateString('id-ID', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
+
+  const formatDateAPI = (date: Date | undefined) => {
+    if (!date) return '';
+
+    const isoDateString = date.toISOString();
+    const [isoDate] = isoDateString.split('T');
+
+    return isoDate;
+  };
 
   return (
     <div className="flex h-screen flex-col gap-6 bg-white p-4 pt-6">
@@ -28,9 +48,11 @@ export default function Rightbar() {
       </div>
       <Separator className="bg-[#C5D3E3]" />
       <div className="text-black">
-        <div className={`${urbanist.className} h-10 text-lg font-bold`}>
-          Reservasi Hari ini
-        </div>
+        {date && (
+          <div className={`${urbanist.className} text-lg font-bold`}>
+            Reservasi Hari {formatDate(date)}
+          </div>
+        )}
         <div className="flex flex-row justify-between">
           <div className="h-10">
             <div className="text-sm">Nazwa Barokah Utari</div>

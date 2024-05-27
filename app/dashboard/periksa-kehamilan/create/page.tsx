@@ -1,5 +1,5 @@
 import KehamilanForm from '@/app/dashboard/periksa-kehamilan/create/kehamilan-form';
-import { SectionTitle } from '@/app/ui/section-title';
+import { SectionTitle } from '@/components/section-title';
 
 export default async function Page() {
   return (

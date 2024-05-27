@@ -38,7 +38,7 @@ import {
   DialogFooter,
   DialogClose,
 } from '@/components/ui/dialog';
-import { urbanist } from '@/app/ui/fonts';
+import { urbanist } from '@/components/fonts';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -422,10 +422,9 @@ function renderSubComponent({ row }: { row: Row<Patient> }) {
             <TableHead>TD</TableHead>
             <TableHead>LK</TableHead>
             <TableHead>PB</TableHead>
-            <TableHead>TD</TableHead>
+            <TableHead>Lain-Lain</TableHead>
             <TableHead>A</TableHead>
             <TableHead>P</TableHead>
-            <TableHead>Ket.</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -435,12 +434,11 @@ function renderSubComponent({ row }: { row: Row<Patient> }) {
                 <TableCell>{d.tglDatang}</TableCell>
                 <TableCell>{d.s}</TableCell>
                 <TableCell>{d.o.td}</TableCell>
-                <TableCell>{d.o.pb}</TableCell>
                 <TableCell>{d.o.lk}</TableCell>
+                <TableCell>{d.o.pb}</TableCell>
                 <TableCell>{d.o.lain2}</TableCell>
                 <TableCell>{d.a}</TableCell>
                 <TableCell>{d.p}</TableCell>
-                <TableCell>{d.ket}</TableCell>
               </TableRow>
             );
           })}

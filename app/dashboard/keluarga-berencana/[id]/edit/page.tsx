@@ -1,5 +1,5 @@
-import { SectionTitle } from '@/app/ui/section-title';
-import { fetchPatientById } from '@/app/lib/data';
+import { SectionTitle } from '@/components/section-title';
+import { fetchPatientById } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import KBForm from '@/app/dashboard/keluarga-berencana/create/kb-form';
 import { KBSchema } from '@/lib/types/keluarga-berencana/kb-schema';

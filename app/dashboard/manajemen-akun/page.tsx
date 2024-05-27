@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
-import { fetchTableBidan } from '@/app/lib/data';
+import { fetchTableBidan } from '@/lib/data';
 
 // component
-import Search from '@/app/ui/search';
+import Search from '@/components/search';
 import { ButtonLink } from '@/components/Buttons';
 import Pagination from '@/components/manajemen-akun/pagination';
 import { Heading, MainContainer } from '@/components/main-layout';

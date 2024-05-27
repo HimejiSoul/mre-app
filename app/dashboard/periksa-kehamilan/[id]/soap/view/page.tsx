@@ -1,5 +1,5 @@
 import { SoapKehamilanForm } from '@/app/dashboard/periksa-kehamilan/[id]/soap/soap-form';
-import { SectionTitle } from '@/app/ui/section-title';
+import { SectionTitle } from '@/components/section-title';
 import { notFound } from 'next/navigation';
 import jsonData from '@/app/dashboard/periksa-kehamilan/data-soap.json';
 import { fromZodError } from 'zod-validation-error';

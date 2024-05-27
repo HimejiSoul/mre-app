@@ -38,7 +38,7 @@ import {
   DialogFooter,
   DialogClose,
 } from '@/components/ui/dialog';
-import { urbanist } from '@/app/ui/fonts';
+import { urbanist } from '@/components/fonts';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -419,13 +419,19 @@ function renderSubComponent({ row }: { row: Row<Patient> }) {
       <h1 className="text-lg font-bold">History</h1>
       <Table className="rounded-lg bg-white">
         <TableHeader>
+          <TableRow>
+            <TableHead colSpan={2}></TableHead>
+            <TableHead colSpan={4} className="text-center">
+              O
+            </TableHead>
+          </TableRow>
           <TableRow className="">
             <TableHead>Tanggal</TableHead>
             <TableHead>S</TableHead>
             <TableHead>TD</TableHead>
-            <TableHead>BB</TableHead>
-            <TableHead>HPHT</TableHead>
-            <TableHead>Lain2</TableHead>
+            <TableHead>LK</TableHead>
+            <TableHead>PB</TableHead>
+            <TableHead>Lain-Lain</TableHead>
             <TableHead>A</TableHead>
             <TableHead>P</TableHead>
           </TableRow>
@@ -433,13 +439,13 @@ function renderSubComponent({ row }: { row: Row<Patient> }) {
         <TableBody>
           {data.map((d: any, i: number) => {
             return (
-              <TableRow key={i} className="text-justify">
+              <TableRow key={i}>
                 <TableCell>{d.tglDatang}</TableCell>
                 <TableCell>{d.s}</TableCell>
-                <TableCell>{d.td}</TableCell>
-                <TableCell>{d.bb}</TableCell>
-                <TableCell>{d.hpht}</TableCell>
-                <TableCell>{d.lain2}</TableCell>
+                <TableCell>{d.o.td}</TableCell>
+                <TableCell>{d.o.lk}</TableCell>
+                <TableCell>{d.o.pb}</TableCell>
+                <TableCell>{d.o.lain2}</TableCell>
                 <TableCell>{d.a}</TableCell>
                 <TableCell>{d.p}</TableCell>
               </TableRow>

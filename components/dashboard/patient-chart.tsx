@@ -1,8 +1,8 @@
-import { generateYAxis } from '@/app/lib/utils';
+import { generateYAxis } from '@/lib/utils';
 import { CalendarIcon } from '@heroicons/react/24/outline';
-import { urbanist } from '@/app/ui/fonts';
+import { urbanist } from '@/components/fonts';
 import { Revenue } from '@/app/lib/definitions';
-import { fecthChart } from '@/app/lib/data';
+import { fecthChart } from '@/lib/data';
 
 // This component is representational only.
 // For data visualization UI, check out:
@@ -42,7 +42,7 @@ export default async function PatientChart() {
       <h2
         className={`${urbanist.className} mb-4 text-xl font-bold md:text-2xl`}
       >
-        Line Chart Graph Rekam Medis
+        Bar Chart Rekam Medis
       </h2>
       {/* NOTE: comment in this code when you get to this point in the course */}
 
