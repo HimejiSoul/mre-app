@@ -17,7 +17,7 @@ import DetailBayi from '@/components/imunisasi/form-section/detail-bayi';
 import PemeriksaanNeonatus from '@/components/imunisasi/form-section/pemeriksaan-neonatus';
 import PemeriksaanNeonatusLanjutan from '@/components/imunisasi/form-section/pemeriksaan-neonatus-lanjutan';
 import PemeriksaanBalita from '@/components/imunisasi/form-section/pemeriksaan-balita';
-import { createImunisasiPatient, editKBPatient } from '@/lib/actions';
+import { createPatient, editPatient } from '@/lib/actions';
 import { usePathname } from 'next/navigation';
 import { toast } from '@/components/ui/use-toast';
 
@@ -45,7 +45,7 @@ export default function ImunisasiForm({ id, value }: ImunisasiFormProps) {
     // await console.log(data);
     if (lastPathname == 'edit' && id) {
       try {
-        await editKBPatient(data, id, '2');
+        await editPatient(data, id, '2');
         toast({
           title: `Berhasil Edit Data Pasien`,
         });
@@ -56,7 +56,7 @@ export default function ImunisasiForm({ id, value }: ImunisasiFormProps) {
       }
     } else {
       try {
-        await createImunisasiPatient(data);
+        await createPatient(data, '2');
         toast({
           title: `Berhasil Menginputkan Data Pasien`,
         });
