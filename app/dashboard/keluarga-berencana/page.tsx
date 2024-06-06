@@ -41,8 +41,8 @@ export default async function Page({
       ? []
       : await fetchPatientTable(JSON.stringify(slicedIdPatient), 0);
   console.log('id pasien', idPatient.length);
-  console.log(totalPatient);
-  console.log(slicedIdPatient);
+  // console.log(totalPatient);
+  // console.log(patientData);
 
   return (
     <div className="w-full rounded-2xl bg-[#D0E4FF] p-5">

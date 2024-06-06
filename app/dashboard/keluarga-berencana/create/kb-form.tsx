@@ -1,6 +1,6 @@
 'use client';
 
-import { createKBPatient, editKBPatient } from '@/lib/actions';
+import { createPatient, editPatient } from '@/lib/actions';
 import {
   KBSchema,
   defaultValues,
@@ -43,7 +43,7 @@ export default function KBForm({ id, value }: KBFormProps) {
     // await console.log(data);
     if (lastPathname == 'edit' && id) {
       try {
-        await editKBPatient(data, id, '0');
+        await editPatient(data, id, '0');
         toast({
           title: `Berhasil Edit Data Pasien`,
         });
@@ -54,7 +54,7 @@ export default function KBForm({ id, value }: KBFormProps) {
       }
     } else {
       try {
-        await createKBPatient(data);
+        await createPatient(data, '0');
         toast({
           title: `Berhasil Menginputkan Data Pasien`,
         });
