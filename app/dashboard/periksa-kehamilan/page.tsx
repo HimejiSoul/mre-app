@@ -35,7 +35,7 @@ export default async function Page({
   const patientData =
     JSON.stringify(slicedIdPatient) === '[]'
       ? []
-      : await fetchPatientTable(JSON.stringify(slicedIdPatient), 2);
+      : await fetchPatientTable(JSON.stringify(slicedIdPatient), 1);
   const totalPatient = idPatient.length;
   console.log(patientData);
 

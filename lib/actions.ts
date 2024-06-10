@@ -99,7 +99,7 @@ export async function createKehamilanPatient(
   }
 
   const data = {
-    id_layanan: '1', // 1 for layanan Kehamilan
+    id_layanan: 1, // 1 for layanan Kehamilan
     data: response.data,
   };
   const endpoint = `${process.env.API_ENDPOINT_AZURE}/input?`;
@@ -166,22 +166,30 @@ export async function editImunisasiPatient(
 
 export async function createSoapKehamilanPatient(
   formData: z.infer<typeof soapKehamilanFormSchema>,
-  id_pasien?: string | number,
+  id_pasien: number,
 ) {
+  if (typeof id_pasien === 'string') {
+    id_pasien = Number(id_pasien);
+  }
+
   // Validation with Zod before data sent to database
   const response = soapKehamilanFormSchema.safeParse(formData);
   if (!response.success) {
     return console.error(response.error);
   }
 
-  const data = { data: { id_pasien: id_pasien, ...response.data } };
-  // const apiEndpoint = `${process.env.API_ENDPOINT}/soap_kehamilan/soap_kehamilan`;
-  // try {
-  //   await axios.post(apiEndpoint, data);
-  // } catch (error) {
-  //   console.error('Error:', error);
-  // }
-  // redirect('/dashboard/periksa-kehamilan');
+  const data = {
+    id_layanan: 1,
+    data: { id_pasien: id_pasien, ...response.data },
+  };
+  const endpoint = `${process.env.API_ENDPOINT}/soap/soap`;
+  console.log(data);
+  try {
+    await axios.post(endpoint, data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+  redirect(`/dashboard/periksa-kehamilan`);
 }
 
 export async function createBidan(formData: FormData) {

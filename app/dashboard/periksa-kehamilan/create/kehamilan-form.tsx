@@ -23,6 +23,10 @@ import FaktorResiko from '@/components/periksa-kehamilan/form-section/faktor-res
 import KunjunganNifas from '@/components/periksa-kehamilan/form-section/kunjungan-nifas';
 import SkriningTT from '@/components/periksa-kehamilan/form-section/skrining-tt';
 
+// Dummy Test
+import dummyJson from '@/app/dashboard/periksa-kehamilan/data.json';
+const dummyValues = dummyJson.data;
+
 interface KehamilanFormProps {
   id?: string | number;
   value?: z.infer<typeof kehamilanFormSchema>;
