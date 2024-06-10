@@ -5,7 +5,7 @@ import jsonData from '@/app/dashboard/periksa-kehamilan/data-soap.json';
 import { fromZodError } from 'zod-validation-error';
 import { soapKehamilanFormSchema } from '@/lib/types/soap-kehamilan-types';
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: { params: { id: number } }) {
   // XXX: Remove if Zaidan already fix Schema
   const id_pasien = params.id;
   const patientData = jsonData;
