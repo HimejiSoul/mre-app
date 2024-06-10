@@ -20,20 +20,20 @@ export type State = {
   message?: string | null;
 };
 
-export async function editKBPatient(
+export async function editPatient(
   formData: FormData,
   id_pasien: any,
   id_layanan: any,
 ) {
   console.log(id_pasien);
-  const KBData = {
+  const data = {
     id_pasien: id_pasien,
     id_layanan: id_layanan,
     data: formData,
   };
   const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/edit`;
   try {
-    const response = await axios.post(apiEndpoint, KBData);
+    const response = await axios.post(apiEndpoint, data);
     console.log(response.data);
     if (id_layanan == 0) {
       redirect(`/dashboard/keluarga-berencana`);
@@ -51,14 +51,22 @@ export async function editKBPatient(
     console.error('Error:', error);
   }
 }
-export async function createKBPatient(formData: FormData) {
-  const KBData = { data: formData };
-  const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/inputkb`;
+export async function createPatient(formData: FormData, id_layanan: string) {
+  const data = { id_layanan: id_layanan, data: formData };
+  const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/input`;
   try {
-    const response = await axios.post(apiEndpoint, KBData);
-    // console.log(response.data);
-    const id = response.data.id_pasien;
-    redirect(`/dashboard/keluarga-berencana/${id}/soap`);
+    const response = await axios.post(apiEndpoint, data);
+    const id = response.data.id;
+    console.log(response.data);
+    if (id_layanan == '0') {
+      redirect(`/dashboard/keluarga-berencana/${id}/soap`);
+    } else if (id_layanan == '1') {
+      redirect(`/dashboard/periksa-kehamilan/${id}/soap`);
+    } else if (id_layanan == '2') {
+      redirect(`/dashboard/imunisasi/${id}/soap`);
+    } else {
+      redirect(`/dashboard`);
+    }
   } catch (error) {
     if (isRedirectError(error)) {
       throw error;
