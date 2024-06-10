@@ -201,6 +201,9 @@ export function InputField<TFieldValues extends FieldValues = FieldValues>({
         control={form.control}
         name={name}
         render={({ field }) => {
+          if (typeof field.value === 'string') {
+            (field as { value: Date }).value = new Date(field.value);
+          }
           // Convert date data from object to just "yyyy-MM-dd"
           if (typeof field.value === 'object') {
             // Convert date data from object to just "yyyy-MM-dd"

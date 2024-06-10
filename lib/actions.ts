@@ -90,21 +90,21 @@ export async function createKehamilanPatient(
     return console.error(response.error);
   }
 
-  const data = { data: response.data };
-  console.log(data.data.generalInformation.namaLengkap);
-
-  // FIXME: Uncomment if zaidan already fix the endpoint
-  // const apiEndpoint = `${process.env.API_ENDPOINT}/regist_kehamilan/regist_kehamilan`;
-  // try {
-  //   const response = await axios.post(apiEndpoint, data);
-  //   const id = response.data.id_pasien;
-  //   redirect(`/dashboard/periksa-kehamilan/${id}/create/soap`);
-  // } catch (error) {
-  //   if (isRedirectError(error)) {
-  //     throw error;
-  //   }
-  //   console.error('Error:', error);
-  // }
+  const data = {
+    id_layanan: '1', // 1 for layanan Kehamilan
+    data: response.data,
+  };
+  const endpoint = `${process.env.API_ENDPOINT_AZURE}/input?`;
+  try {
+    const response = await axios.post(endpoint, data);
+    const id = response.data.id_pasien;
+    redirect(`/dashboard/periksa-kehamilan/${id}/soap/create`);
+  } catch (error) {
+    if (isRedirectError(error)) {
+      throw error;
+    }
+    console.error('Error:', error);
+  }
 }
 
 export async function editKehamilanPatient(
@@ -117,23 +117,27 @@ export async function editKehamilanPatient(
     return console.error(response.error);
   }
 
-  const data = { data: response.data };
+  const data = {
+    id_layanan: '1', // 1 for layanan Kehamilan
+    id_pasien: id_pasien,
+    data: response.data,
+  };
   console.log(id_pasien);
   console.log(data.data.generalInformation.namaLengkap);
 
-  // FIXME: Uncomment if zaidan already fix the endpoint
-  // const apiEndpoint = `${process.env.API_ENDPOINT}/edit_kehamilan/edit_kehamilan?id_pasien=${id_pasien}`;
-  // try {
-  //   const response = await axios.post(apiEndpoint, KBData);
-  //   console.log(response.data);
-  //   redirect(`/dashboard/periksa-kehamilan`);
-  // } catch (error) {
-  //   if (isRedirectError(error)) {
-  //     throw error;
-  //   }
-  //   console.error('Error:', error);
-  // }
+  const endpoint = `${process.env.API_ENDPOINT_AZURE}/edit`;
+  try {
+    const response = await axios.post(endpoint, data);
+    console.log(response.data);
+    redirect(`/dashboard/periksa-kehamilan`);
+  } catch (error) {
+    if (isRedirectError(error)) {
+      throw error;
+    }
+    console.error('Error:', error);
+  }
 }
+
 export async function editImunisasiPatient(
   formData: z.infer<typeof imunisasiFormSchema>,
   id_pasien: string | number,

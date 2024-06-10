@@ -1,5 +1,6 @@
+// XXX: Still in development...
 import { Metadata } from 'next';
-import { fetchAllPatientFind, fetchPatientTableKehamilan } from '@/lib/data';
+import { fetchAllPatientFind, fetchPatientTable } from '@/lib/data';
 
 // component
 import Search from '@/components/search';
@@ -26,14 +27,17 @@ export default async function Page({
 
   const startiIndex = (currentPage - 1) * dataPerPage;
   const lastIndex = currentPage * dataPerPage;
-  const idPatient = await fetchAllPatientFind(query, 1); //output: [52, 53]
+  const idPatient = await fetchAllPatientFind(query, 1);
 
   const slicedIdPatient = idPatient.slice(startiIndex, lastIndex);
   const totalPages = Math.ceil(idPatient.length / dataPerPage);
-  const patientData = await fetchPatientTableKehamilan(
-    JSON.stringify(slicedIdPatient),
-  );
+  console.log(slicedIdPatient);
+  const patientData =
+    JSON.stringify(slicedIdPatient) === '[]'
+      ? []
+      : await fetchPatientTable(JSON.stringify(slicedIdPatient), 2);
   const totalPatient = idPatient.length;
+  console.log(patientData);
 
   return (
     <MainContainer>

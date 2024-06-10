@@ -145,13 +145,7 @@ export default function PemeriksaanPNC({ form }: any) {
                     name={`pemeriksaanPNC.${index}.integrasiProgram.fotoThorax`}
                     placeholder="Foto Thorax"
                     form={form}
-                    type="select"
-                    data={ENUM_VALUES.pemeriksaanPNC.integrasiProgram.fotoThorax
-                      .filter((data) => data !== '')
-                      .map((data) => ({
-                        value: data,
-                        label: data,
-                      }))}
+                    type="toggle-group"
                   />
                 </TableCell>
                 <TableCell>

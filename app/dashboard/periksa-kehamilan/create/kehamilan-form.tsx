@@ -37,7 +37,7 @@ export default function KehamilanForm({ id, value }: KehamilanFormProps) {
   });
 
   async function onSubmit(data: z.infer<typeof kehamilanFormSchema>) {
-    // setIsLoading(true);
+    setIsLoading(true);
 
     if (id) {
       await editKehamilanPatient(data, id);
