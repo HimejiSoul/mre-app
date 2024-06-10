@@ -423,10 +423,10 @@ function renderSubComponent({ row }: { row: Row<Patient> }) {
             return (
               <TableRow key={i}>
                 <TableCell>{d.tglDatang}</TableCell>
-                <TableCell>{d.s}</TableCell>
-                <TableCell>{d.o}</TableCell>
-                <TableCell>{d.a}</TableCell>
-                <TableCell>{d.p}</TableCell>
+                <TableCell>{d.soapAnc.s}</TableCell>
+                <TableCell>{d.soapAnc.o}</TableCell>
+                <TableCell>{d.soapAnc.a}</TableCell>
+                <TableCell>{d.soapAnc.p}</TableCell>
               </TableRow>
             );
           })}
@@ -438,7 +438,7 @@ function renderSubComponent({ row }: { row: Row<Patient> }) {
         className="w-full border-rme-blue-500 bg-transparent text-rme-blue-500 hover:bg-white hover:text-rme-blue-500"
       >
         <Link
-          href={`/dashboard/periksa-kehamilan/${row.original.id_pasien}/create/soap`}
+          href={`/dashboard/periksa-kehamilan/${row.original.id_pasien}/soap/create`}
         >
           Tambah Histori Kedatangan
         </Link>

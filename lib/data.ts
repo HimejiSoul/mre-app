@@ -156,7 +156,7 @@ export async function fecthChart() {
       `${process.env.API_ENDPOINT_AZURE}/chart`,
     );
     const chart = response.data.data;
-    console.log(chart);
+    // console.log(chart);
     return chart;
   } catch (error) {
     console.error('Database Error:', error);
