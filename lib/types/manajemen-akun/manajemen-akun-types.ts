@@ -10,7 +10,12 @@ export const bidanFormSchema = z.object({
     .email({ message: 'Email harus valid' }),
   full_name: z.string({ required_error: 'Silahkan Mengisi Nama Panjang' }),
   username: z.string({ required_error: 'Silahkan Mengisi Username' }),
-  password: z.string({ required_error: 'Silahkan Mengisi Password' }),
+  password: z
+    .string({ required_error: 'Silahkan Mengisi Password' })
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      'Password harus terdiri dari 1 huruf kapital, 1 huruf kecil, 1 angka, and 1 simbol.',
+    ),
   phone_number: z.string({ required_error: 'Silahkan Mengisi No. HP' }),
 });
 
