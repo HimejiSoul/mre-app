@@ -89,6 +89,7 @@ export async function createKBSOAPPatient(formData: FormData, id: any) {
   }
 }
 
+// TODO: Development Create Kehamilan
 export async function createKehamilanPatient(
   formData: z.infer<typeof kehamilanFormSchema>,
 ) {
@@ -105,7 +106,8 @@ export async function createKehamilanPatient(
   const endpoint = `${process.env.API_ENDPOINT_AZURE}/input?`;
   try {
     const response = await axios.post(endpoint, data);
-    const id = response.data.id_pasien;
+    const id = response.data.id;
+    console.log(response.data);
     redirect(`/dashboard/periksa-kehamilan/${id}/soap/create`);
   } catch (error) {
     if (isRedirectError(error)) {

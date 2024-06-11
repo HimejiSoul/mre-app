@@ -23,7 +23,13 @@ import { ButtonSubmitForm } from '@/components/Buttons';
 
 // Dummy Test
 import dummyJson from '@/app/dashboard/periksa-kehamilan/data-soap.json';
-const dummyValues = dummyJson.data;
+import { fromZodError } from 'zod-validation-error';
+import { notFound } from 'next/navigation';
+const response = soapKehamilanFormSchema.safeParse(dummyJson.data);
+if (!response.success) {
+  console.error(fromZodError(response.error));
+  notFound();
+}
 
 interface SoapKehamilanFormProps {
   id: number;
@@ -35,6 +41,7 @@ export function SoapKehamilanForm({ id, value }: SoapKehamilanFormProps) {
   const form = useForm<z.infer<typeof soapKehamilanFormSchema>>({
     resolver: zodResolver(soapKehamilanFormSchema),
     defaultValues: value ? value : defaultValues,
+    // defaultValues: value ? value : response.data,
   });
 
   async function onSubmit(data: z.infer<typeof soapKehamilanFormSchema>) {
