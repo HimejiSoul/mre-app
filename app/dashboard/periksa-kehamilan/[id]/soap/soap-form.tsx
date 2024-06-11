@@ -21,8 +21,18 @@ import { createSoapKehamilanPatient } from '@/lib/actions';
 import { useState } from 'react';
 import { ButtonSubmitForm } from '@/components/Buttons';
 
+// Dummy Test
+import dummyJson from '@/app/dashboard/periksa-kehamilan/data-soap.json';
+import { fromZodError } from 'zod-validation-error';
+import { notFound } from 'next/navigation';
+const response = soapKehamilanFormSchema.safeParse(dummyJson.data);
+if (!response.success) {
+  console.error(fromZodError(response.error));
+  notFound();
+}
+
 interface SoapKehamilanFormProps {
-  id?: string | number;
+  id: number;
   value?: z.infer<typeof soapKehamilanFormSchema>;
 }
 
@@ -31,10 +41,10 @@ export function SoapKehamilanForm({ id, value }: SoapKehamilanFormProps) {
   const form = useForm<z.infer<typeof soapKehamilanFormSchema>>({
     resolver: zodResolver(soapKehamilanFormSchema),
     defaultValues: value ? value : defaultValues,
+    // defaultValues: value ? value : response.data,
   });
 
   async function onSubmit(data: z.infer<typeof soapKehamilanFormSchema>) {
-    console.log(data.table1);
     setIsLoading(true);
 
     try {
@@ -345,6 +355,7 @@ export function SoapKehamilanForm({ id, value }: SoapKehamilanFormProps) {
                 form={form}
                 label="Periksa Darah"
                 placeholder="Nilai periksa darah"
+                type="checkbox"
               />
               <InputField
                 name="table1.integrasiProgram.pmtct.serologi"
@@ -379,6 +390,7 @@ export function SoapKehamilanForm({ id, value }: SoapKehamilanFormProps) {
                 form={form}
                 label="Periksa Darah"
                 placeholder="Nilai periksa darah"
+                type="checkbox"
               />
               <InputField
                 name="table1.integrasiProgram.malaria.malaria"
