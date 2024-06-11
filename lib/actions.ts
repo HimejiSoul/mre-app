@@ -23,7 +23,7 @@ export type State = {
 export async function editPatient(
   formData: FormData,
   id_pasien: any,
-  id_layanan: any,
+  id_layanan: number,
 ) {
   console.log(id_pasien);
   const data = {
@@ -51,18 +51,18 @@ export async function editPatient(
     console.error('Error:', error);
   }
 }
-export async function createPatient(formData: FormData, id_layanan: string) {
+export async function createPatient(formData: FormData, id_layanan: number) {
   const data = { id_layanan: id_layanan, data: formData };
   const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/input`;
   try {
     const response = await axios.post(apiEndpoint, data);
     const id = response.data.id;
     console.log(response.data);
-    if (id_layanan == '0') {
+    if (id_layanan == 0) {
       redirect(`/dashboard/keluarga-berencana/${id}/soap`);
-    } else if (id_layanan == '1') {
+    } else if (id_layanan == 1) {
       redirect(`/dashboard/periksa-kehamilan/${id}/soap`);
-    } else if (id_layanan == '2') {
+    } else if (id_layanan == 2) {
       redirect(`/dashboard/imunisasi/${id}/soap`);
     } else {
       redirect(`/dashboard`);

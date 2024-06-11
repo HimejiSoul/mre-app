@@ -134,6 +134,7 @@ export const KBSchema = z.object({
     alamat: z.string(),
     pekerjaanPasangan: z.enum(ENUM_VALUES.pekerjaan),
     statusJkn: z.enum(ENUM_VALUES.statusjkn),
+    noHP: z.coerce.number({ invalid_type_error: 'Required' }),
   }),
   otherInformation: z.object({
     jmlAnakHidup: z.object({
@@ -235,6 +236,7 @@ export const defaultValues: Partial<z.infer<typeof KBSchema>> = {
     statusJkn: '',
     tglDatang: new Date(),
     tglLahir: new Date('1999-1-1'),
+    noHP: 0,
   },
   otherInformation: {
     jmlAnakHidup: {

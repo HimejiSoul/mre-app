@@ -45,7 +45,7 @@ export default function ImunisasiForm({ id, value }: ImunisasiFormProps) {
     // await console.log(data);
     if (lastPathname == 'edit' && id) {
       try {
-        await editPatient(data, id, '2');
+        await editPatient(data, id, 2);
         toast({
           title: `Berhasil Edit Data Pasien`,
         });
@@ -56,7 +56,7 @@ export default function ImunisasiForm({ id, value }: ImunisasiFormProps) {
       }
     } else {
       try {
-        await createPatient(data, '2');
+        await createPatient(data, 2);
         toast({
           title: `Berhasil Menginputkan Data Pasien`,
         });

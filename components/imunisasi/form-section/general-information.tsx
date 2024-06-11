@@ -90,6 +90,14 @@ export default function GeneralInformation({ form }: any) {
             type="textarea"
             className="col-span-6"
           />
+          <InputField
+            name="generalInformation.noHP"
+            form={form}
+            placeholder="08xxx"
+            label="No. HP"
+            className="arrow-hide col-span-4"
+            type="number"
+          />
         </Row>
         <Row>
           <InputField
