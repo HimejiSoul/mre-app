@@ -31,13 +31,11 @@ export default async function Page({
 
   const slicedIdPatient = idPatient.slice(startiIndex, lastIndex);
   const totalPages = Math.ceil(idPatient.length / dataPerPage);
-  console.log(slicedIdPatient);
   const patientData =
     JSON.stringify(slicedIdPatient) === '[]'
       ? []
       : await fetchPatientTable(JSON.stringify(slicedIdPatient), 1);
   const totalPatient = idPatient.length;
-  console.log(patientData);
 
   return (
     <MainContainer>
