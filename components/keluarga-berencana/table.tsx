@@ -52,13 +52,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { ChevronLeft } from 'lucide-react';
 
@@ -93,7 +86,6 @@ type TableProps<TData> = {
 
 const FormSchema = z.object({
   tglKirim: z.any(),
-  waktuKirim: z.string(),
   isiPesan: z.string(),
 });
 
@@ -114,12 +106,14 @@ const DialogWA = ({ patientname }: any) => {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       tglKirim: '',
-      waktuKirim: '',
       isiPesan: '',
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {}
+  function onSubmit(data: z.infer<typeof FormSchema>) {
+    console.log(data);
+  }
+
   return (
     <div className="rounded-md bg-[#D0E4FF] px-4 py-6">
       <h1 className={`${urbanist.className} text-lg font-bold`}>
@@ -150,33 +144,6 @@ const DialogWA = ({ patientname }: any) => {
                   )}
                 />
               </div>
-              <div className="w-1/2">
-                <FormField
-                  control={form.control}
-                  name="waktuKirim"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Waktu Reservasi yang Tersedia</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="00:00" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="10:00">10:00</SelectItem>
-                          <SelectItem value="12:00">12:00</SelectItem>
-                          <SelectItem value="14:00">14:00</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
             </div>
             <div>
               <FormField
@@ -199,10 +166,10 @@ const DialogWA = ({ patientname }: any) => {
             </div>
           </div>
         </form>
+        <div className="flex w-full justify-end">
+          <SubmitButton />
+        </div>
       </Form>
-      <div className="flex w-full justify-end">
-        <SubmitButton />
-      </div>
     </div>
   );
 };
@@ -298,8 +265,8 @@ const columns: ColumnDef<Patient>[] = [
 
 export default function KBTable({
   dataPatient, // query,
-} // currentPage,
-: {
+  // currentPage,
+}: {
   dataPatient: any;
   // query: string;
   // currentPage: number;
