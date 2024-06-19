@@ -35,6 +35,12 @@ const links = [
     icon: Icon.ManajemenAkun,
     role: 'superadmin',
   },
+  {
+    name: 'Export',
+    href: '/dashboard/export',
+    icon: Icon.Export,
+    role: 'superadmin',
+  },
 ];
 
 export default function NavLinks() {

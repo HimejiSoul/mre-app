@@ -1,9 +1,10 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { Loader2Icon, PlusIcon } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { HTMLAttributes, useState } from 'react';
 
 // TODO: Fix ts data type
 export function TableButtonGroup({ remove, append, fields, data }: any) {
@@ -60,14 +61,19 @@ export function ButtonLink({ href, name, useIcon = true }: ButtonLinkProps) {
 }
 
 // idk why i need to use interface for this >:(
-interface ButtonSubmitFormProps {
+type ButtonSubmitFormProps = HTMLAttributes<HTMLDivElement> & {
+  label?: string;
   isLoading: boolean;
-}
+};
 
-export function ButtonSubmitForm({ isLoading }: ButtonSubmitFormProps) {
+export function ButtonSubmitForm({
+  isLoading,
+  label = 'Tambah Pasien',
+  className,
+}: ButtonSubmitFormProps) {
   return (
     <Button
-      className="w-fit bg-blue-600 hover:bg-blue-500"
+      className={cn('w-fit bg-blue-600 hover:bg-blue-500', className)}
       disabled={isLoading}
     >
       {isLoading ? (
@@ -75,7 +81,7 @@ export function ButtonSubmitForm({ isLoading }: ButtonSubmitFormProps) {
           <Loader2Icon size={20} className="mr-2 animate-spin" /> Loading...
         </>
       ) : (
-        <>Tambah Pasien</>
+        label
       )}
     </Button>
   );

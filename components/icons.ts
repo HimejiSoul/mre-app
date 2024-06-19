@@ -13,4 +13,5 @@ export { default as AnakFilled } from '@/components/assets/icons/child_care_fill
 export { default as Home } from '@/components/assets/icons/home.svg';
 export { default as LogOut } from '@/components/assets/icons/logout.svg';
 export { default as ManajemenAkun } from '@/components/assets/icons/face_filled.svg';
+export { default as Export } from '@/components/assets/icons/export-data.svg';
 export { default as Spinner } from '@/components/assets/icons/spinner.svg';
