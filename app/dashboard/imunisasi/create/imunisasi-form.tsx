@@ -18,7 +18,7 @@ import PemeriksaanNeonatus from '@/components/imunisasi/form-section/pemeriksaan
 import PemeriksaanNeonatusLanjutan from '@/components/imunisasi/form-section/pemeriksaan-neonatus-lanjutan';
 import PemeriksaanBalita from '@/components/imunisasi/form-section/pemeriksaan-balita';
 import { createPatient, editPatient } from '@/lib/actions';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { toast } from '@/components/ui/use-toast';
 
 interface ImunisasiFormProps {
@@ -28,6 +28,8 @@ interface ImunisasiFormProps {
 
 export default function ImunisasiForm({ id, value }: ImunisasiFormProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof imunisasiFormSchema>>({
     resolver: zodResolver(imunisasiFormSchema),
     defaultValues: value ? value : defaultValues,
@@ -36,36 +38,41 @@ export default function ImunisasiForm({ id, value }: ImunisasiFormProps) {
   const pathname = usePathname();
   const manyPathname = pathname.split('/');
   const lastPathname = manyPathname[manyPathname.length - 1];
-  console.log('Pathname', pathname);
-  console.log('Many Pathname', manyPathname);
-  console.log('Last pathname', lastPathname);
+  // console.log('Pathname', pathname);
+  // console.log('Many Pathname', manyPathname);
+  // console.log('Last pathname', lastPathname);
 
   async function onSubmit(data: any) {
     setIsLoading(true);
+    const id_layanan = 2;
     // await console.log(data);
     if (lastPathname == 'edit' && id) {
       try {
-        await editPatient(data, id, 2);
+        await editPatient(data, id, id_layanan);
+        router.push(`/dashboard/imunisasi`);
         toast({
           title: `Berhasil Edit Data Pasien`,
         });
-      } catch {
+      } catch (error) {
         toast({
-          title: `Gagal Edit Data Pasien`,
+          title: `${error}`,
         });
       }
+      setIsLoading(false);
     } else {
       try {
         await createPatient(data, 2);
+        router.push(`/dashboard/imunisasi/${id}/soap`);
         toast({
           title: `Berhasil Menginputkan Data Pasien`,
         });
-      } catch {
+      } catch (error) {
         toast({
-          title: `Gagal Menginputkan Data Pasien`,
+          title: `${error}`,
         });
       }
     }
+    setIsLoading(false);
   }
 
   return (

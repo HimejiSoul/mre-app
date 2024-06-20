@@ -9,7 +9,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Form } from '@/components/ui/form';
-import { toast } from '@/components/ui/use-toast';
 import { ButtonSubmitForm } from '@/components/Buttons';
 import { useState } from 'react';
 import GeneralInformation from '@/components/keluarga-berencana/form-section/general-information';
@@ -17,7 +16,8 @@ import OtherInformation from '@/components/keluarga-berencana/form-section/other
 import Skrining from '@/components/keluarga-berencana/form-section/skrining';
 import Hasil from '@/components/keluarga-berencana/form-section/hasil';
 import PenapisanKB from '@/components/keluarga-berencana/form-section/penapisan-KB';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { toast } from '@/components/ui/use-toast';
 
 interface KBFormProps {
   id?: string | number;
@@ -26,6 +26,8 @@ interface KBFormProps {
 
 export default function KBForm({ id, value }: KBFormProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof KBSchema>>({
     resolver: zodResolver(KBSchema),
     defaultValues: value ? value : defaultValues,
@@ -34,33 +36,36 @@ export default function KBForm({ id, value }: KBFormProps) {
   const pathname = usePathname();
   const manyPathname = pathname.split('/');
   const lastPathname = manyPathname[manyPathname.length - 1];
-  console.log('Pathname', pathname);
-  console.log('Many Pathname', manyPathname);
-  console.log('Last pathname', lastPathname);
+  // console.log('Pathname', pathname);
+  // console.log('Many Pathname', manyPathname);
+  // console.log('Last pathname', lastPathname);
 
   async function onSubmit(data: any) {
     setIsLoading(true);
+    const id_layanan = 0;
     // await console.log(data);
     if (lastPathname == 'edit' && id) {
       try {
-        await editPatient(data, id, 0);
+        await editPatient(data, id, id_layanan);
+        router.push(`/dashboard/keluarga-berencana`);
         toast({
           title: `Berhasil Edit Data Pasien`,
         });
-      } catch {
+      } catch (error) {
         toast({
-          title: `Gagal Edit Data Pasien`,
+          title: `${error}`,
         });
       }
     } else {
       try {
-        await createPatient(data, 0);
+        await createPatient(data, id_layanan);
+        router.push(`/dashboard/keluarga-berencana/${id}/soap`);
         toast({
           title: `Berhasil Menginputkan Data Pasien`,
         });
-      } catch {
+      } catch (error) {
         toast({
-          title: `Gagal Menginputkan Data Pasien`,
+          title: `${error}`,
         });
       }
     }

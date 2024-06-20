@@ -8,59 +8,8 @@ import {
   flexRender,
   Row,
 } from '@tanstack/react-table';
-import {
-  Bell,
-  ChevronDown,
-  ChevronRight,
-  ChevronUp,
-  PencilIcon,
-} from 'lucide-react';
 import Link from 'next/link';
 import { Fragment, useState } from 'react';
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogFooter,
-  DialogClose,
-} from '@/components/ui/dialog';
-import { urbanist } from '@/components/fonts';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import { ChevronLeft } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import {
   AlertDialog,
@@ -74,8 +23,8 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { deleteBidan } from '@/lib/actions';
+import { Button } from '@/components/button';
 import { useRouter } from 'next/navigation';
-import { fetchTableBidan } from '@/lib/data';
 
 type Bidan = {
   _id: string;
@@ -96,20 +45,23 @@ type TableProps<TData> = {
 // const dataPatients: Patient[] = pasienData.data;
 // console.log(dataPatients);
 
-const AlertDialogExample = ({ id }: any) => {
+const AlertDialogDelete = ({ id }: any) => {
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   const router = useRouter();
 
   const handleContinueClick = async () => {
     setLoading(true);
     const response = await deleteBidan(id);
     console.log(response);
-    location.reload();
     setLoading(false);
+    // router.refresh();
+    location.reload();
+    setOpen(false);
   };
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger>
         <Badge className="bg-[#F8DEDD] text-[#DF645F] hover:bg-[#F8DEDD]/50">
           Delete
@@ -129,13 +81,13 @@ const AlertDialogExample = ({ id }: any) => {
           <AlertDialogCancel onClick={() => setLoading(false)}>
             Cancel
           </AlertDialogCancel>
-          <AlertDialogAction
+          <Button
             onClick={handleContinueClick}
             disabled={loading}
-            className="bg-red-500 hover:bg-red-300"
+            className="bg-red-600 hover:bg-red-300 active:bg-red-600"
           >
             {loading ? 'Processing...' : 'Continue'}
-          </AlertDialogAction>
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
@@ -174,29 +126,7 @@ const columns: ColumnDef<Bidan>[] = [
             Update
           </Badge>
         </Link>
-        <AlertDialogExample id={row.original._id} />
-        {/* <AlertDialog>
-          <AlertDialogTrigger>
-            <Badge className="bg-[#F8DEDD] text-[#DF645F] hover:bg-[#F8DEDD]/50">
-              Delete
-            </Badge>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>
-                Do you want to delete this account?
-              </AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your
-                account and remove your data from our servers.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Continue</AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog> */}
+        <AlertDialogDelete id={row.original._id} />
       </div>
     ),
     footer: (props) => props.column.id,

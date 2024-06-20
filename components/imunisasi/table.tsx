@@ -13,10 +13,11 @@ import {
   ChevronDown,
   ChevronRight,
   ChevronUp,
+  Loader2Icon,
   PencilIcon,
 } from 'lucide-react';
 import Link from 'next/link';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import {
   Table,
   TableBody,
@@ -42,25 +43,11 @@ import { urbanist } from '@/components/fonts';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
+import { Form } from '@/components/ui/form';
+import { toast } from '@/components/ui/use-toast';
 import { ChevronLeft } from 'lucide-react';
+import { InputField } from '@/components/form-content';
+import { createReminder } from '@/lib/actions';
 
 type SubPatient = {
   tglDatang: string;
@@ -109,101 +96,120 @@ function SubmitButton() {
   );
 }
 
-const DialogWA = ({ patientname }: any) => {
+const DialogWA = ({ patientname, id_pasien }: any) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
+
+  const FormSchema = z.object({
+    tglKirim: z
+      .string()
+      .or(z.date())
+      .transform((arg) => new Date(arg)),
+    isiPesan: z.string(),
+  });
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      tglKirim: '',
-      waktuKirim: '',
-      isiPesan: '',
+      tglKirim: new Date(),
+      isiPesan: 'asdawd',
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {}
+  function SubmitButton({ isLoading }: any) {
+    return (
+      <Button
+        className="w-fit bg-blue-600 hover:bg-blue-500"
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <>
+            <Loader2Icon size={20} className="mr-2 animate-spin" /> Loading...
+          </>
+        ) : (
+          <>Kirim Pesan</>
+        )}
+      </Button>
+    );
+  }
+
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    setIsLoading(true);
+    try {
+      await createReminder(data, id_pasien);
+      console.log('data');
+      toast({
+        title: `Berhasil Membuat Reminder`,
+      });
+      setOpen(false);
+    } catch (error) {
+      toast({
+        title: `${error}`,
+      });
+    }
+    setIsLoading(false);
+    // console.log(data);
+  }
+
   return (
-    <div className="rounded-md bg-[#D0E4FF] px-4 py-6">
-      <h1 className={`${urbanist.className} text-lg font-bold`}>
-        Kirim Reminder ke {patientname}
-      </h1>
-      <span className="text-sm font-medium text-[#6F90BA]">
-        Tentukan tanggal kirim dan waktu kirim reminder Whatsapp
-      </span>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex w-full flex-col"
-        >
-          <div className="my-2 mb-8 flex w-full flex-col gap-3 rounded-md bg-white p-4 ">
-            <div className="flex w-full gap-4">
-              <div className="w-1/2">
-                <FormField
-                  control={form.control}
-                  name="tglKirim"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Pilih Tanggal Kirim</FormLabel>
-                      <FormControl>
-                        <Input type="date" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="outline" className="p-2">
+          <Bell className="w-5" />
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle
+            className={`${urbanist.className} flex items-center text-lg font-bold`}
+          >
+            <DialogClose asChild>
+              <ChevronLeft className="mr-3 h-5 w-5" />
+            </DialogClose>
+            <p>Reminder Pasien Layanan Imunisasi</p>
+          </DialogTitle>
+        </DialogHeader>
+        <div className="rounded-md bg-[#D0E4FF] px-4 py-6">
+          <h1 className={`${urbanist.className} text-lg font-bold`}>
+            Kirim Reminder ke {patientname}
+          </h1>
+          <span className="text-sm font-medium text-[#6F90BA]">
+            Tentukan tanggal kirim dan waktu kirim reminder Whatsapp
+          </span>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex w-full flex-col"
+            >
+              <div className="my-2 mb-8 flex w-full flex-col gap-3 rounded-md bg-white p-4 ">
+                <div className="flex w-full gap-4">
+                  <InputField
+                    name="tglKirim"
+                    form={form}
+                    label="Tanggal Kirim"
+                    className="col-span-6"
+                    type="date"
+                  />
+                </div>
+                <div>
+                  <InputField
+                    name="isiPesan"
+                    form={form}
+                    placeholder="Isi Pesan...."
+                    label="Isi Pesan"
+                    className="col-span-12"
+                    type="textarea"
+                  />
+                </div>
               </div>
-              <div className="w-1/2">
-                <FormField
-                  control={form.control}
-                  name="waktuKirim"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Waktu Reservasi yang Tersedia</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="00:00" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="10:00">10:00</SelectItem>
-                          <SelectItem value="12:00">12:00</SelectItem>
-                          <SelectItem value="14:00">14:00</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              <div className="flex w-full justify-end">
+                <SubmitButton isLoading={isLoading} />
               </div>
-            </div>
-            <div>
-              <FormField
-                control={form.control}
-                name="isiPesan"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Isi Pesan</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Masukkan Pesan..."
-                        className="resize-none"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-          </div>
-        </form>
-      </Form>
-      <div className="flex w-full justify-end">
-        <SubmitButton />
-      </div>
-    </div>
+            </form>
+          </Form>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 
@@ -270,26 +276,10 @@ const columns: ColumnDef<Patient>[] = [
         {/* <Link href={`#`} className="rounded-md border p-2 hover:bg-gray-100">
           <Eye className="w-5" />
         </Link> */}
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline" className="p-2">
-              <Bell className="w-5" />
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle
-                className={`${urbanist.className} flex items-center text-lg font-bold`}
-              >
-                <DialogClose asChild>
-                  <ChevronLeft className="mr-3 h-5 w-5" />
-                </DialogClose>
-                <p>Reminder Pasien Layanan Imunisasi</p>
-              </DialogTitle>
-            </DialogHeader>
-            <DialogWA patientname={row.original.name} />
-          </DialogContent>
-        </Dialog>
+        <DialogWA
+          patientname={row.original.name}
+          id_pasien={row.original.id_pasien}
+        />
       </div>
     ),
     footer: (props) => props.column.id,

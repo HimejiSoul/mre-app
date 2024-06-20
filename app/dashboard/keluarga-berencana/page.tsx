@@ -22,10 +22,11 @@ export default async function Page({
   const dataPerPage = 5;
   const startIndex = (currentPage - 1) * dataPerPage;
   const lastIndex = currentPage * dataPerPage;
+  const id_layanan = 0;
 
   try {
     // Fetch the patient IDs
-    const idPatient = await fetchAllPatientFind(query, 0); // output: [52, 53]
+    const idPatient = await fetchAllPatientFind(query, id_layanan); // output: [52, 53]
 
     // Calculate pagination details
     const totalPatient = idPatient.length;
@@ -36,7 +37,10 @@ export default async function Page({
     let patientData = [];
 
     if (slicedIdPatient.length > 0) {
-      patientData = await fetchPatientTable(JSON.stringify(slicedIdPatient), 0);
+      patientData = await fetchPatientTable(
+        JSON.stringify(slicedIdPatient),
+        id_layanan,
+      );
     } else {
       patientData = [];
     }

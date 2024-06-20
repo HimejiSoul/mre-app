@@ -1,8 +1,8 @@
 import { SectionTitle } from '@/components/section-title';
 import { fetchPatientById } from '@/lib/data';
 import { notFound } from 'next/navigation';
-import KehamilanForm from '../../create/kehamilan-form';
-import { kehamilanFormSchema } from '../../../../../lib/types/periksa-kehamilan-types';
+import KehamilanForm from '@/app/dashboard/periksa-kehamilan/create/kehamilan-form';
+import { kehamilanFormSchema } from '@/lib/types/periksa-kehamilan-types';
 import { fromZodError } from 'zod-validation-error';
 
 export default async function Page({ params }: { params: { id: number } }) {

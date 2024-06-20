@@ -23,6 +23,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   // console.log(response);
   if (!response.success) {
     console.error(fromZodError(response.error));
+    notFound();
   }
 
   return (

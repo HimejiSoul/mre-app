@@ -1,16 +1,15 @@
-// XXX: Still in development...
-import { Metadata } from 'next';
-import { fetchAllPatientFind, fetchPatientTable } from '@/lib/data';
-
-// component
-import Search from '@/components/search';
-import { ButtonLink } from '@/components/Buttons';
 import Pagination from '@/components/periksa-kehamilan/pagination';
+import Search from '@/components/search';
+import { fetchAllPatientFind, fetchPatientTable } from '@/lib/data';
+import { Metadata } from 'next';
+import { ButtonLink } from '@/components/Buttons';
 import KehamilanTable from '@/components/periksa-kehamilan/table';
-import { Heading, MainContainer } from '@/components/main-layout';
+import { urbanist } from '@/components/fonts';
+import { Suspense } from 'react';
+import { InvoicesTableSkeleton } from '@/components/skeletons';
 
 export const metadata: Metadata = {
-  title: 'Kehamilan',
+  title: 'Periksa Kehamilan',
 };
 
 export default async function Page({
@@ -24,33 +23,69 @@ export default async function Page({
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
   const dataPerPage = 5;
-
-  const startiIndex = (currentPage - 1) * dataPerPage;
+  const startIndex = (currentPage - 1) * dataPerPage;
   const lastIndex = currentPage * dataPerPage;
-  const idPatient = await fetchAllPatientFind(query, 1);
+  const id_layanan = 1;
 
-  const slicedIdPatient = idPatient.slice(startiIndex, lastIndex);
-  const totalPages = Math.ceil(idPatient.length / dataPerPage);
-  const patientData =
-    JSON.stringify(slicedIdPatient) === '[]'
-      ? []
-      : await fetchPatientTable(JSON.stringify(slicedIdPatient), 1);
-  const totalPatient = idPatient.length;
+  try {
+    // Fetch the patient IDs
+    const idPatient = await fetchAllPatientFind(query, id_layanan); // output: [52, 53]
 
-  return (
-    <MainContainer>
-      <Heading title="Layanan Periksa Kehamilan" totalPatient={totalPatient} />
-      <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-        <Search placeholder="Cari pasien kehamilan..." />
-        <ButtonLink
-          href="/dashboard/periksa-kehamilan/create"
-          name="Tambah pasien"
-        />
+    // Calculate pagination details
+    const totalPatient = idPatient.length;
+    const totalPages = Math.ceil(totalPatient / dataPerPage);
+    const slicedIdPatient = idPatient.slice(startIndex, lastIndex);
+
+    // Fetch the patient data concurrently
+    let patientData = [];
+
+    if (slicedIdPatient.length > 0) {
+      patientData = await fetchPatientTable(
+        JSON.stringify(slicedIdPatient),
+        id_layanan,
+      );
+    } else {
+      patientData = [];
+    }
+
+    // console.log('Total Pasien', totalPatient);
+    // console.log('Data Pasien', patientData);
+
+    return (
+      <div className="w-full rounded-2xl bg-[#D0E4FF] p-5">
+        <div className="flex w-full flex-col justify-between">
+          <h1 className={`${urbanist.className} text-2xl font-bold`}>
+            Layanan Periksa Kehamilan
+          </h1>
+          <span className="font-sm font-medium text-[#6F90BA]">
+            Total {totalPatient} Pasien
+          </span>
+        </div>
+        <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
+          <Search placeholder="Search Pasien Periksa Kehamilan..." />
+          <ButtonLink href="/dashboard/imunisasi/create" name="Tambah pasien" />
+        </div>
+        <Suspense key={query} fallback={<InvoicesTableSkeleton />}>
+          <KehamilanTable dataPatient={patientData} />
+        </Suspense>
+        <div className="mt-5 flex w-full justify-center">
+          <Pagination totalPages={totalPages} />
+        </div>
       </div>
-      <KehamilanTable dataPatient={patientData} />
-      <div className="mt-5 flex w-full justify-center">
-        <Pagination totalPages={totalPages} />
+    );
+  } catch (error) {
+    console.error('Failed to fetch data:', error);
+    return (
+      <div className="w-full rounded-2xl bg-[#D0E4FF] p-5">
+        <div className="flex w-full flex-col justify-between">
+          <h1 className={`${urbanist.className} text-2xl font-bold`}>
+            Layanan Periksa Kehamilan
+          </h1>
+          <span className="font-sm font-medium text-[#6F90BA]">
+            Failed to load data
+          </span>
+        </div>
       </div>
-    </MainContainer>
-  );
+    );
+  }
 }

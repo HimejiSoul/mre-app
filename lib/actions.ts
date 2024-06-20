@@ -1,7 +1,5 @@
 'use server';
 import { z } from 'zod';
-import { sql } from '@vercel/postgres';
-import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
@@ -10,6 +8,7 @@ import { isRedirectError } from 'next/dist/client/components/redirect';
 import { kehamilanFormSchema } from '@/lib/types/periksa-kehamilan-types';
 import { imunisasiFormSchema } from '@/lib/types/imunisasi/imunisasi-types';
 import { soapKehamilanFormSchema } from '@/lib/types/soap-kehamilan-types';
+import { revalidatePath } from 'next/cache';
 
 export type State = {
   errors?: {
@@ -32,23 +31,22 @@ export async function editPatient(
     data: formData,
   };
   const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/edit`;
+  console.log(data);
   try {
     const response = await axios.post(apiEndpoint, data);
     console.log(response.data);
-    if (id_layanan == 0) {
-      redirect(`/dashboard/keluarga-berencana`);
-    } else if (id_layanan == 1) {
-      redirect(`/dashboard/periksa-kehamilan`);
-    } else if (id_layanan == 2) {
-      redirect(`/dashboard/imunisasi`);
-    } else {
-      redirect(`/dashboard`);
-    }
   } catch (error) {
-    if (isRedirectError(error)) {
-      throw error;
+    if (axios.isAxiosError(error)) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        'Gagal Edit Data Pasien';
+      console.error(errorMessage);
+      throw new Error(errorMessage);
+    } else {
+      console.error('Unexpected error', error);
+      throw new Error('An unexpected error occurred');
     }
-    console.error('Error:', error);
   }
 }
 export async function createPatient(formData: FormData, id_layanan: number) {
@@ -56,22 +54,19 @@ export async function createPatient(formData: FormData, id_layanan: number) {
   const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/input`;
   try {
     const response = await axios.post(apiEndpoint, data);
-    const id = response.data.id;
     console.log(response.data);
-    if (id_layanan == 0) {
-      redirect(`/dashboard/keluarga-berencana/${id}/soap`);
-    } else if (id_layanan == 1) {
-      redirect(`/dashboard/periksa-kehamilan/${id}/soap`);
-    } else if (id_layanan == 2) {
-      redirect(`/dashboard/imunisasi/${id}/soap`);
-    } else {
-      redirect(`/dashboard`);
-    }
   } catch (error) {
-    if (isRedirectError(error)) {
-      throw error;
+    if (axios.isAxiosError(error)) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        'Gagal Edit Data Pasien';
+      console.error(errorMessage);
+      throw new Error(errorMessage);
+    } else {
+      console.error('Unexpected error', error);
+      throw new Error('An unexpected error occurred');
     }
-    console.error('Error:', error);
   }
 }
 export async function createKBSOAPPatient(formData: FormData, id: any) {
@@ -201,9 +196,7 @@ export async function createBidan(formData: FormData) {
   try {
     const response = await axios.post(apiEndpoint, data);
     console.log(response.data.message);
-    // Return the response data first
     revalidatePath('/dashboard/manajemen-akun');
-    return response.data.message;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const errorMessage =
@@ -246,7 +239,7 @@ export async function createImunisasiPatient(
 export async function createSoapImunisasiPatient(formData: FormData, id: any) {
   const data = { data: { id_pasien: id, ...formData } };
   const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/soapimunisasi`;
-  console.log(data);
+  // console.log(data);
   try {
     await axios.post(apiEndpoint, data);
   } catch (error) {
@@ -263,8 +256,29 @@ export async function deleteBidan(id: any) {
   } catch (error) {
     console.error('Error:', error);
   }
-  // revalidatePath('/dashboard/manajemen-akun');
-  // redirect('/dashboard/manajemen-akun');
+  revalidatePath('/dashboard/manajemen-akun');
+}
+export async function createReminder(formData: any, id: any) {
+  const data = { ...formData, idPasien: id };
+  const apiEndpoint = `${process.env.API_ENDPOINT}/api/reminder`;
+  console.log(data);
+  try {
+    const response = await axios.post(apiEndpoint, data);
+    console.log(response.data.message);
+    return response.data.message;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const errorMessage =
+        error.message ||
+        error.response?.data?.message ||
+        'Gagal Membuat Reminder';
+      console.error(errorMessage);
+      throw new Error(errorMessage);
+    } else {
+      console.error('Unexpected error', error);
+      throw new Error('An unexpected error occurred');
+    }
+  }
 }
 
 export async function authenticate(
