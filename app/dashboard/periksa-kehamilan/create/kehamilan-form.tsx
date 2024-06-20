@@ -8,7 +8,6 @@ import {
   kehamilanFormSchema,
   defaultValues,
 } from '@/lib/types/periksa-kehamilan-types';
-import { createKehamilanPatient, editKehamilanPatient } from '@/lib/actions';
 import { useState } from 'react';
 import { ButtonSubmitForm } from '@/components/Buttons';
 
@@ -22,16 +21,9 @@ import PemeriksaanPNC from '@/components/periksa-kehamilan/form-section/pemeriks
 import FaktorResiko from '@/components/periksa-kehamilan/form-section/faktor-resiko';
 import KunjunganNifas from '@/components/periksa-kehamilan/form-section/kunjungan-nifas';
 import SkriningTT from '@/components/periksa-kehamilan/form-section/skrining-tt';
-
-// Dummy Test
-import dummyJson from '@/app/dashboard/periksa-kehamilan/data.json';
-import { fromZodError } from 'zod-validation-error';
-import { notFound } from 'next/navigation';
-const response = kehamilanFormSchema.safeParse(dummyJson.data);
-if (!response.success) {
-  console.error(fromZodError(response.error));
-  notFound();
-}
+import { createPatient, editPatient } from '@/lib/actions';
+import { usePathname, useRouter } from 'next/navigation';
+import { toast } from '@/components/ui/use-toast';
 
 interface KehamilanFormProps {
   id?: string | number;
@@ -40,20 +32,48 @@ interface KehamilanFormProps {
 
 export default function KehamilanForm({ id, value }: KehamilanFormProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof kehamilanFormSchema>>({
     resolver: zodResolver(kehamilanFormSchema),
     defaultValues: value ? value : defaultValues,
-    // defaultValues: value ? value : response.data,
   });
 
-  async function onSubmit(data: z.infer<typeof kehamilanFormSchema>) {
-    setIsLoading(true);
+  const pathname = usePathname();
+  const manyPathname = pathname.split('/');
+  const lastPathname = manyPathname[manyPathname.length - 1];
+  // console.log('Pathname', pathname);
+  // console.log('Many Pathname', manyPathname);
+  // console.log('Last pathname', lastPathname);
 
-    if (id) {
-      await editKehamilanPatient(data, id);
+  async function onSubmit(data: any) {
+    setIsLoading(true);
+    const id_layanan = 1;
+    // await console.log(data);
+    if (lastPathname == 'edit' && id) {
+      try {
+        await editPatient(data, id, id_layanan);
+        router.push(`/dashboard/periksa-kehamilan`);
+        toast({
+          title: `Berhasil Edit Data Pasien`,
+        });
+      } catch (error) {
+        toast({
+          title: `${error}`,
+        });
+      }
     } else {
-      await createKehamilanPatient(data);
+      try {
+        await createPatient(data, id_layanan);
+        router.push(`/dashboard/periksa-kehamilan/${id}/soap`);
+        toast({
+          title: `Berhasil Menginputkan Data Pasien`,
+        });
+      } catch (error) {
+        toast({
+          title: `${error}`,
+        });
+      }
     }
   }
 

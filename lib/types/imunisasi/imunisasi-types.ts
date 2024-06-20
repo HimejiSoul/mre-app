@@ -183,6 +183,7 @@ export const imunisasiFormSchema = z.object({
     kecamatan: z.string(),
     kabupaten: z.string(),
     provinsi: z.string(),
+    noHP: z.coerce.number({ invalid_type_error: 'Required' }),
   }),
   detailBayi: z.object({
     tglLahir: z
@@ -314,6 +315,7 @@ export const defaultValues: Partial<z.infer<typeof imunisasiFormSchema>> = {
     kecamatan: '',
     kabupaten: '',
     provinsi: '',
+    noHP: 0,
   },
   detailBayi: {
     tglLahir: new Date(),

@@ -122,7 +122,15 @@ export default function GeneralInformation({ form }: any) {
                 label: data,
               }))}
             label="Pekerjaan"
-            className="col-span-4"
+            className="col-span-3"
+          />
+          <InputField
+            name="generalInformation.noHP"
+            form={form}
+            placeholder="08xxx"
+            label="No. HP"
+            className="arrow-hide col-span-3"
+            type="number"
           />
         </Row>
         <Row>

@@ -32,11 +32,11 @@ export default function ManajemenAkunForm() {
   const onSubmit = async (data: any) => {
     setIsLoading(true);
     try {
-      const response = await createBidan(data);
+      await createBidan(data);
       router.prefetch('/dashboard/manajemen-akun');
       router.push('/dashboard/manajemen-akun');
       toast({
-        title: `${response}`,
+        title: `Berhasil Menambahkan Bidan`,
       });
     } catch (error) {
       toast({
