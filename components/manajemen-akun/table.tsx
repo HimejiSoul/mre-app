@@ -23,7 +23,6 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { deleteBidan } from '@/lib/actions';
-import { Button } from '@/components/button';
 import { useRouter } from 'next/navigation';
 
 type Bidan = {
@@ -55,8 +54,8 @@ const AlertDialogDelete = ({ id }: any) => {
     const response = await deleteBidan(id);
     console.log(response);
     setLoading(false);
-    // router.refresh();
-    location.reload();
+    router.refresh();
+    // location.reload();
     setOpen(false);
   };
 
@@ -81,13 +80,13 @@ const AlertDialogDelete = ({ id }: any) => {
           <AlertDialogCancel onClick={() => setLoading(false)}>
             Cancel
           </AlertDialogCancel>
-          <Button
+          <button
             onClick={handleContinueClick}
             disabled={loading}
-            className="bg-red-600 hover:bg-red-300 active:bg-red-600"
+            className="flex h-10 items-center justify-center rounded-lg bg-red-600 px-4 text-sm font-medium text-white transition-colors hover:bg-red-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:bg-red-600 aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
           >
             {loading ? 'Processing...' : 'Continue'}
-          </Button>
+          </button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

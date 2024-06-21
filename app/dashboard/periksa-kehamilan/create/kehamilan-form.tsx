@@ -75,6 +75,7 @@ export default function KehamilanForm({ id, value }: KehamilanFormProps) {
         });
       }
     }
+    setIsLoading(false);
   }
 
   return (
@@ -92,7 +93,10 @@ export default function KehamilanForm({ id, value }: KehamilanFormProps) {
         <PemeriksaanPNC form={form} />
         <KunjunganNifas form={form} />
         <SkriningTT form={form} />
-        <ButtonSubmitForm isLoading={isLoading} />
+        <ButtonSubmitForm
+          isLoading={isLoading}
+          label={lastPathname === 'edit' && id ? 'Edit pasien' : undefined}
+        />
       </form>
     </Form>
   );

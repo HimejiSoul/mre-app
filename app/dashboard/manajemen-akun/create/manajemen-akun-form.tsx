@@ -33,7 +33,6 @@ export default function ManajemenAkunForm() {
     setIsLoading(true);
     try {
       await createBidan(data);
-      router.prefetch('/dashboard/manajemen-akun');
       router.push('/dashboard/manajemen-akun');
       toast({
         title: `Berhasil Menambahkan Bidan`,

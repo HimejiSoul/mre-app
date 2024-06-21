@@ -68,7 +68,7 @@ type ButtonSubmitFormProps = HTMLAttributes<HTMLDivElement> & {
 
 export function ButtonSubmitForm({
   isLoading,
-  label = 'Tambah Pasien',
+  label,
   className,
 }: ButtonSubmitFormProps) {
   return (
@@ -80,8 +80,10 @@ export function ButtonSubmitForm({
         <>
           <Loader2Icon size={20} className="mr-2 animate-spin" /> Loading...
         </>
-      ) : (
+      ) : label ? (
         label
+      ) : (
+        'Tambah Pasien'
       )}
     </Button>
   );

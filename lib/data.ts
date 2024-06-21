@@ -12,6 +12,7 @@ import { unstable_noStore as noStore } from 'next/cache';
 import axios, { AxiosResponse } from 'axios';
 
 export async function fetchAllPatientFind(query: any, id_layanan: any) {
+  noStore();
   try {
     const response: AxiosResponse<any> = await axios.get(
       `${process.env.API_ENDPOINT_AZURE}/findpasien?keyword=${query}&id_layanan=${id_layanan}`,
@@ -40,6 +41,7 @@ export async function fetchAllPatientTable(id_layanan: any) {
 }
 
 export async function fetchPatientTable(id_pasien: any, id_layanan: any) {
+  noStore();
   try {
     const response: AxiosResponse<any> = await axios.get(
       `${process.env.API_ENDPOINT_AZURE}/table?id_pasien=${id_pasien}&id_layanan=${id_layanan}`,
