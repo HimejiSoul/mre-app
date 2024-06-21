@@ -5,9 +5,14 @@ import { Button } from '@/components/button';
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/lib/actions';
 import { urbanist } from '@/components/fonts';
+import { useState } from 'react';
 
 export default function Page() {
+  const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev): any => !prev);
+  };
 
   return (
     <form
@@ -43,7 +48,7 @@ export default function Page() {
           <input
             className="peer block w-full rounded-md border border-gray-200 py-3 pl-10 text-sm outline-2 placeholder:text-rme-gray-300"
             id="password"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             name="password"
             placeholder="Password"
             required
@@ -51,6 +56,37 @@ export default function Page() {
             autoComplete="current-password"
           />
           <KeyRound className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-rme-gray-300 peer-focus:text-gray-900" />
+          <button
+            type="button"
+            onClick={togglePasswordVisibility}
+            className="absolute right-3 top-3 rounded-e-md"
+          >
+            <svg
+              className="size-3.5 flex-shrink-0 text-gray-400 dark:text-neutral-600"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              {showPassword ? (
+                <>
+                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </>
+              ) : (
+                <>
+                  <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                  <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+                  <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                  <line x1="2" x2="22" y1="2" y2="22"></line>
+                </>
+              )}
+            </svg>
+          </button>
         </div>
       </section>
       {/* <section className="_FORGET_PASS mt-4 flex justify-end text-xs font-medium text-rme-gray-500 hover:underline hover:underline-offset-2">

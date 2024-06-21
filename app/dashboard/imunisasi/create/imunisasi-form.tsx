@@ -86,7 +86,10 @@ export default function ImunisasiForm({ id, value }: ImunisasiFormProps) {
         <PemeriksaanNeonatus form={form} />
         <PemeriksaanNeonatusLanjutan form={form} />
         <PemeriksaanBalita form={form} />
-        <ButtonSubmitForm isLoading={isLoading} />
+        <ButtonSubmitForm
+          isLoading={isLoading}
+          label={lastPathname === 'edit' && id ? 'Edit pasien' : undefined}
+        />
       </form>
     </Form>
   );

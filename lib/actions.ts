@@ -35,6 +35,13 @@ export async function editPatient(
   try {
     const response = await axios.post(apiEndpoint, data);
     console.log(response.data);
+    if (id_layanan === 0) {
+      revalidatePath('/dashboard/keluarga-berencana');
+    } else if (id_layanan === 1) {
+      revalidatePath('/dashboard/periksa-kehamilan');
+    } else if (id_layanan === 2) {
+      revalidatePath('/dashboard/imunisasi');
+    }
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const errorMessage =
