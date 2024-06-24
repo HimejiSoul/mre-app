@@ -5,9 +5,9 @@ const phoneRegex = new RegExp(
 );
 
 export const bidanFormSchema = z.object({
-  email: z
-    .string({ required_error: 'Silahkan Masukkan Email' })
-    .email({ message: 'Email harus valid' }),
+  // email: z
+  //   .string({ required_error: 'Silahkan Masukkan Email' })
+  //   .email({ message: 'Email harus valid' }),
   full_name: z.string({ required_error: 'Silahkan Mengisi Nama Panjang' }),
   username: z.string({ required_error: 'Silahkan Mengisi Username' }),
   password: z
@@ -20,7 +20,7 @@ export const bidanFormSchema = z.object({
 });
 
 export const defaultValues: Partial<z.infer<typeof bidanFormSchema>> = {
-  email: '',
+  // email: '',
   full_name: '',
   username: '',
   password: '',
