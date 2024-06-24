@@ -149,20 +149,20 @@ export async function fetchReservasi(tanggal: any) {
   }
 }
 
-export async function fecthChart() {
-  // Add noStore() here to prevent the response from being cached.
-  // This is equivalent to in fetch(..., {cache: 'no-store'}).
+export async function fetchChart(value: any) {
+  // console.log(value);
   noStore();
   try {
-    const response: AxiosResponse<any> = await axios.get(
-      `${process.env.API_ENDPOINT_AZURE}/chart`,
-    );
+    let url = `${process.env.API_ENDPOINT_AZURE}/chart`;
+    if (value != null) {
+      url += `?id_layanan=${value}`;
+    }
+    const response: AxiosResponse<any> = await axios.get(url);
     const chart = response.data.data;
-    console.log(chart);
     return chart;
   } catch (error) {
     console.error('Database Error:', error);
-    // throw new Error('Failed to fetch card data.');
+    // throw new Error('Failed to fetch chart data.');
   }
 }
 
