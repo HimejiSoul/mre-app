@@ -1,7 +1,7 @@
 import { generateYAxis } from '@/lib/utils';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { urbanist } from '@/components/fonts';
-import { fecthChart } from '@/lib/data';
+import { fetchChart } from '@/lib/data';
 
 // This component is representational only.
 // For data visualization UI, check out:
@@ -10,7 +10,7 @@ import { fecthChart } from '@/lib/data';
 // https://airbnb.io/visx/
 
 export default async function PatientChart() {
-  const chart = await fecthChart();
+  const chart = await fetchChart(null);
   // console.table(revenue);
   const chartHeight = 350;
   // NOTE: comment in this code when you get to this point in the course
