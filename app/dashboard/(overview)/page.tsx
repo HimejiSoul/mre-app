@@ -1,4 +1,3 @@
-import PatientChart from '@/components/dashboard/patient-chart';
 import { urbanist } from '@/components/fonts';
 import { Suspense } from 'react';
 import { RevenueChartSkeleton, CardsSkeleton } from '@/components/skeletons';

@@ -1,6 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ApexChart from './apex-chart';
 import { fetchChart } from '@/lib/data';
+import { urbanist } from '@/components/fonts';
 
 export default async function PatientChartBaru() {
   const [chartAll, chartKB, chartKehamilan, chartImunisasi] = await Promise.all(
@@ -19,28 +20,36 @@ export default async function PatientChartBaru() {
   const monthsImunisasi = chartImunisasi.map((item: any) => item.month);
   const revenuesImunisasi = chartImunisasi.map((item: any) => item.revenue);
 
+  const currentYear = new Date().getFullYear();
   return (
-    <div className="rounded-lg bg-white p-3">
-      <Tabs defaultValue="all" className="w-full">
-        <TabsList>
-          <TabsTrigger value="all">All</TabsTrigger>
-          <TabsTrigger value="0">Keluarga Berencana</TabsTrigger>
-          <TabsTrigger value="1">Periksa Kehamilan</TabsTrigger>
-          <TabsTrigger value="2">Imunisasi</TabsTrigger>
-        </TabsList>
-        <TabsContent value="all">
-          <ApexChart months={monthsAll} revenues={revenuesAll} />
-        </TabsContent>
-        <TabsContent value="0">
-          <ApexChart months={monthsKB} revenues={revenuesKB} />
-        </TabsContent>
-        <TabsContent value="1">
-          <ApexChart months={monthsKehamilan} revenues={revenuesKehamilan} />
-        </TabsContent>
-        <TabsContent value="2">
-          <ApexChart months={monthsImunisasi} revenues={revenuesImunisasi} />
-        </TabsContent>
-      </Tabs>
-    </div>
+    <>
+      <h1
+        className={`${urbanist.className} mb-4 text-xl font-bold md:text-2xl`}
+      >
+        Bar Chart Pasien Rekam Medis Tahun {currentYear}
+      </h1>
+      <div className="rounded-lg bg-white p-3">
+        <Tabs defaultValue="all" className="w-full">
+          <TabsList>
+            <TabsTrigger value="all">All</TabsTrigger>
+            <TabsTrigger value="0">Keluarga Berencana</TabsTrigger>
+            <TabsTrigger value="1">Periksa Kehamilan</TabsTrigger>
+            <TabsTrigger value="2">Imunisasi</TabsTrigger>
+          </TabsList>
+          <TabsContent value="all">
+            <ApexChart months={monthsAll} revenues={revenuesAll} />
+          </TabsContent>
+          <TabsContent value="0">
+            <ApexChart months={monthsKB} revenues={revenuesKB} />
+          </TabsContent>
+          <TabsContent value="1">
+            <ApexChart months={monthsKehamilan} revenues={revenuesKehamilan} />
+          </TabsContent>
+          <TabsContent value="2">
+            <ApexChart months={monthsImunisasi} revenues={revenuesImunisasi} />
+          </TabsContent>
+        </Tabs>
+      </div>
+    </>
   );
 }
