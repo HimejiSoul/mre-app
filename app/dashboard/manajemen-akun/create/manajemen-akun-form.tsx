@@ -67,17 +67,18 @@ export default function ManajemenAkunForm() {
               />
             </Row>
             <Row>
-              <InputField
+              {/* <InputField
                 name="email"
                 placeholder="Masukkan Email"
                 label="Email"
                 form={form}
-              />
+              /> */}
               <InputField
                 name="phone_number"
                 placeholder="No. HP"
                 label="Masukkan No. HP"
                 form={form}
+                className="col-span-6"
               />
             </Row>
             <Row>

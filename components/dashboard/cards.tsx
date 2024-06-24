@@ -2,6 +2,7 @@ import { urbanist } from '@/components/fonts';
 import { fetchPatientData } from '@/lib/data';
 import * as Icon from '@/components/icons';
 import { Separator } from '@/components/ui/separator';
+import { cn } from '@/lib/utils';
 
 const iconMap = {
   kb: Icon.KBFilled,
@@ -45,10 +46,20 @@ export default async function CardWrapper() {
         />
       </div>
       <div className="col-span-3">
-        <Card title="Layanan Ibu" value={jumlah_pasienIbu} layanan="ibu" />
+        <Card
+          title="Layanan Ibu"
+          value={jumlah_pasienIbu}
+          layanan="ibu"
+          className="cursor-not-allowed opacity-50"
+        />
       </div>
       <div className="col-span-3">
-        <Card title="Layanan Anak" value={jumlah_pasienAnak} layanan="anak" />
+        <Card
+          title="Layanan Anak"
+          value={jumlah_pasienAnak}
+          layanan="anak"
+          className="cursor-not-allowed opacity-50"
+        />
       </div>
     </>
   );
@@ -58,15 +69,21 @@ export function Card({
   title,
   value,
   layanan,
+  className,
+  ...props
 }: {
   title: string;
   value: number | string;
   layanan: 'kb' | 'kehamilan' | 'imunisasi' | 'ibu' | 'anak';
+  className?: string;
 }) {
   const Icon = iconMap[layanan];
 
   return (
-    <div className="rounded-xl bg-gray-50 p-2 shadow-sm ">
+    <div
+      className={cn('rounded-xl bg-gray-50 p-2 shadow-sm ', className)}
+      {...props}
+    >
       <div className="flex flex-col gap-3 p-4">
         <div className="w-fit rounded-xl bg-[#D0E4FF] p-2">
           {Icon ? <Icon className="h-8 w-8 text-rme-blue-500" /> : null}
