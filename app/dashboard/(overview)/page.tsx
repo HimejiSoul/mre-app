@@ -3,6 +3,7 @@ import { urbanist } from '@/components/fonts';
 import { Suspense } from 'react';
 import { RevenueChartSkeleton, CardsSkeleton } from '@/components/skeletons';
 import CardWrapper from '@/components/dashboard/cards';
+import PatientChartBaru from '@/components/dashboard/patient-chart-baru';
 
 export default function Page() {
   const currentMonth = new Date().toLocaleString('id-ID', { month: 'long' });
@@ -20,7 +21,8 @@ export default function Page() {
       </div>
       <div className="mt-6">
         <Suspense fallback={<RevenueChartSkeleton />}>
-          <PatientChart />
+          {/* <PatientChart /> */}
+          <PatientChartBaru />
         </Suspense>
         {/* <Suspense fallback={<LatestInvoicesSkeleton />}>
           <LatestInvoices />
