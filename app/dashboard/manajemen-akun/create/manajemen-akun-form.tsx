@@ -26,6 +26,7 @@ export default function ManajemenAkunForm() {
   const form = useForm<z.infer<typeof bidanFormSchema>>({
     resolver: zodResolver(bidanFormSchema),
     defaultValues,
+    mode: 'onChange',
   });
 
   // function onSubmit(data: z.infer<typeof soapKehamilanFormSchema>) {
