@@ -1,9 +1,7 @@
-import Pagination from '@/components/periksa-kehamilan/pagination';
 import Search from '@/components/search';
-import { fetchAllPatientFind, fetchPatientTable } from '@/lib/data';
+import { fetchAllPatientFind } from '@/lib/data';
 import { Metadata } from 'next';
 import { ButtonLink } from '@/components/Buttons';
-import KehamilanTable from '@/components/periksa-kehamilan/table';
 import { urbanist } from '@/components/fonts';
 import { Suspense } from 'react';
 import { InvoicesTableSkeleton } from '@/components/skeletons';
