@@ -1,12 +1,13 @@
 import { Metadata } from 'next';
 import { fetchTableBidan } from '@/lib/data';
-
-// component
 import Search from '@/components/search';
 import { ButtonLink } from '@/components/Buttons';
-import Pagination from '@/components/manajemen-akun/pagination';
+import Pagination from '@/components/pagination';
 import { Heading, MainContainer } from '@/components/main-layout';
 import ManajemenAkunTable from '@/components/manajemen-akun/table';
+import TableWrapperMA from '@/components/manajemen-akun/table-wrapper';
+import { Suspense } from 'react';
+import { InvoicesTableSkeleton } from '@/components/skeletons';
 
 export const metadata: Metadata = {
   title: 'Manajemen Akun',
@@ -21,17 +22,9 @@ export default async function Page({
   };
 }) {
   const query = searchParams?.query || '';
-  // const currentPage = Number(searchParams?.page) || 1;
-  const dataPerPage = 5;
+  const currentPage = Number(searchParams?.page) || 1;
 
-  // const startiIndex = (currentPage - 1) * dataPerPage;
-  // const lastIndex = currentPage * dataPerPage;
-  // const idPatient = await fetchAllPatientFind(query, 1); //output: [52, 53]
-
-  // const slicedIdPatient = idPatient.slice(startiIndex, lastIndex);
-  // console.log(slicedIdPatient);
   const bidan = await fetchTableBidan();
-  const totalPages = Math.ceil(bidan.length / dataPerPage);
 
   return (
     <MainContainer>
@@ -43,10 +36,9 @@ export default async function Page({
           name="Tambah Bidan"
         />
       </div>
-      <ManajemenAkunTable bidan={bidan} />
-      <div className="mt-5 flex w-full justify-center">
-        <Pagination totalPages={totalPages} />
-      </div>
+      <Suspense key={query} fallback={<InvoicesTableSkeleton />}>
+        <TableWrapperMA currentPage={currentPage} query={query} />
+      </Suspense>
     </MainContainer>
   );
 }
