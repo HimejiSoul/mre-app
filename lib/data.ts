@@ -1,22 +1,16 @@
 import { sql } from '@vercel/postgres';
-import {
-  CustomerField,
-  CustomersTableType,
-  InvoiceForm,
-  InvoicesTable,
-  LatestInvoiceRaw,
-  User,
-  Revenue,
-} from './definitions';
+import { CustomerField, InvoiceForm, User } from './definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 import axios, { AxiosResponse } from 'axios';
 
 export async function fetchAllPatientFind(query: any, id_layanan: any) {
   noStore();
+  let url = `${process.env.API_ENDPOINT_AZURE}/findpasien?id_layanan=${id_layanan}`;
+  if (query != null) {
+    url += `&keyword=${query}`;
+  }
   try {
-    const response: AxiosResponse<any> = await axios.get(
-      `${process.env.API_ENDPOINT_AZURE}/findpasien?keyword=${query}&id_layanan=${id_layanan}`,
-    );
+    const response: AxiosResponse<any> = await axios.get(url);
     const allDataPatient = response.data.id_pasien;
     // console.log(allDataPatient);
     return allDataPatient;
@@ -149,7 +143,7 @@ export async function fetchReservasi(tanggal: any) {
   }
 }
 
-export async function fetchChart(value: any) {
+export async function fetchChart(value?: any) {
   // console.log(value);
   noStore();
   try {
@@ -178,51 +172,6 @@ export async function fetchPatientData(id_layanan: string) {
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch card data.');
-  }
-}
-
-export async function fetchInvoiceById(id: string) {
-  noStore();
-  try {
-    const data = await sql<InvoiceForm>`
-      SELECT
-        invoices.id,
-        invoices.customer_id,
-        invoices.amount,
-        invoices.status
-      FROM invoices
-      WHERE invoices.id = ${id};
-    `;
-
-    const invoice = data.rows.map((invoice) => ({
-      ...invoice,
-      // Convert amount from cents to dollars
-      amount: invoice.amount / 100,
-    }));
-    console.log(invoice);
-    return invoice[0];
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch invoice.');
-  }
-}
-
-export async function fetchCustomers() {
-  noStore();
-  try {
-    const data = await sql<CustomerField>`
-      SELECT
-        id,
-        name
-      FROM customers
-      ORDER BY name ASC
-    `;
-
-    const customers = data.rows;
-    return customers;
-  } catch (err) {
-    console.error('Database Error:', err);
-    throw new Error('Failed to fetch all customers.');
   }
 }
 
