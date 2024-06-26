@@ -75,13 +75,13 @@ export async function fetchPatientTableImunisasi(id_pasien: any) {
     // throw new Error('Failed to fetch card data.');
   }
 }
-export async function fetchTableBidan() {
+export async function fetchTableBidan(query: string) {
   try {
     const response: AxiosResponse<any> = await axios.get(
-      `${process.env.API_ENDPOINT_AZURE}/getallbidan`,
+      `${process.env.API_ENDPOINT_AZURE}/getbidan?keyword=${query}`,
     );
     const dataBidan = response.data.data;
-    console.log(dataBidan);
+    // console.log(dataBidan);
     return dataBidan;
   } catch (error) {
     console.error('Database Error:', error);
@@ -134,8 +134,8 @@ export async function fetchReservasi(tanggal: any) {
     const response: AxiosResponse<any> = await axios.get(
       `${process.env.API_ENDPOINT_AZURE}/getreservasi?tanggal=${tanggal}`,
     );
-    const dataPatient = response;
-    console.log('data', dataPatient);
+    const dataPatient = response.data.data;
+    // console.log('data', dataPatient);
     return dataPatient;
   } catch (error) {
     console.error('Database Error:', error);

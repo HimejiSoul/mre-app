@@ -1,3 +1,5 @@
+'use client';
+
 import { useSession } from 'next-auth/react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useEffect, useState } from 'react';
