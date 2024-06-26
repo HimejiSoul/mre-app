@@ -1,5 +1,5 @@
 import Search from '@/components/search';
-import { fetchAllPatientFind, fetchPatientTable } from '@/lib/data';
+import { fetchAllPatientFind } from '@/lib/data';
 import { Metadata } from 'next';
 import { ButtonLink } from '@/components/Buttons';
 import { urbanist } from '@/components/fonts';

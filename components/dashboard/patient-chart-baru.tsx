@@ -5,7 +5,7 @@ import { urbanist } from '@/components/fonts';
 
 export default async function PatientChartBaru() {
   const [chartAll, chartKB, chartKehamilan, chartImunisasi] = await Promise.all(
-    [fetchChart(null), fetchChart(0), fetchChart(1), fetchChart(2)],
+    [fetchChart(), fetchChart(0), fetchChart(1), fetchChart(2)],
   );
 
   const monthsAll = chartAll.map((item: any) => item.month);

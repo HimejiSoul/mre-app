@@ -1,4 +1,4 @@
-import Pagination from '@/components/keluarga-berencana/pagination';
+import Pagination from '@/components/pagination';
 import { fetchAllPatientFind, fetchPatientTable } from '@/lib/data';
 import { Metadata } from 'next';
 import KehamilanTable from '@/components/periksa-kehamilan/table';
@@ -20,7 +20,7 @@ export default async function TableWrapperPK({ currentPage, query }: any) {
 
   try {
     // Fetch the patient IDs
-    const idPatient = await fetchAllPatientFind(query, id_layanan); // output: [52, 53]
+    const idPatient = await fetchAllPatientFind(query, id_layanan);
 
     // Calculate pagination details
     totalPatient = idPatient.length;
@@ -34,7 +34,7 @@ export default async function TableWrapperPK({ currentPage, query }: any) {
         id_layanan,
       );
     } else {
-      patientData = [];
+      throw new Error('No patients found within the specified range.');
     }
   } catch (err) {
     console.error('Failed to fetch data:', err);
@@ -43,10 +43,16 @@ export default async function TableWrapperPK({ currentPage, query }: any) {
 
   return (
     <div>
-      <KehamilanTable dataPatient={patientData} />
-      <div className="mt-5 flex w-full justify-center">
-        <Pagination totalPages={totalPages} />
-      </div>
+      {error || patientData.length === 0 ? (
+        <div className="mt-5 text-center">No patient data available.</div>
+      ) : (
+        <>
+          <KehamilanTable dataPatient={patientData} />
+          <div className="mt-5 flex w-full justify-center">
+            <Pagination totalPages={totalPages} />
+          </div>
+        </>
+      )}
     </div>
   );
 }

@@ -1,10 +1,8 @@
-import Pagination from '@/components/keluarga-berencana/pagination';
 import Search from '@/components/search';
-import KBTable from '@/components/keluarga-berencana/table';
 import { urbanist } from '@/components/fonts';
 import { InvoicesTableSkeleton } from '@/components/skeletons';
 import { Suspense } from 'react';
-import { fetchAllPatientFind, fetchPatientTable } from '@/lib/data';
+import { fetchAllPatientFind } from '@/lib/data';
 import { Metadata } from 'next';
 import { ButtonLink } from '@/components/Buttons';
 import TableWrapperKB from '@/components/keluarga-berencana/table-wrapper';
