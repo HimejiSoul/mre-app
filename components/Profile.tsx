@@ -5,7 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useEffect, useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
 
-export function Profile() {
+export default function Profile() {
   const { data: session, status } = useSession();
   const [hasWelcomed, setHasWelcomed] = useState(false);
 

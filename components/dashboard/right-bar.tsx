@@ -1,4 +1,4 @@
-import { Profile } from '@/components/profile';
+import Profile from '@/components/profile';
 import AuthProvider from '@/components/auth-provider';
 import PickDate from './pick-date';
 import PickReservasi from './pick-reservasi';
