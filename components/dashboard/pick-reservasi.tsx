@@ -1,11 +1,21 @@
 import { fetchReservasi } from '@/lib/data';
-import { cookies } from 'next/headers';
 
 export default async function PickReservasi() {
   const layanan = ['Keluarga Berencana', 'Periksa Kehamilan', 'Imunisasi'];
-  const cookieStore = cookies();
-  const selectedDate = cookieStore.get('selectedDate');
-  const datareservasi = await fetchReservasi(selectedDate?.value);
+  const date = new Date();
+  const formatDateAPI = (date: Date | undefined) => {
+    if (!date) return '';
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(date.getDate()).padStart(2, '0'); // Get day of the month
+
+    const formattedDate = `${year}-${month}-${day}`;
+    // console.log(formattedDate);
+    return formattedDate;
+  };
+
+  const datareservasi = await fetchReservasi(formatDateAPI(date));
   // console.log(selectedDate);
 
   if (datareservasi.length === 0) {

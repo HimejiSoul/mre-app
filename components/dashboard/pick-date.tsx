@@ -4,17 +4,9 @@ import { urbanist } from '../fonts';
 import { Calendar } from '@/components/ui/calendar';
 import { Separator } from '@/components/ui/separator';
 import { useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
 
 export default function PickDate({ children }: { children: React.ReactNode }) {
   const [date, setDate] = useState<Date | undefined>(new Date());
-
-  useEffect(() => {
-    if (date) {
-      Cookies.set('selectedDate', formatDateAPI(date));
-    }
-    console.log('cookis', formatDateAPI(date));
-  }, [date]);
 
   const formatDate = (date: Date | undefined) => {
     if (!date) return '';
