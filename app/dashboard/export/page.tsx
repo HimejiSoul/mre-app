@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { MainContainer } from '@/components/main-layout';
 import { urbanist } from '@/components/fonts';
-import { ExportPatients } from './export-patients';
+import { ExportPatients } from '@/components/export/export-patients';
 
 export const metadata: Metadata = {
   title: 'Manajemen Akun',
