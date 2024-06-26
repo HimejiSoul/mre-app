@@ -47,7 +47,7 @@ export default async function Page({
           name="Tambah pasien"
         />
       </div>
-      <Suspense key={query} fallback={<InvoicesTableSkeleton />}>
+      <Suspense key={query || currentPage} fallback={<InvoicesTableSkeleton />}>
         <TableWrapperPK currentPage={currentPage} query={query} />
       </Suspense>
     </div>

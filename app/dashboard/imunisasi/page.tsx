@@ -44,7 +44,7 @@ export default async function Page({
         <Search placeholder="Search Pasien Imunisasi..." />
         <ButtonLink href="/dashboard/imunisasi/create" name="Tambah pasien" />
       </div>
-      <Suspense key={query} fallback={<InvoicesTableSkeleton />}>
+      <Suspense key={query || currentPage} fallback={<InvoicesTableSkeleton />}>
         <TableWrapperImunisasi currentPage={currentPage} query={query} />
       </Suspense>
     </div>
