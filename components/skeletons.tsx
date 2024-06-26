@@ -11,21 +11,15 @@ export function CardSkeleton() {
 export function CardsSkeleton() {
   return (
     <>
-      <div className="col-span-2">
-        <Skeleton className="h-[220px] w-[270px]" />
+      <div className="col-span-12 flex gap-3">
+        <Skeleton className="h-[220px] w-1/3" />
+        <Skeleton className="h-[220px] w-1/3" />
+        <Skeleton className="h-[220px] w-1/3" />
       </div>
-      <div className="col-span-2">
-        <Skeleton className="h-[220px] w-[270px]" />
+      <div className="col-span-12 flex gap-3">
+        <Skeleton className="h-[220px] w-1/2" />
+        <Skeleton className="h-[220px] w-1/2" />
       </div>
-      <div className="col-span-2">
-        <Skeleton className="h-[220px] w-[270px]" />
-      </div>
-      {/* <div className="col-span-3">
-        <Skeleton />
-      </div>
-      <div className="col-span-3">
-        <Skeleton />
-      </div> */}
     </>
   );
 }
@@ -109,7 +103,6 @@ export function TableRowSkeleton() {
       {/* Customer Name and Image */}
       <td className="relative overflow-hidden whitespace-nowrap py-3 pl-6 pr-3">
         <div className="flex items-center gap-3">
-          <div className="h-8 w-8 rounded-full bg-gray-100"></div>
           <div className="h-6 w-24 rounded bg-gray-100"></div>
         </div>
       </td>
@@ -180,27 +173,11 @@ export function InvoicesTableSkeleton() {
           <table className="hidden min-w-full text-gray-900 md:table">
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
-                <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
-                  Customer
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Email
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Amount
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Date
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Status
-                </th>
-                <th
-                  scope="col"
-                  className="relative pb-4 pl-3 pr-6 pt-2 sm:pr-6"
-                >
-                  <span className="sr-only">Edit</span>
-                </th>
+                <th scope="col" className="px-4 py-5 font-medium sm:pl-6"></th>
+                <th scope="col" className="px-3 py-5 font-medium"></th>
+                <th scope="col" className="px-3 py-5 font-medium"></th>
+                <th scope="col" className="px-3 py-5 font-medium"></th>
+                <th scope="col" className="px-3 py-5 font-medium"></th>
               </tr>
             </thead>
             <tbody className="bg-white">
