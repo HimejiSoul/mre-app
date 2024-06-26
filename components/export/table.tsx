@@ -1,40 +1,99 @@
 'use client';
 
 import {
+  ColumnDef,
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
 
-import { Fragment, useEffect, useReducer, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
-type Patient = {
+type PatientKB = {
   generalInformation: {
-    id_pasien: string;
+    noFaskes: string;
+    namaPeserta: string;
+    usia: number;
+    tglDatang: string;
+  };
+};
+
+type PatientKehamilan = {
+  generalInformation: {
+    noIbu: string;
     namaLengkap: string;
     umur: number;
     tanggalRegister: string;
   };
 };
 
-const columnHelper = createColumnHelper<Patient>();
+type PatientImunisasi = {
+  generalInformation: {
+    noBayi: string;
+    namaBayi: string;
+    namaIbu: number;
+    bidan: string;
+  };
+};
 
-const columns = [
-  columnHelper.accessor('generalInformation.id_pasien', {
-    header: () => 'KOHRT',
+const columnHelperKB = createColumnHelper<PatientKB>();
+const columnHelperKehamilan = createColumnHelper<PatientKehamilan>();
+const columnHelperImunisasi = createColumnHelper<PatientImunisasi>();
+
+const columnsKB = [
+  columnHelperKB.accessor('generalInformation.noFaskes', {
+    header: () => 'No. Faskes',
     cell: (info) => info.getValue(),
   }),
-  columnHelper.accessor('generalInformation.namaLengkap', {
+  columnHelperKB.accessor('generalInformation.namaPeserta', {
     header: () => 'Nama',
     cell: (info) => info.getValue(),
   }),
-  columnHelper.accessor('generalInformation.umur', {
+  columnHelperKB.accessor('generalInformation.usia', {
     header: () => 'Usia',
     cell: (info) => info.getValue(),
   }),
-  columnHelper.accessor('generalInformation.tanggalRegister', {
+  columnHelperKB.accessor('generalInformation.tglDatang', {
     header: () => 'Kedatangan Terakhir',
+    cell: (info) => info.getValue(),
+  }),
+];
+
+const columnsKehamilan = [
+  columnHelperKehamilan.accessor('generalInformation.noIbu', {
+    header: () => 'No. Ibu',
+    cell: (info) => info.getValue(),
+  }),
+  columnHelperKehamilan.accessor('generalInformation.namaLengkap', {
+    header: () => 'Nama',
+    cell: (info) => info.getValue(),
+  }),
+  columnHelperKehamilan.accessor('generalInformation.umur', {
+    header: () => 'Usia',
+    cell: (info) => info.getValue(),
+  }),
+  columnHelperKehamilan.accessor('generalInformation.tanggalRegister', {
+    header: () => 'Kedatangan Terakhir',
+    cell: (info) => info.getValue(),
+  }),
+];
+
+const columnsImunisasi = [
+  columnHelperImunisasi.accessor('generalInformation.noBayi', {
+    header: () => 'No. Bayi',
+    cell: (info) => info.getValue(),
+  }),
+  columnHelperImunisasi.accessor('generalInformation.namaBayi', {
+    header: () => 'Nama Bayi',
+    cell: (info) => info.getValue(),
+  }),
+  columnHelperImunisasi.accessor('generalInformation.namaIbu', {
+    header: () => 'Nama Ibu',
+    cell: (info) => info.getValue(),
+  }),
+  columnHelperImunisasi.accessor('generalInformation.bidan', {
+    header: () => 'Bidan',
     cell: (info) => info.getValue(),
   }),
 ];
@@ -50,18 +109,29 @@ function formatDateToDDMMYY(dateString: string) {
 }
 
 export default function ExportPatientsTable({
+  idLayanan,
   dataPatient,
 }: {
+  idLayanan: number;
   dataPatient: any;
 }) {
   const [data, _setData] = useState(() => [...dataPatient]);
+  const [dataColumns, setDataColumns] = useState<ColumnDef<any, any>[]>([]);
+
   useEffect(() => {
     _setData([...dataPatient]);
-  }, [dataPatient]);
-  const rerender = useReducer(() => ({}), {})[1];
+    if (idLayanan === 0) {
+      setDataColumns(columnsKB);
+    } else if (idLayanan === 1) {
+      setDataColumns(columnsKehamilan);
+    } else {
+      setDataColumns(columnsImunisasi);
+    }
+  }, [dataPatient, idLayanan]);
+
   const table = useReactTable({
     data,
-    columns,
+    columns: dataColumns,
     getCoreRowModel: getCoreRowModel(),
   });
 

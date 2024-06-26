@@ -9,6 +9,7 @@ import { kehamilanFormSchema } from '@/lib/types/periksa-kehamilan-types';
 import { imunisasiFormSchema } from '@/lib/types/imunisasi/imunisasi-types';
 import { soapKehamilanFormSchema } from '@/lib/types/soap-kehamilan-types';
 import { revalidatePath } from 'next/cache';
+import { exportPatientsFormSchema } from './types/export-patients/export-patients-types';
 
 export type State = {
   errors?: {
@@ -253,6 +254,32 @@ export async function createSoapImunisasiPatient(formData: FormData, id: any) {
     console.error('Error:', error);
   }
   redirect('/dashboard/imunisasi');
+}
+
+export async function exportPatients(
+  formData: z.infer<typeof exportPatientsFormSchema>,
+) {
+  const endpoint = `${process.env.API_ENDPOINT_AZURE}/export`;
+  const layanan = {
+    'Keluarga Berencana': 0,
+    'Periksa Kehamilan': 1,
+    Imunisasi: 2,
+  };
+  const id_layanan = layanan[formData.layanan];
+  const data = {
+    id_layanan,
+    date: formData.date,
+  };
+
+  try {
+    const response = await axios.post(endpoint, data);
+    return response.data;
+  } catch (error) {
+    if (isRedirectError(error)) {
+      throw error;
+    }
+    console.error('Error:', error);
+  }
 }
 
 export async function deleteBidan(id: any) {

@@ -25,16 +25,22 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import ExportPatientsTable from '@/components/export/table';
+import { exportPatients } from '@/lib/actions';
 
 export function ExportPatients() {
-  const [response, setResponse] = useState({ data: [] });
-  console.log('Ini Response', response.data);
+  const [response, setResponse] = useState({ id_layanan: 0, data: [] });
   return (
     <>
       <FormExportPatinets setResponse={setResponse} />
-      <ExportPatientsTable dataPatient={response.data} />
+      <ExportPatientsTable
+        idLayanan={response.id_layanan}
+        dataPatient={response.data}
+      />
       <div className="mt-4 flex w-full justify-end">
-        <ButtonExportPatients data={response.data} />
+        <ButtonExportPatients
+          idLayanan={response.id_layanan}
+          data={response.data}
+        />
       </div>
     </>
   );
@@ -49,22 +55,14 @@ export function FormExportPatinets({ setResponse }: any) {
 
   async function onSubmit(data: z.infer<typeof exportPatientsFormSchema>) {
     setIsLoading(true);
-    // console.log(data);
-    const res = await fetch('/api/export', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ data }),
-    });
+    const response = await exportPatients(data);
 
-    if (!res.ok) {
-      throw new Error('Failed to fetch data');
+    if (response.data !== null) {
+      setResponse(response);
+    } else {
+      setResponse({ id_layanan: 0, data: [] });
     }
-
-    const result = await res.json();
     setIsLoading(false);
-    setResponse(result);
   }
   return (
     <Form {...form}>
@@ -139,18 +137,32 @@ export function FormExportPatinets({ setResponse }: any) {
 }
 
 // TODO: Fix this any types
-export function ButtonExportPatients({ data }: { data: any }) {
+export function ButtonExportPatients({
+  idLayanan,
+  data,
+}: {
+  idLayanan: number;
+  data: any;
+}) {
   const patients = data;
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [worksheetname, setWorksheetname] = useState<string>('');
   useEffect(() => {
     if (data.length === 0) {
       setIsLoading(true);
     } else {
       setIsLoading(false);
+      if (idLayanan === 0) {
+        setWorksheetname('Keluarga Berencana');
+      } else if (idLayanan === 1) {
+        setWorksheetname('Periksa Kehamilan');
+      } else {
+        setWorksheetname('Imunisasi');
+      }
     }
-  }, [data]);
+  }, [data, idLayanan]);
 
-  const onGetExporProduct = async (title?: string, worksheetname?: string) => {
+  const onGetExporProduct = async () => {
     try {
       // Check if the action result contains data and if it's an array
       if (patients && Array.isArray(patients)) {
@@ -163,7 +175,23 @@ export function ButtonExportPatients({ data }: { data: any }) {
           origin: 'A1',
         });
 
-        const headerGeneralInfromation = [
+        const headerKBGeneralInfromation = [
+          'No. Faskes',
+          'No Seri Kartu',
+          'Nama Peserta',
+          'Usia',
+          'Nama Pasangan',
+          'Jenis Pasangan',
+          'Pendidikan Akhir',
+          'Alamat',
+          'Pekerjaan Pasangan',
+          'Status JKN',
+          'Tanggal Datang',
+          'Tanggal Lahir',
+          'No HP',
+        ];
+
+        const headerKehamilanGeneralInfromation = [
           'KOHRT',
           'No. Ibu',
           'Nama Lengkap',
@@ -182,27 +210,109 @@ export function ButtonExportPatients({ data }: { data: any }) {
           'Tanggal Register',
         ];
 
-        XLSX.utils.sheet_add_aoa(worksheet, [headerGeneralInfromation], {
-          origin: 'A2',
-        });
-
-        // Merge general information
-        worksheet['!merges'] = [
-          {
-            s: { r: 0, c: 0 },
-            e: { r: 0, c: headerGeneralInfromation.length - 1 },
-          },
-          ...Array.from(
-            { length: headerGeneralInfromation.length },
-            (_, i) => ({
-              s: { r: 1, c: i },
-              e: { r: 2, c: i },
-            }),
-          ),
+        const headerImunisasiGeneralInfromation = [
+          'Nomor',
+          'Puskesmas',
+          'Bidan',
+          'Nomor Bayi',
+          'Nama Bayi',
+          'Nama Ibu',
+          'Usia Ibu',
+          'Nama Ayah',
+          'Usia Ayah',
+          'Alamat',
+          'Desa',
+          'Kecamatan',
+          'Kabupaten',
+          'Provinsi',
+          'No HP',
         ];
 
+        if (idLayanan === 0) {
+          XLSX.utils.sheet_add_aoa(worksheet, [headerKBGeneralInfromation], {
+            origin: 'A2',
+          });
+
+          // Merge general information
+          worksheet['!merges'] = [
+            {
+              s: { r: 0, c: 0 },
+              e: { r: 0, c: headerKBGeneralInfromation.length - 1 },
+            },
+            ...Array.from(
+              { length: headerKBGeneralInfromation.length },
+              (_, i) => ({
+                s: { r: 1, c: i },
+                e: { r: 2, c: i },
+              }),
+            ),
+          ];
+        } else if (idLayanan === 1) {
+          XLSX.utils.sheet_add_aoa(
+            worksheet,
+            [headerKehamilanGeneralInfromation],
+            {
+              origin: 'A2',
+            },
+          );
+
+          // Merge general information
+          worksheet['!merges'] = [
+            {
+              s: { r: 0, c: 0 },
+              e: { r: 0, c: headerKehamilanGeneralInfromation.length - 1 },
+            },
+            ...Array.from(
+              { length: headerKehamilanGeneralInfromation.length },
+              (_, i) => ({
+                s: { r: 1, c: i },
+                e: { r: 2, c: i },
+              }),
+            ),
+          ];
+        } else if (idLayanan === 2) {
+          XLSX.utils.sheet_add_aoa(
+            worksheet,
+            [headerImunisasiGeneralInfromation],
+            {
+              origin: 'A2',
+            },
+          );
+
+          // Merge general information
+          worksheet['!merges'] = [
+            {
+              s: { r: 0, c: 0 },
+              e: { r: 0, c: headerImunisasiGeneralInfromation.length - 1 },
+            },
+            ...Array.from(
+              { length: headerImunisasiGeneralInfromation.length },
+              (_, i) => ({
+                s: { r: 1, c: i },
+                e: { r: 2, c: i },
+              }),
+            ),
+          ];
+        }
+
         // Map data to array of arrays
-        const dataArray = patients.map((patient) => [
+        const dataKBArray = patients.map((patient) => [
+          patient.generalInformation.noFaskes,
+          patient.generalInformation.noSeriKartu,
+          patient.generalInformation.namaPeserta,
+          patient.generalInformation.usia,
+          patient.generalInformation.namaPasangan,
+          patient.generalInformation.jenisPasangan,
+          patient.generalInformation.pendidikanAkhir,
+          patient.generalInformation.alamat,
+          patient.generalInformation.pekerjaanPasangan,
+          patient.generalInformation.statusJkn,
+          patient.generalInformation.tglDatang,
+          patient.generalInformation.tglLahir,
+          patient.generalInformation.noHP,
+        ]);
+
+        const dataKehamilanArray = patients.map((patient) => [
           patient.generalInformation.id_pasien,
           patient.generalInformation.noIbu,
           patient.generalInformation.namaLengkap,
@@ -221,8 +331,36 @@ export function ButtonExportPatients({ data }: { data: any }) {
           patient.generalInformation.tanggalRegister,
         ]);
 
+        const dataImunisasiArray = patients.map((patient) => [
+          patient.generalInformation.nomor,
+          patient.generalInformation.puskesmas,
+          patient.generalInformation.bidan,
+          patient.generalInformation.nomorBayi,
+          patient.generalInformation.namaBayi,
+          patient.generalInformation.namaIbu,
+          patient.generalInformation.usiaIbu,
+          patient.generalInformation.namaAyah,
+          patient.generalInformation.usiaAyah,
+          patient.generalInformation.alamat,
+          patient.generalInformation.desa,
+          patient.generalInformation.kecamatan,
+          patient.generalInformation.kabupaten,
+          patient.generalInformation.provinsi,
+          patient.generalInformation.noHP,
+        ]);
+
         // Add the data to the worksheet starting at row 4 (index 3)
-        XLSX.utils.sheet_add_aoa(worksheet, dataArray, { origin: 'A4' });
+        if (idLayanan === 0) {
+          XLSX.utils.sheet_add_aoa(worksheet, dataKBArray, { origin: 'A4' });
+        } else if (idLayanan === 1) {
+          XLSX.utils.sheet_add_aoa(worksheet, dataKehamilanArray, {
+            origin: 'A4',
+          });
+        } else if (idLayanan === 2) {
+          XLSX.utils.sheet_add_aoa(worksheet, dataImunisasiArray, {
+            origin: 'A4',
+          });
+        }
 
         // Add worksheet to workbook
         XLSX.utils.book_append_sheet(workbook, worksheet, worksheetname);
@@ -230,8 +368,11 @@ export function ButtonExportPatients({ data }: { data: any }) {
         console.log(worksheet);
 
         // Save the workbook as an Excel file
-        XLSX.writeFile(workbook, `${title}.xlsx`);
-        console.log(`Exported data to ${title}.xlsx`);
+        XLSX.writeFile(
+          workbook,
+          `${worksheetname} ${getCurrentDateTime()}.xlsx`,
+        );
+        console.log(`Exported data to ${worksheetname}.xlsx`);
       } else {
         console.log('#==================Export Error');
       }
@@ -241,12 +382,7 @@ export function ButtonExportPatients({ data }: { data: any }) {
   };
   return (
     <Button
-      onClick={() =>
-        onGetExporProduct(
-          `Patients ${getCurrentDateTime()}`,
-          'Periksa Kehamilan',
-        )
-      }
+      onClick={() => onGetExporProduct()}
       className={'w-fit bg-blue-600 hover:bg-blue-500'}
       disabled={isLoading}
     >
