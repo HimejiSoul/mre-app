@@ -1,7 +1,7 @@
 import NavLinks from '@/components/dashboard/nav-links';
 import { signOut } from '@/auth';
 import { LogOut } from '../icons';
-import AuthProvider from '@/components/AuthProvider';
+import AuthProvider from '@/components/auth-provider';
 import BidanNinaLogo from '@/components/bidan-nina-logo';
 
 export default function SideNav() {

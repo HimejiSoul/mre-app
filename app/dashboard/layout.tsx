@@ -1,9 +1,12 @@
-import SideNav from '@/components/dashboard/sidenav';
-import SearchBar from '@/components/dashboard/searchBar';
-import Rightbar from '@/components/dashboard/rightBar';
+import SideNav from '@/components/dashboard/side-nav';
+import Rightbar from '@/components/dashboard/right-bar';
 import { Toaster } from '@/components/ui/toaster';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <div className="flex h-screen overflow-hidden">
       <div className="w-full flex-none md:w-64">
