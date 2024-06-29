@@ -13,42 +13,44 @@ const iconMap = {
 };
 
 export default async function CardWrapper() {
-  const [
-    jumlah_pasienKB,
-    jumlah_pasienHamil,
-    jumlah_pasienImun,
-    jumlah_pasienIbu,
-    jumlah_pasienAnak,
-  ] = await Promise.all([
-    fetchPatientData('0'),
-    fetchPatientData('1'),
-    fetchPatientData('2'),
-    fetchPatientData('3'),
-    fetchPatientData('4'),
-  ]);
+  const [pasienKB, pasienHamil, pasienImun, pasienIbu, pasienAnak] =
+    await Promise.all([
+      fetchPatientData('0'),
+      fetchPatientData('1'),
+      fetchPatientData('2'),
+      fetchPatientData('3'),
+      fetchPatientData('4'),
+    ]);
   return (
     <>
       <div className="col-span-2">
-        <Card title="Keluarga Berencana" value={jumlah_pasienKB} layanan="kb" />
+        <Card
+          title="Keluarga Berencana"
+          value={pasienKB.jumlah}
+          layanan="kb"
+          detail={convertTimestamp(pasienKB.lastUpdate)}
+        />
       </div>
       <div className="col-span-2">
         <Card
           title="Periksa Kehamilan"
-          value={jumlah_pasienHamil}
+          value={pasienHamil.jumlah}
           layanan="kehamilan"
+          detail={convertTimestamp(pasienHamil.lastUpdate)}
         />
       </div>
       <div className="col-span-2">
         <Card
           title="Layanan Imunisasi"
-          value={jumlah_pasienImun}
+          value={pasienImun.jumlah}
           layanan="imunisasi"
+          detail={convertTimestamp(pasienImun.lastUpdate)}
         />
       </div>
       <div className="col-span-3">
         <Card
           title="Layanan Ibu"
-          value={jumlah_pasienIbu}
+          value={pasienIbu.jumlah}
           layanan="ibu"
           className="cursor-not-allowed opacity-50"
         />
@@ -56,7 +58,7 @@ export default async function CardWrapper() {
       <div className="col-span-3">
         <Card
           title="Layanan Anak"
-          value={jumlah_pasienAnak}
+          value={pasienAnak.jumlah}
           layanan="anak"
           className="cursor-not-allowed opacity-50"
         />
@@ -70,12 +72,14 @@ export function Card({
   value,
   layanan,
   className,
+  detail,
   ...props
 }: {
   title: string;
   value: number | string;
   layanan: 'kb' | 'kehamilan' | 'imunisasi' | 'ibu' | 'anak';
   className?: string;
+  detail?: string;
 }) {
   const Icon = iconMap[layanan];
 
@@ -96,9 +100,40 @@ export function Card({
         </h1>
         <Separator />
         <p className="text-sm text-rme-gray-300">
-          Terakhir diubah 3 Januari 2023, 19:23
+          {detail ? `Terakhir diubah ${detail} WIB` : 'Tidak ada data layanan'}
         </p>
       </div>
     </div>
   );
+}
+
+function convertTimestamp(timestamp: any) {
+  // Create a Date object
+  const date = new Date(timestamp);
+
+  // Array of month names in Indonesian
+  const months = [
+    'Januari',
+    'Februari',
+    'Maret',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember',
+  ];
+
+  // Get date components
+  const day = date.getUTCDate();
+  const month = months[date.getUTCMonth()];
+  const year = date.getUTCFullYear();
+  const hours = date.getUTCHours();
+  const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+
+  // Format the date
+  return `${day} ${month} ${year}, ${hours}:${minutes}`;
 }
