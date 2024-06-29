@@ -21,11 +21,15 @@ export default async function Page({
   const id_layanan = 0;
   let totalPatient = 0;
 
-  // Fetch the patient IDs
-  const idPatient = await fetchAllPatientFind(query, id_layanan); // output: [52, 53]
-
-  // Calculate pagination details
-  totalPatient = idPatient.length;
+  try {
+    // Fetch the patient IDs
+    const idPatient = await fetchAllPatientFind('', id_layanan); // output: [52, 53]
+    // Calculate pagination details
+    totalPatient = idPatient.length;
+  } catch (error) {
+    console.error('Failed to fetch data:', error);
+    error = 'Failed to load data';
+  }
 
   return (
     <div className="w-full rounded-2xl bg-[#D0E4FF] p-5">
