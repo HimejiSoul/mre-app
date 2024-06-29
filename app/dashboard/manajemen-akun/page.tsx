@@ -22,8 +22,13 @@ export default async function Page({
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
   let totalBidan = 0;
-  const bidan = await fetchTableBidan('');
-  totalBidan = bidan.length;
+  try {
+    const bidan = await fetchTableBidan('');
+    totalBidan = bidan.length;
+  } catch (error) {
+    console.error('Failed to fetch data:', error);
+    error = 'Failed to load data';
+  }
 
   return (
     <MainContainer>

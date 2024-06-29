@@ -166,9 +166,9 @@ export async function fetchPatientData(id_layanan: string) {
     const response: AxiosResponse<any> = await axios.get(
       `${apiEndpoint}?id_layanan=${id_layanan}`,
     );
-    const jumlah_pasien = response.data.jumlah;
+    const dataPatient = response.data;
     // console.log(jumlah_pasien);
-    return jumlah_pasien;
+    return dataPatient;
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch card data.');
