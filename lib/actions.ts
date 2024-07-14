@@ -187,7 +187,7 @@ export async function createSoapKehamilanPatient(
     id_layanan: 1,
     data: { id_pasien: id_pasien, ...response.data },
   };
-  const endpoint = `${process.env.API_ENDPOINT}/soap/soap`;
+  const endpoint = `${process.env.API_ENDPOINT}/api/soap`;
   console.log(data);
   try {
     await axios.post(endpoint, data);
