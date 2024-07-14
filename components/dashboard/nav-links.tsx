@@ -110,7 +110,7 @@ export default function NavLinks() {
             href={link.href}
             onClick={() => handleClick(link.href)}
             className={clsx(
-              'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium transition duration-200 ease-out hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3',
+              'flex h-[48px] items-center justify-start gap-2 rounded-md p-2 px-3 text-sm font-medium transition duration-200 ease-out hover:bg-sky-100 hover:text-blue-600',
               {
                 'bg-sky-100 text-blue-600':
                   i === 0
@@ -122,9 +122,9 @@ export default function NavLinks() {
             {isLoading ? (
               <Loader2Icon size={20} className="mr-2 animate-spin" />
             ) : (
-              <LinkIcon className="h-8 w-6" />
+              <LinkIcon className="h-8 min-w-[24px]" />
             )}
-            <p className="hidden font-semibold md:block">{link.name}</p>
+            <p className="hidden w-full font-semibold md:block">{link.name}</p>
           </Link>
         );
       })}
