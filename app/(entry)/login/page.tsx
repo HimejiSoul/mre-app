@@ -17,7 +17,7 @@ export default function Page() {
   return (
     <form
       action={dispatch}
-      className="z-10 mx-8 max-w-[420px] rounded-2xl bg-white px-8 py-16 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]"
+      className="z-10 mx-8 max-w-[420px] rounded-2xl bg-white px-4 py-16 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] sm:px-8"
     >
       <section className="_TITLE mb-16 text-center">
         <h2
@@ -26,7 +26,7 @@ export default function Page() {
           Selamat Datang
         </h2>
         <h1
-          className={`${urbanist.className} text-3xl font-bold text-rme-black`}
+          className={`${urbanist.className} text-2xl font-bold text-rme-black sm:text-3xl`}
         >
           Masuk untuk Melakukan Rekam Medis
         </h1>
@@ -89,33 +89,17 @@ export default function Page() {
           </button>
         </div>
       </section>
-      {/* <section className="_FORGET_PASS mt-4 flex justify-end text-xs font-medium text-rme-gray-500 hover:underline hover:underline-offset-2">
-        <Link href="/dashboard">Lupa Password?</Link>
-      </section> */}
-
       <LoginButton />
-
-      <section
-        className="_ERROR_MESSAGE mt-2 flex w-full text-sm text-red-500"
-        aria-live="polite"
-        aria-atomic="true"
-      >
-        {errorMessage && (
-          <>
-            <AlertCircle className="mr-2 h-5 w-5" />
-            <p>{errorMessage}</p>
-          </>
-        )}
-      </section>
-      {/* <section className="_CREATE_ACCOUNT mt-4 text-center text-sm font-semibold text-rme-gray-500">
-        Belum punya akun?{' '}
-        <Link
-          href="/register"
-          className="font-bold text-rme-blue-500 hover:underline hover:underline-offset-2"
+      {errorMessage && (
+        <section
+          className="_ERROR_MESSAGE animate-fade-in-top mt-2 flex w-full text-sm text-red-500 duration-200"
+          aria-live="polite"
+          aria-atomic="true"
         >
-          Buat Akun
-        </Link>
-      </section> */}
+          <AlertCircle className="mr-2 h-5 w-5" />
+          <p>{errorMessage}</p>
+        </section>
+      )}
     </form>
   );
 }

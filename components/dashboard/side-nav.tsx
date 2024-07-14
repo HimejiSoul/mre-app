@@ -7,9 +7,9 @@ import BidanNinaLogo from '@/components/bidan-nina-logo';
 export default function SideNav() {
   const LogOutIcon = LogOut;
   return (
-    <div className="flex h-full flex-col p-4 pt-6">
+    <div className="flex h-full flex-col gap-10 p-4 pt-6">
       <BidanNinaLogo />
-      <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
+      <div className="flex grow flex-col justify-between space-x-0 space-y-2">
         <AuthProvider>
           <NavLinks />
         </AuthProvider>

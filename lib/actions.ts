@@ -187,7 +187,7 @@ export async function createSoapKehamilanPatient(
     id_layanan: 1,
     data: { id_pasien: id_pasien, ...response.data },
   };
-  const endpoint = `${process.env.API_ENDPOINT}/soap/soap`;
+  const endpoint = `${process.env.API_ENDPOINT}/api/soap`;
   console.log(data);
   try {
     await axios.post(endpoint, data);
@@ -325,7 +325,7 @@ export async function authenticate(
     if (error instanceof AuthError) {
       switch (error.type) {
         case 'CredentialsSignin':
-          return 'Invalid credentials.';
+          return 'Username or password is wrong.';
         default:
           return 'Something went wrong.';
       }

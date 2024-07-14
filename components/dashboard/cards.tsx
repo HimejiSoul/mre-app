@@ -23,7 +23,7 @@ export default async function CardWrapper() {
     ]);
   return (
     <>
-      <div className="col-span-2">
+      <div className="col-span-3 lg:col-span-2">
         <Card
           title="Keluarga Berencana"
           value={pasienKB.jumlah}
@@ -31,7 +31,7 @@ export default async function CardWrapper() {
           detail={convertTimestamp(pasienKB.lastUpdate)}
         />
       </div>
-      <div className="col-span-2">
+      <div className="col-span-3 lg:col-span-2">
         <Card
           title="Periksa Kehamilan"
           value={pasienHamil.jumlah}
@@ -39,7 +39,7 @@ export default async function CardWrapper() {
           detail={convertTimestamp(pasienHamil.lastUpdate)}
         />
       </div>
-      <div className="col-span-2">
+      <div className="col-span-3 lg:col-span-2">
         <Card
           title="Layanan Imunisasi"
           value={pasienImun.jumlah}
