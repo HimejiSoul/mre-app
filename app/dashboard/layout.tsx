@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <section className="min-w-[256px]">
         <SideNav />
       </section>
-      <main className="no-scrollbar w-full overflow-y-scroll px-2 py-6">
+      <main className="no-scrollbar relative w-full overflow-y-scroll px-2 py-6">
         {children}
       </main>
       <section className=" hidden w-fit xl:block xl:w-80">

@@ -7,6 +7,8 @@ import { useSession } from 'next-auth/react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Loader2Icon } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { HelpCircle } from 'lucide-react';
+import { Separator } from '../ui/separator';
 
 // Map of links to display in the side navigation.
 const links = [
@@ -128,6 +130,17 @@ export default function NavLinks() {
           </Link>
         );
       })}
+      <Separator />
+      <Link
+        href="https://drive.google.com/file/d/1Rm1_oEoJr8L7WQ4ZyJ5GI213XDQyQuxo/view?usp=sharing"
+        target="_blank"
+        className={clsx(
+          'flex h-[48px] items-center justify-start gap-2 rounded-md p-2 px-3 text-sm font-medium transition duration-200 ease-out hover:bg-sky-100 hover:text-blue-600',
+        )}
+      >
+        <HelpCircle className="h-8 min-w-[24px]" />
+        <p className="hidden w-full font-semibold md:block">Tutorial</p>
+      </Link>
     </div>
   );
 }
