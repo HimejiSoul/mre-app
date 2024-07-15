@@ -170,6 +170,10 @@ export const imunisasiFormSchema = z.object({
     nomor: z.string(),
     puskesmas: z.string(),
     bidan: z.string(),
+    tglDatang: z
+      .string()
+      .or(z.date())
+      .transform((arg) => new Date(arg)),
     nomorBayi: z.string(),
     namaBayi: z.string(),
     namaIbu: z.string(),
@@ -304,6 +308,7 @@ export const defaultValues: Partial<z.infer<typeof imunisasiFormSchema>> = {
     nomor: '',
     puskesmas: '',
     bidan: '',
+    tglDatang: new Date(),
     nomorBayi: '',
     namaBayi: '',
     namaIbu: '',

@@ -3,9 +3,12 @@
 import { urbanist } from '../fonts';
 import { Calendar } from '@/components/ui/calendar';
 import { Separator } from '@/components/ui/separator';
+import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 
-export default function PickDate({ children }: { children: React.ReactNode }) {
+export default function PickDate() {
+  const router = useRouter();
   const [date, setDate] = useState<Date | undefined>(new Date());
 
   const formatDate = (date: Date | undefined) => {
@@ -30,6 +33,14 @@ export default function PickDate({ children }: { children: React.ReactNode }) {
     return formattedDate;
   };
 
+  useEffect(() => {
+    if (date) {
+      Cookies.set('selectedDate', formatDateAPI(date));
+    }
+    console.log('Date changed:', String(date));
+    router.refresh();
+  }, [date, router]);
+
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-col font-bold text-black">
@@ -46,7 +57,6 @@ export default function PickDate({ children }: { children: React.ReactNode }) {
         <div className={`${urbanist.className} mt-3 text-lg font-bold`}>
           Reservasi Hari {formatDate(date)}
         </div>
-        {children}
       </div>
     </div>
   );

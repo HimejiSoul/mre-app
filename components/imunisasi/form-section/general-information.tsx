@@ -29,13 +29,19 @@ export default function GeneralInformation({ form }: any) {
             label="Puskesmas"
           />
           <InputField
+            name="generalInformation.tglDatang"
+            form={form}
+            label="Tanggal Datang"
+            type="date"
+          />
+        </Row>
+        <Row>
+          <InputField
             name="generalInformation.bidan"
             form={form}
             placeholder="Nama Bidan"
             label="Bidan"
           />
-        </Row>
-        <Row>
           <InputField
             name="generalInformation.nomorBayi"
             form={form}
