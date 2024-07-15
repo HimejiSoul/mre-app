@@ -2,6 +2,8 @@ import Profile from '@/components/profile-session';
 import AuthProvider from '@/components/auth-provider';
 import PickDate from './pick-date';
 import PickReservasi from './pick-reservasi';
+import { Suspense } from 'react';
+import { Skeleton } from '../ui/skeleton';
 
 export default async function Rightbar() {
   return (
@@ -12,9 +14,17 @@ export default async function Rightbar() {
         </AuthProvider>
       </div>
       <div>
-        <PickDate>
+        <PickDate />
+        <Suspense
+          fallback={
+            <div className="flex flex-col items-start gap-2">
+              <Skeleton className="h-4 w-[200px] bg-slate-200" />
+              <Skeleton className="h-2 w-[150px] bg-slate-200" />
+            </div>
+          }
+        >
           <PickReservasi />
-        </PickDate>
+        </Suspense>
       </div>
     </div>
   );
