@@ -24,6 +24,13 @@ import {
 } from '@/components/ui/alert-dialog';
 import { deleteBidan } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
+import { Trash2 } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 type Bidan = {
   _id: string;
@@ -44,7 +51,7 @@ type TableProps<TData> = {
 // const dataPatients: Patient[] = pasienData.data;
 // console.log(dataPatients);
 
-const AlertDialogDelete = ({ id }: any) => {
+const AlertDialogDelete = ({ id, name }: any) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
@@ -61,19 +68,27 @@ const AlertDialogDelete = ({ id }: any) => {
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger>
-        <Badge className="bg-[#F8DEDD] text-[#DF645F] hover:bg-[#F8DEDD]/50">
-          Delete
-        </Badge>
-      </AlertDialogTrigger>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <AlertDialogTrigger className="rounded-md border p-2 hover:bg-gray-100">
+              <Trash2 className="w-5" />
+            </AlertDialogTrigger>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Hapus Bidan</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            Do you want to delete this account?
+            Apakah kamu ingin menghapus {name}?
           </AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            Tindakan ini tidak bisa dibatalkan. Tindakan ini akan menghapus akun{' '}
+            {name} secara permanen dari database.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -83,7 +98,7 @@ const AlertDialogDelete = ({ id }: any) => {
           <button
             onClick={handleContinueClick}
             disabled={loading}
-            className="flex h-10 items-center justify-center rounded-lg bg-red-600 px-4 text-sm font-medium text-white transition-colors hover:bg-red-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:bg-red-600 aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+            className="flex h-10 items-center justify-center rounded-lg bg-red-600 px-4 text-sm font-medium text-white transition-colors hover:brightness-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:bg-red-600 aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
           >
             {loading ? 'Processing...' : 'Continue'}
           </button>
@@ -119,13 +134,17 @@ const columns: ColumnDef<Bidan>[] = [
     id: 'action',
     header: () => '',
     cell: ({ row }) => (
-      <div className="flex justify-center gap-3">
-        <Link href={`/dashboard/periksa-kehamilan/${row.original._id}/edit`}>
+      <div className="flex justify-end gap-3">
+        {/* TODO: Update button still not functional, fix it! */}
+        {/* <Link href={`/dashboard/periksa-kehamilan/${row.original._id}/edit`}>
           <Badge className="bg-[#D7E8FF] text-[#001C41] hover:bg-[#D7E8FF]/50">
             Update
           </Badge>
-        </Link>
-        <AlertDialogDelete id={row.original._id} />
+        </Link> */}
+        <AlertDialogDelete
+          id={row.original._id}
+          name={row.original.full_name}
+        />
       </div>
     ),
     footer: (props) => props.column.id,
