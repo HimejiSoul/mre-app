@@ -13,14 +13,26 @@ const iconMap = {
 };
 
 export default async function CardWrapper() {
-  const [pasienKB, pasienHamil, pasienImun, pasienIbu, pasienAnak] =
-    await Promise.all([
-      fetchPatientData('0'),
-      fetchPatientData('1'),
-      fetchPatientData('2'),
-      fetchPatientData('3'),
-      fetchPatientData('4'),
-    ]);
+  let pasienKB, pasienHamil, pasienImun, pasienIbu, pasienAnak;
+
+  try {
+    [pasienKB, pasienHamil, pasienImun, pasienIbu, pasienAnak] =
+      await Promise.all([
+        fetchPatientData('0'),
+        fetchPatientData('1'),
+        fetchPatientData('2'),
+        fetchPatientData('3'),
+        fetchPatientData('4'),
+      ]);
+  } catch (error) {
+    console.error('Error fetching patient data:', error);
+    pasienKB = { jumlah: 0, lastUpdate: null };
+    pasienHamil = { jumlah: 0, lastUpdate: null };
+    pasienImun = { jumlah: 0, lastUpdate: null };
+    pasienIbu = { jumlah: 0, lastUpdate: null };
+    pasienAnak = { jumlah: 0, lastUpdate: null };
+  }
+
   return (
     <>
       <div className="col-span-3 lg:col-span-2">
