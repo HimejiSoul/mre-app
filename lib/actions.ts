@@ -63,6 +63,7 @@ export async function createPatient(formData: FormData, id_layanan: number) {
   try {
     const response = await axios.post(apiEndpoint, data);
     console.log(response.data);
+    return response.data.id;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const errorMessage =
