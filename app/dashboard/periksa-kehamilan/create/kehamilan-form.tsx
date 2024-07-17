@@ -64,8 +64,8 @@ export default function KehamilanForm({ id, value }: KehamilanFormProps) {
       }
     } else {
       try {
-        await createPatient(data, id_layanan);
-        router.push(`/dashboard/periksa-kehamilan/${id}/soap`);
+        const id_pasien = await createPatient(data, id_layanan);
+        router.push(`/dashboard/periksa-kehamilan/${id_pasien}/soap/create`);
         toast({
           title: `Berhasil Menginputkan Data Pasien`,
         });

@@ -61,8 +61,8 @@ export default function ImunisasiForm({ id, value }: ImunisasiFormProps) {
       setIsLoading(false);
     } else {
       try {
-        await createPatient(data, 2);
-        router.push(`/dashboard/imunisasi/${id}/soap`);
+        const id_pasien = await createPatient(data, id_layanan);
+        router.push(`/dashboard/imunisasi/${id_pasien}/soap`);
         toast({
           title: `Berhasil Menginputkan Data Pasien`,
         });
