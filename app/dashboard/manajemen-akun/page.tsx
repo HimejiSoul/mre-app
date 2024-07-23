@@ -16,11 +16,9 @@ export default async function Page({
 }: {
   searchParams?: {
     query?: string;
-    page?: string;
   };
 }) {
   const query = searchParams?.query || '';
-  const currentPage = Number(searchParams?.page) || 1;
   let totalBidan = 0;
   try {
     const bidan = await fetchTableBidan('');
@@ -40,8 +38,8 @@ export default async function Page({
           name="Tambah Bidan"
         />
       </div>
-      <Suspense key={query || currentPage} fallback={<InvoicesTableSkeleton />}>
-        <TableWrapperMA currentPage={currentPage} query={query} />
+      <Suspense key={query} fallback={<InvoicesTableSkeleton />}>
+        <TableWrapperMA query={query} />
       </Suspense>
     </MainContainer>
   );

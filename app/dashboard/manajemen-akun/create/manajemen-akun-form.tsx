@@ -100,7 +100,7 @@ export default function ManajemenAkunForm() {
           </FormWrapper>
         </section>
 
-        <ButtonSubmitForm isLoading={isLoading} />
+        <ButtonSubmitForm isLoading={isLoading} label="Tambah Bidan" />
       </form>
     </Form>
   );
