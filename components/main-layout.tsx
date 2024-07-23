@@ -11,7 +11,7 @@ export function Heading({
     <div className="flex w-full flex-col justify-between">
       <h1 className={`${urbanist.className} text-2xl font-bold`}>{title}</h1>
       <span className="font-sm font-medium text-[#6F90BA]">
-        Total {totalPatient} Pasien
+        Total {totalPatient}
       </span>
     </div>
   );

@@ -16,11 +16,9 @@ export default async function Page({
 }: {
   searchParams?: {
     query?: string;
-    page?: string;
   };
 }) {
   const query = searchParams?.query || '';
-  const currentPage = Number(searchParams?.page) || 1;
   const id_layanan = 2;
   let totalPatient = 0;
 
@@ -48,8 +46,8 @@ export default async function Page({
         <Search placeholder="Search Pasien Imunisasi..." />
         <ButtonLink href="/dashboard/imunisasi/create" name="Tambah pasien" />
       </div>
-      <Suspense key={query || currentPage} fallback={<InvoicesTableSkeleton />}>
-        <TableWrapperImunisasi currentPage={currentPage} query={query} />
+      <Suspense key={query} fallback={<InvoicesTableSkeleton />}>
+        <TableWrapperImunisasi query={query} />
       </Suspense>
     </div>
   );

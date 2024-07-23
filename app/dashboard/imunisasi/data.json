@@ -4,6 +4,7 @@
       "nomor": "1234",
       "puskesmas": "ABCD",
       "bidan": "Jacky",
+      "tglDatang": "2024-05-14T00:00:00.000Z",
       "nomorBayi": "0987",
       "namaBayi": "James",
       "namaIbu": "Rebecca",
@@ -14,7 +15,8 @@
       "desa": "Sukamiskin",
       "kecamatan": "Sukamaju",
       "kabupaten": "Sukakaya",
-      "provinsi": "Sukamundur"
+      "provinsi": "Sukamundur",
+      "noHP": 0
     },
     "detailBayi": {
       "tglLahir": "2024-05-14T00:00:00.000Z",

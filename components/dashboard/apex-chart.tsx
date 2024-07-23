@@ -11,7 +11,7 @@ export default function ApexChart({ months, revenues }: any) {
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
       foreColor: 'bg-blue-300',
       toolbar: {
-        show: true,
+        show: false,
       },
       height: 370,
     },

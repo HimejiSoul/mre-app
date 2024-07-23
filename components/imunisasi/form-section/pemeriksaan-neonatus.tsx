@@ -204,14 +204,6 @@ export default function PemeriksaanNeonatus({ form }: any) {
                     type="checkbox"
                   />
                 </TableCell> */}
-                <TableCell>
-                  <InputField
-                    name={`pemeriksaanNeonatus.${index}.pencegahan`}
-                    placeholder="Lain-Lain"
-                    form={form}
-                    className="w-40"
-                  />
-                </TableCell>
                 {ENUM_VALUES.pemeriksaanNeonatus.integrasiProgram.map(
                   (item) => (
                     <TableCell key={item.id}>
@@ -342,14 +334,6 @@ export default function PemeriksaanNeonatus({ form }: any) {
                     />
                   </TableCell>
                 ))}
-                <TableCell>
-                  <InputField
-                    name={`pemeriksaanNeonatus.${index}.diagnosis`}
-                    form={form}
-                    placeholder="Lain-Lain"
-                    className="w-40"
-                  />
-                </TableCell>
                 <TableCell>
                   <InputField
                     name={`pemeriksaanNeonatus.${index}.mbtm`}

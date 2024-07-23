@@ -6,9 +6,10 @@ export default async function PickReservasi() {
 
   const cookieStore = cookies();
   const selectedDate = cookieStore.get('selectedDate');
-  console.log(selectedDate);
-  const datareservasi = await fetchReservasi(selectedDate?.value);
-  console.log('tanggal', datareservasi);
+  // console.log(selectedDate);
+  let datareservasi = [];
+  datareservasi = await fetchReservasi(selectedDate?.value);
+  // console.log('tanggal', datareservasi);
 
   if (datareservasi.length === 0) {
     return <div>No reservations found for this date.</div>; // Handle case when there is no data
