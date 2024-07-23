@@ -69,7 +69,7 @@ export async function createPatient(formData: FormData, id_layanan: number) {
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
-        'Gagal Edit Data Pasien';
+        'Gagal Membuat Data Pasien';
       console.error(errorMessage);
       throw new Error(errorMessage);
     } else {
