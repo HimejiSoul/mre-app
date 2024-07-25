@@ -97,7 +97,7 @@ export function Card({
 
   return (
     <div
-      className={cn('rounded-xl bg-gray-50 p-2 shadow-sm ', className)}
+      className={cn('h-full rounded-xl bg-gray-50 p-2 shadow-sm', className)}
       {...props}
     >
       <div className="flex flex-col gap-3 p-4">

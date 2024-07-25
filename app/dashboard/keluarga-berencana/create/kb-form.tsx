@@ -58,8 +58,8 @@ export default function KBForm({ id, value }: KBFormProps) {
       }
     } else {
       try {
-        await createPatient(data, id_layanan);
-        router.push(`/dashboard/keluarga-berencana/${id}/soap`);
+        const id_pasien = await createPatient(data, id_layanan);
+        router.push(`/dashboard/keluarga-berencana/${id_pasien}/soap`);
         toast({
           title: `Berhasil Menginputkan Data Pasien`,
         });

@@ -14,10 +14,9 @@ export const metadata: Metadata = {
 export default async function Page({
   searchParams,
 }: {
-  searchParams?: { query?: string; page?: string };
+  searchParams?: { query?: string };
 }) {
   const query = searchParams?.query || '';
-  const currentPage = Number(searchParams?.page) || 1;
   const id_layanan = 0;
   let totalPatient = 0;
 
@@ -48,8 +47,8 @@ export default async function Page({
           name="Tambah pasien"
         />
       </div>
-      <Suspense key={query || currentPage} fallback={<InvoicesTableSkeleton />}>
-        <TableWrapperKB currentPage={currentPage} query={query} />
+      <Suspense key={query} fallback={<InvoicesTableSkeleton />}>
+        <TableWrapperKB query={query} />
       </Suspense>
     </div>
   );

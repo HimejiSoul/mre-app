@@ -1,7 +1,7 @@
 'use client';
 import * as Icon from '@/components/icons';
 import Link from 'next/link';
-import { redirect, usePathname } from 'next/navigation';
+import { redirect, usePathname, useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -48,6 +48,7 @@ const links = [
 export default function NavLinks() {
   // FIXME: Fix this ts error
   const session: any = useSession();
+  const router = useRouter();
   const pathname = usePathname();
   const [loadingStates, setLoadingStates] = useState<{
     [key: string]: boolean;
@@ -97,7 +98,8 @@ export default function NavLinks() {
     isRedirect = true;
   }
   if (!isRedirect) {
-    redirect('/dashboard');
+    router.push('/dashboard');
+    // redirect('/dashboard');
   }
 
   return (

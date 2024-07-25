@@ -7,9 +7,10 @@ export default async function PickReservasi() {
 
   const cookieStore = cookies();
   const selectedDate = cookieStore.get('selectedDate');
-  console.log(selectedDate);
-  const datareservasi = await fetchReservasi(selectedDate?.value);
-  console.log('tanggal', datareservasi);
+  // console.log(selectedDate);
+  let datareservasi = [];
+  datareservasi = await fetchReservasi(selectedDate?.value);
+  // console.log('tanggal', datareservasi);
 
   if (!datareservasi || datareservasi.length === 0) {
     return <p className="py-2 text-sm">Tidak ada jadwal reservasi hari ini.</p>;

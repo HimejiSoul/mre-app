@@ -7,6 +7,9 @@ import {
   ColumnDef,
   flexRender,
   Row,
+  PaginationState,
+  getSortedRowModel,
+  getPaginationRowModel,
 } from '@tanstack/react-table';
 import Link from 'next/link';
 import { Fragment, useState } from 'react';
@@ -24,13 +27,15 @@ import {
 } from '@/components/ui/alert-dialog';
 import { deleteBidan } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
-import { Trash2 } from 'lucide-react';
+import { ArrowUpDown, Trash2 } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import Pagination from '../pagination';
+import { Button } from '../ui/button';
 
 type Bidan = {
   _id: string;
@@ -109,20 +114,34 @@ const AlertDialogDelete = ({ id, name }: any) => {
 };
 
 const columns: ColumnDef<Bidan>[] = [
-  // {
-  //   accessorKey: 'id_pasien',
-  //   header: () => 'ID',
-  //   footer: (props) => props.column.id,
-  // },
   {
     accessorKey: 'username',
-    header: 'Username',
-    // cell: ({ row, getValue }) => <div>{getValue<string>()}</div>,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Username
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     footer: (props) => props.column.id,
   },
   {
     accessorKey: 'full_name',
-    header: () => 'Nama Lengkap',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Nama Leengkap
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     footer: (props) => props.column.id,
   },
   {
@@ -155,14 +174,11 @@ export default function ManajemenAkunTable({ bidan }: { bidan: any }) {
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
-        <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
-          <TableComponent
-            data={bidan}
-            columns={columns}
-            getRowCanExpand={() => true}
-            // renderSubComponent={renderSubComponent}
-          />
-        </div>
+        <TableComponent
+          data={bidan}
+          columns={columns}
+          getRowCanExpand={() => true}
+        />
       </div>
     </div>
   );
@@ -173,75 +189,109 @@ function TableComponent({
   // renderSubComponent,
   getRowCanExpand,
 }: TableProps<Bidan>): JSX.Element {
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 5,
+  });
+
   const table = useReactTable<Bidan>({
     data,
     columns,
     getRowCanExpand,
     getCoreRowModel: getCoreRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
+    state: {
+      pagination,
+    },
   });
 
+  const currentPage = table.getState().pagination.pageIndex;
+  const totalPages = table.getPageCount();
+  const getPaginationGroup = () => {
+    if (totalPages <= 5) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    if (currentPage <= 2) {
+      return [1, 2, 3, '...', totalPages];
+    }
+
+    if (currentPage >= totalPages - 1) {
+      return [1, '...', totalPages - 2, totalPages - 1, totalPages];
+    }
+
+    return [1, '...', currentPage, '...', totalPages];
+  };
+
+  const paginationGroup = getPaginationGroup();
+
   return (
-    <div className="p-2">
-      <div className="h-2" />
-      <table className="hidden min-w-full text-gray-900 md:table">
-        <thead className="rounded-lg text-left text-sm font-normal">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <th
-                    className="px-3 py-5 font-semibold"
-                    key={header.id}
-                    colSpan={header.colSpan}
-                  >
-                    {header.isPlaceholder ? null : (
-                      <div>
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                      </div>
-                    )}
-                  </th>
-                );
-              })}
-            </tr>
-          ))}
-        </thead>
-        <tbody className="bg-white">
-          {table.getRowModel().rows.length === 0 ? (
-            <tr className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
-              <td colSpan={7} className="bg-[#F1F4F8] p-6 text-center">
-                <p>No patient data</p>
-              </td>
-            </tr>
-          ) : (
-            table.getRowModel().rows.map((row) => {
-              return (
-                <Fragment key={row.id}>
-                  <tr className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
-                    {/* first row is a normal row */}
-                    {row.getVisibleCells().map((cell) => {
-                      return (
-                        <td
-                          className="whitespace-nowrap px-3 py-3"
-                          key={cell.id}
-                        >
+    <div className="flex flex-col gap-5">
+      <div className="hidden min-w-full rounded-lg bg-gray-50 p-4 text-gray-900 md:table">
+        <table className="w-full">
+          <thead className="rounded-lg text-left text-sm font-normal">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <th
+                      className="px-3 py-5 font-semibold"
+                      key={header.id}
+                      colSpan={header.colSpan}
+                    >
+                      {header.isPlaceholder ? null : (
+                        <div>
                           {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
+                            header.column.columnDef.header,
+                            header.getContext(),
                           )}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                </Fragment>
-              );
-            })
-          )}
-        </tbody>
-      </table>
+                        </div>
+                      )}
+                    </th>
+                  );
+                })}
+              </tr>
+            ))}
+          </thead>
+          <tbody className="bg-white">
+            {table.getRowModel().rows.length === 0 ? (
+              <tr className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
+                <td colSpan={7} className="bg-[#F1F4F8] p-6 text-center">
+                  <p>No Bidan data</p>
+                </td>
+              </tr>
+            ) : (
+              table.getRowModel().rows.map((row) => {
+                return (
+                  <Fragment key={row.id}>
+                    <tr className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
+                      {/* first row is a normal row */}
+                      {row.getVisibleCells().map((cell) => {
+                        return (
+                          <td
+                            className="whitespace-nowrap px-3 py-3"
+                            key={cell.id}
+                          >
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext(),
+                            )}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  </Fragment>
+                );
+              })
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      <Pagination table={table} />
     </div>
   );
 }

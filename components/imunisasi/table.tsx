@@ -7,8 +7,14 @@ import {
   ColumnDef,
   flexRender,
   Row,
+  getSortedRowModel,
+  getPaginationRowModel,
+  PaginationState,
 } from '@tanstack/react-table';
 import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  ArrowUpDown,
   Bell,
   ChevronDown,
   ChevronRight,
@@ -29,25 +35,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogFooter,
-  DialogClose,
-} from '@/components/ui/dialog';
-import { urbanist } from '@/components/fonts';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { Form } from '@/components/ui/form';
-import { toast } from '@/components/ui/use-toast';
-import { ChevronLeft } from 'lucide-react';
-import { InputField } from '@/components/form-content';
-import { createReminder } from '@/lib/actions';
+import { Checkbox } from '@/components/ui/checkbox';
+import Pagination from '../pagination';
 
 type SubPatient = {
   tglDatang: string;
@@ -66,6 +55,7 @@ type Patient = {
   tglDatang: string;
   metodeKontrasepsi: string;
   subRows?: SubPatient[];
+  noHP: string;
 };
 
 type TableProps<TData> = {
@@ -78,142 +68,29 @@ type TableProps<TData> = {
 // const dataPatients: Patient[] = pasienData.data;
 // console.log(dataPatients);
 
-const FormSchema = z.object({
-  tglKirim: z.any(),
-  waktuKirim: z.string(),
-  isiPesan: z.string(),
-});
-
-function SubmitButton() {
-  return (
-    <Button
-      type="submit"
-      className=" flex w-fit bg-blue-600 hover:bg-blue-400 "
-    >
-      <p>Kirim Pesan</p>
-      <ChevronRight className="ml-2 h-5 w-5 " />
-    </Button>
-  );
-}
-
-const DialogWA = ({ patientname, id_pasien }: any) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [open, setOpen] = useState<boolean>(false);
-
-  const FormSchema = z.object({
-    tglKirim: z
-      .string()
-      .or(z.date())
-      .transform((arg) => new Date(arg)),
-    isiPesan: z.string(),
-  });
-
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      tglKirim: new Date(),
-      isiPesan: 'asdawd',
-    },
-  });
-
-  function SubmitButton({ isLoading }: any) {
-    return (
-      <Button
-        className="w-fit bg-blue-600 hover:bg-blue-500"
-        disabled={isLoading}
-      >
-        {isLoading ? (
-          <>
-            <Loader2Icon size={20} className="mr-2 animate-spin" /> Loading...
-          </>
-        ) : (
-          <>Kirim Pesan</>
-        )}
-      </Button>
-    );
-  }
-
-  async function onSubmit(data: z.infer<typeof FormSchema>) {
-    setIsLoading(true);
-    try {
-      await createReminder(data, id_pasien);
-      console.log('data');
-      toast({
-        title: `Berhasil Membuat Reminder`,
-      });
-      setOpen(false);
-    } catch (error) {
-      toast({
-        title: `${error}`,
-      });
-    }
-    setIsLoading(false);
-    // console.log(data);
-  }
-
-  return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline" className="p-2">
-          <Bell className="w-5" />
-        </Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle
-            className={`${urbanist.className} flex items-center text-lg font-bold`}
-          >
-            <DialogClose asChild>
-              <ChevronLeft className="mr-3 h-5 w-5" />
-            </DialogClose>
-            <p>Reminder Pasien Layanan Imunisasi</p>
-          </DialogTitle>
-        </DialogHeader>
-        <div className="rounded-md bg-[#D0E4FF] px-4 py-6">
-          <h1 className={`${urbanist.className} text-lg font-bold`}>
-            Kirim Reminder ke {patientname}
-          </h1>
-          <span className="text-sm font-medium text-[#6F90BA]">
-            Tentukan tanggal kirim dan waktu kirim reminder Whatsapp
-          </span>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="flex w-full flex-col"
-            >
-              <div className="my-2 mb-8 flex w-full flex-col gap-3 rounded-md bg-white p-4 ">
-                <div className="flex w-full gap-4">
-                  <InputField
-                    name="tglKirim"
-                    form={form}
-                    label="Tanggal Kirim"
-                    className="col-span-6"
-                    type="date"
-                  />
-                </div>
-                <div>
-                  <InputField
-                    name="isiPesan"
-                    form={form}
-                    placeholder="Isi Pesan...."
-                    label="Isi Pesan"
-                    className="col-span-12"
-                    type="textarea"
-                  />
-                </div>
-              </div>
-              <div className="flex w-full justify-end">
-                <SubmitButton isLoading={isLoading} />
-              </div>
-            </form>
-          </Form>
-        </div>
-      </DialogContent>
-    </Dialog>
-  );
-};
-
 const columns: ColumnDef<Patient>[] = [
+  // {
+  //   id: 'select',
+  //   header: ({ table }) => (
+  //     <Checkbox
+  //       checked={
+  //         table.getIsAllPageRowsSelected() ||
+  //         (table.getIsSomePageRowsSelected() && 'indeterminate')
+  //       }
+  //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+  //       aria-label="Select all"
+  //     />
+  //   ),
+  //   cell: ({ row }) => (
+  //     <Checkbox
+  //       checked={row.getIsSelected()}
+  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
+  //       aria-label="Select row"
+  //     />
+  //   ),
+  //   enableSorting: false,
+  //   enableHiding: false,
+  // },
   {
     id: 'expander',
     header: () => null,
@@ -238,18 +115,49 @@ const columns: ColumnDef<Patient>[] = [
   },
   {
     accessorKey: 'id_pasien',
-    header: () => 'KOHRT',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          KOHRT
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     footer: (props) => props.column.id,
   },
   {
     accessorKey: 'name',
-    header: 'Nama Bayi',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Nama Bayi
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     // cell: ({ row, getValue }) => <div>{getValue<string>()}</div>,
     footer: (props) => props.column.id,
   },
   {
-    accessorKey: 'tglDatang',
-    header: () => 'Kedatangan Terakhir',
+    accessorKey: 'datetime',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Kedatangan Terakhir
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => <div className="">{row.original.tglDatang}</div>,
     footer: (props) => props.column.id,
   },
   {
@@ -273,13 +181,29 @@ const columns: ColumnDef<Patient>[] = [
         >
           <PencilIcon className="w-5" />
         </Link>
+        <Link
+          href={`https://wa.me/${row.original.noHP}`}
+          className="rounded-md border p-2 hover:bg-gray-100"
+          target="_blank"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="21"
+            height="21"
+            fill="currentColor"
+            className="bi bi-whatsapp"
+            viewBox="0 0 16 16"
+          >
+            <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232" />
+          </svg>
+        </Link>
         {/* <Link href={`#`} className="rounded-md border p-2 hover:bg-gray-100">
           <Eye className="w-5" />
         </Link> */}
-        <DialogWA
+        {/* <DialogWA
           patientname={row.original.name}
           id_pasien={row.original.id_pasien}
-        />
+        /> */}
       </div>
     ),
     footer: (props) => props.column.id,
@@ -292,14 +216,12 @@ export default function ImunisasiTable({ dataPatient }: { dataPatient: any }) {
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
-        <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
-          <TableComponent
-            data={dataPatients}
-            columns={columns}
-            getRowCanExpand={() => true}
-            renderSubComponent={renderSubComponent}
-          />
-        </div>
+        <TableComponent
+          data={dataPatients}
+          columns={columns}
+          getRowCanExpand={() => true}
+          renderSubComponent={renderSubComponent}
+        />
       </div>
     </div>
   );
@@ -310,84 +232,118 @@ function TableComponent({
   renderSubComponent,
   getRowCanExpand,
 }: TableProps<Patient>): JSX.Element {
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 5,
+  });
+
   const table = useReactTable<Patient>({
     data,
     columns,
     getRowCanExpand,
     getCoreRowModel: getCoreRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
+    state: {
+      pagination,
+    },
   });
 
+  const currentPage = table.getState().pagination.pageIndex;
+  const totalPages = table.getPageCount();
+  const getPaginationGroup = () => {
+    if (totalPages <= 5) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    if (currentPage <= 2) {
+      return [1, 2, 3, '...', totalPages];
+    }
+
+    if (currentPage >= totalPages - 1) {
+      return [1, '...', totalPages - 2, totalPages - 1, totalPages];
+    }
+
+    return [1, '...', currentPage, '...', totalPages];
+  };
+
+  const paginationGroup = getPaginationGroup();
+
   return (
-    <div className="p-2">
-      <div className="h-2" />
-      <table className="hidden min-w-full text-gray-900 md:table">
-        <thead className="rounded-lg text-left text-sm font-normal">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <th
-                    className="px-3 py-5 font-semibold"
-                    key={header.id}
-                    colSpan={header.colSpan}
-                  >
-                    {header.isPlaceholder ? null : (
-                      <div>
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                      </div>
-                    )}
-                  </th>
-                );
-              })}
-            </tr>
-          ))}
-        </thead>
-        <tbody className="bg-white">
-          {table.getRowModel().rows.length === 0 ? (
-            <tr className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
-              <td colSpan={7} className="bg-[#F1F4F8] p-6 text-center">
-                <p>No patient data</p>
-              </td>
-            </tr>
-          ) : (
-            table.getRowModel().rows.map((row) => {
-              return (
-                <Fragment key={row.id}>
-                  <tr className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
-                    {/* first row is a normal row */}
-                    {row.getVisibleCells().map((cell) => {
-                      return (
-                        <td
-                          className="whitespace-nowrap px-3 py-3"
-                          key={cell.id}
-                        >
+    <div className="flex flex-col gap-5">
+      <div className="hidden min-w-full rounded-lg bg-gray-50 p-4 text-gray-900 md:table">
+        <table className="w-full">
+          <thead className="rounded-lg text-left text-sm font-normal">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <th
+                      className="px-3 py-5 font-semibold"
+                      key={header.id}
+                      colSpan={header.colSpan}
+                    >
+                      {header.isPlaceholder ? null : (
+                        <div>
                           {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
+                            header.column.columnDef.header,
+                            header.getContext(),
                           )}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                  {row.getIsExpanded() && (
-                    <tr>
-                      {/* 2nd row is a custom 1 cell row */}
-                      <td colSpan={row.getVisibleCells().length}>
-                        {/* <p>{row.getVisibleCells().length}</p> */}
-                        {renderSubComponent({ row })}
-                      </td>
+                        </div>
+                      )}
+                    </th>
+                  );
+                })}
+              </tr>
+            ))}
+          </thead>
+          <tbody className="bg-white">
+            {table.getRowModel().rows.length === 0 ? (
+              <tr className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
+                <td colSpan={7} className="bg-[#F1F4F8] p-6 text-center">
+                  <p>No patient data</p>
+                </td>
+              </tr>
+            ) : (
+              table.getRowModel().rows.map((row) => {
+                return (
+                  <Fragment key={row.id}>
+                    <tr className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
+                      {/* first row is a normal row */}
+                      {row.getVisibleCells().map((cell) => {
+                        return (
+                          <td
+                            className="whitespace-nowrap px-3 py-3"
+                            key={cell.id}
+                          >
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext(),
+                            )}
+                          </td>
+                        );
+                      })}
                     </tr>
-                  )}
-                </Fragment>
-              );
-            })
-          )}
-        </tbody>
-      </table>
+                    {row.getIsExpanded() && (
+                      <tr>
+                        {/* 2nd row is a custom 1 cell row */}
+                        <td colSpan={row.getVisibleCells().length}>
+                          {/* <p>{row.getVisibleCells().length}</p> */}
+                          {renderSubComponent({ row })}
+                        </td>
+                      </tr>
+                    )}
+                  </Fragment>
+                );
+              })
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      <Pagination table={table} />
     </div>
   );
 }

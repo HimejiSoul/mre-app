@@ -18,13 +18,13 @@ export const soapKBSchema = z.object({
 
 export const defaultValues: Partial<z.infer<typeof soapKBSchema>> = {
   tglDatang: new Date(),
-  s: '',
+  s: 'Lorem Ipsum',
   o: {
-    td: '',
-    pb: '',
-    lk: '',
-    lain2: '',
+    td: 'Lorem Ipsum',
+    pb: 'Lorem Ipsum',
+    lk: 'Lorem Ipsum',
+    lain2: 'Lorem Ipsum',
   },
-  a: '',
-  p: '',
+  a: 'Lorem Ipsum',
+  p: 'Lorem Ipsum',
 };

@@ -16,11 +16,9 @@ export default async function Page({
 }: {
   searchParams?: {
     query?: string;
-    page?: string;
   };
 }) {
   const query = searchParams?.query || '';
-  const currentPage = Number(searchParams?.page) || 1;
   const id_layanan = 1;
   let totalPatient = 0;
 
@@ -51,8 +49,8 @@ export default async function Page({
           name="Tambah pasien"
         />
       </div>
-      <Suspense key={query || currentPage} fallback={<InvoicesTableSkeleton />}>
-        <TableWrapperPK currentPage={currentPage} query={query} />
+      <Suspense key={query} fallback={<InvoicesTableSkeleton />}>
+        <TableWrapperPK query={query} />
       </Suspense>
     </div>
   );
