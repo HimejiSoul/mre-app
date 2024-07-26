@@ -148,11 +148,11 @@ const columns: ColumnDef<Patient>[] = [
     cell: ({ row }) => <div className="">{row.original.tglDatang}</div>,
     footer: (props) => props.column.id,
   },
-  // {
-  //   accessorKey: 'namaSuami',
-  //   header: () => 'Nama Suami',
-  //   footer: (props) => props.column.id,
-  // },
+  {
+    accessorKey: 'namaSuami',
+    header: () => 'Nama Suami',
+    footer: (props) => props.column.id,
+  },
   {
     id: 'action',
     header: () => '',
@@ -193,7 +193,7 @@ export default function KehamilanTable({ dataPatient }: { dataPatient: any }) {
   const dataPatients = dataPatient;
   return (
     <div className="mt-6 flow-root">
-      <div className="inline-block min-w-full align-middle">
+      <div className="w-full align-middle">
         <TableComponent
           data={dataPatients}
           columns={columns}
@@ -292,10 +292,7 @@ function TableComponent({
                       {/* first row is a normal row */}
                       {row.getVisibleCells().map((cell) => {
                         return (
-                          <td
-                            className="whitespace-nowrap px-3 py-3"
-                            key={cell.id}
-                          >
+                          <td className="px-3 py-3" key={cell.id}>
                             {flexRender(
                               cell.column.columnDef.cell,
                               cell.getContext(),

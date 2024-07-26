@@ -182,7 +182,7 @@ const columns: ColumnDef<Patient>[] = [
           <PencilIcon className="w-5" />
         </Link>
         <Link
-          href={`https://wa.me/${row.original.noHP}`}
+          href={`https://wa.me/+62${row.original.noHP}`}
           className="rounded-md border p-2 hover:bg-gray-100"
           target="_blank"
         >
@@ -215,7 +215,7 @@ export default function ImunisasiTable({ dataPatient }: { dataPatient: any }) {
 
   return (
     <div className="mt-6 flow-root">
-      <div className="inline-block min-w-full align-middle">
+      <div className="w-full align-middle">
         <TableComponent
           data={dataPatients}
           columns={columns}
@@ -314,10 +314,7 @@ function TableComponent({
                       {/* first row is a normal row */}
                       {row.getVisibleCells().map((cell) => {
                         return (
-                          <td
-                            className="whitespace-nowrap px-3 py-3"
-                            key={cell.id}
-                          >
+                          <td className="px-3 py-3" key={cell.id}>
                             {flexRender(
                               cell.column.columnDef.cell,
                               cell.getContext(),

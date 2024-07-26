@@ -99,10 +99,11 @@ export default function GeneralInformation({ form }: any) {
           <InputField
             name="generalInformation.noHP"
             form={form}
-            placeholder="08xxx"
+            placeholder="8xxx"
             label="No. HP"
             className="arrow-hide col-span-4"
             type="number"
+            prefix="+62"
           />
         </Row>
         <Row>
