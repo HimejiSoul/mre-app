@@ -15,7 +15,7 @@ export default function Page({}) {
           Export Data Pasien
         </h1>
         <span className="font-sm font-medium text-[#6F90BA]">
-          Export data bro
+          Export data pasien rekam medis dalam format Excel
         </span>
       </div>
       <ExportPatients />
