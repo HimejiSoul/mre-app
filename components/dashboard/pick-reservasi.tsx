@@ -17,7 +17,7 @@ export default async function PickReservasi() {
   }
 
   return (
-    <ScrollArea className="h-[400px] pr-3">
+    <ScrollArea className="h-fit pr-3">
       {datareservasi.map((res: any) => (
         <>
           <div key={res._id} className="flex items-center justify-between py-2">
