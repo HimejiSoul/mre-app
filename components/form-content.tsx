@@ -421,15 +421,26 @@ export function InputField<TFieldValues extends FieldValues = FieldValues>({
         render={({ field }) => (
           <FormItem className={cn('relative col-span-3', props.className)}>
             <FormLabel>{props.label}</FormLabel>
-            <FormControl>
-              <Input {...props} {...field} />
-            </FormControl>
 
-            {props.suffix && (
-              <span className="absolute bottom-2.5 right-2 text-end text-sm text-black/50">
-                {props.suffix}
-              </span>
-            )}
+            <FormControl>
+              <div className="bg-background text-foreground flex w-full max-w-md items-center rounded-lg border">
+                {props.prefix && (
+                  <div className="text-muted-foreground flex items-center px-3">
+                    <span className="text-sm text-black/50">
+                      {props.prefix}
+                    </span>
+                  </div>
+                )}
+                <Input {...props} {...field} />
+                {props.suffix && (
+                  <div className="text-muted-foreground flex items-center px-3">
+                    <span className="text-sm text-black/50">
+                      {props.suffix}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </FormControl>
             {props.description && (
               <FormDescription>{props.description}</FormDescription>
             )}
