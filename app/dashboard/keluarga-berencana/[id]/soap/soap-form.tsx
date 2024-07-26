@@ -18,8 +18,10 @@ import { toast } from '@/components/ui/use-toast';
 import { useState } from 'react';
 import { ButtonSubmitForm } from '@/components/Buttons';
 import { createKBSOAPPatient } from '@/lib/actions';
+import { useRouter } from 'next/navigation';
 
 export function SoapKBForm({ params }: { params: { id: string } }) {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof soapKBSchema>>({
     resolver: zodResolver(soapKBSchema),
@@ -33,12 +35,13 @@ export function SoapKBForm({ params }: { params: { id: string } }) {
     try {
       // await console.log(data);
       await createKBSOAPPatient(data, id);
+      router.push(`/dashboard/keluarga-berencana`);
       toast({
         title: `Berhasil Menginputkan SOAP Pasien`,
       });
-    } catch {
+    } catch (error) {
       toast({
-        title: `Gagal Menginputkan Data Pasien`,
+        title: `${error}`,
       });
     }
   };

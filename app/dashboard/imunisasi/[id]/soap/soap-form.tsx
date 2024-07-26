@@ -20,8 +20,10 @@ import { toast } from '@/components/ui/use-toast';
 import { useState } from 'react';
 import { ButtonSubmitForm } from '@/components/Buttons';
 import { createSoapImunisasiPatient } from '@/lib/actions';
+import { useRouter } from 'next/navigation';
 
 export function SoapImunisasiForm({ params }: { params: { id: string } }) {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof soapImunisasiFormSchema>>({
     resolver: zodResolver(soapImunisasiFormSchema),
@@ -35,12 +37,14 @@ export function SoapImunisasiForm({ params }: { params: { id: string } }) {
     try {
       // await console.log(data);
       await createSoapImunisasiPatient(data, id);
+      router.push(`/dashboard/imunisasi`);
+
       toast({
         title: `Berhasil Menginputkan SOAP Pasien`,
       });
-    } catch {
+    } catch (error) {
       toast({
-        title: `Gagal Menginputkan Data Pasien`,
+        title: `${error}`,
       });
     }
   };

@@ -24,7 +24,7 @@ import { ButtonSubmitForm } from '@/components/Buttons';
 // Dummy Test
 import dummyJson from '@/app/dashboard/periksa-kehamilan/data-soap.json';
 import { fromZodError } from 'zod-validation-error';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 const response = soapKehamilanFormSchema.safeParse(dummyJson.data);
 if (!response.success) {
   console.error(fromZodError(response.error));
@@ -37,6 +37,7 @@ interface SoapKehamilanFormProps {
 }
 
 export function SoapKehamilanForm({ id, value }: SoapKehamilanFormProps) {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof soapKehamilanFormSchema>>({
     resolver: zodResolver(soapKehamilanFormSchema),
@@ -49,12 +50,13 @@ export function SoapKehamilanForm({ id, value }: SoapKehamilanFormProps) {
 
     try {
       await createSoapKehamilanPatient(data, id);
+      router.push(`/dashboard/periksa-kehamilan`);
       toast({
         title: `Berhasil Menginputkan SOAP Pasien`,
       });
-    } catch {
+    } catch (error) {
       toast({
-        title: `Gagal Menginputkan Data Pasien`,
+        title: `${error}`,
       });
     }
   }

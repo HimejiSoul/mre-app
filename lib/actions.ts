@@ -82,14 +82,20 @@ export async function createKBSOAPPatient(formData: FormData, id: any) {
   const KBSOAPData = { data: { id_pasien: id, ...formData } };
   const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/soapkb`;
   try {
-    const response = await axios.post(apiEndpoint, KBSOAPData);
-    // console.log(response.data);
-    redirect('/dashboard/keluarga-berencana');
+    await axios.post(apiEndpoint, KBSOAPData);
+    revalidatePath('/dashboard/keluarga-berencana');
   } catch (error) {
-    if (isRedirectError(error)) {
-      throw error;
+    if (axios.isAxiosError(error)) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        'Gagal Membuat Data Pasien';
+      console.error(errorMessage);
+      throw new Error(errorMessage);
+    } else {
+      console.error('Unexpected error', error);
+      throw new Error('An unexpected error occurred');
     }
-    console.error('Error:', error);
   }
 }
 
@@ -189,27 +195,16 @@ export async function createSoapKehamilanPatient(
     data: { id_pasien: id_pasien, ...response.data },
   };
   const endpoint = `${process.env.API_ENDPOINT}/api/soap`;
+  revalidatePath('/dashboard/periksa-kehamilan');
   console.log(data);
   try {
     await axios.post(endpoint, data);
   } catch (error) {
-    console.error('Error:', error);
-  }
-  redirect(`/dashboard/periksa-kehamilan`);
-}
-
-export async function createBidan(formData: FormData) {
-  const data = { ...formData, role: 'bidan' };
-  const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/registbidan`;
-  // console.log('ini data', data);
-  try {
-    const response = await axios.post(apiEndpoint, data);
-    console.log(response.data.message);
-    revalidatePath('/dashboard/manajemen-akun');
-  } catch (error) {
     if (axios.isAxiosError(error)) {
       const errorMessage =
-        error.response?.data?.message || 'Failed to create bidan';
+        error.response?.data?.message ||
+        error.message ||
+        'Gagal Membuat Data Pasien';
       console.error(errorMessage);
       throw new Error(errorMessage);
     } else {
@@ -251,10 +246,41 @@ export async function createSoapImunisasiPatient(formData: FormData, id: any) {
   // console.log(data);
   try {
     await axios.post(apiEndpoint, data);
+    revalidatePath('/dashboard/imunisasi');
   } catch (error) {
-    console.error('Error:', error);
+    if (axios.isAxiosError(error)) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        'Gagal Membuat Data Pasien';
+      console.error(errorMessage);
+      throw new Error(errorMessage);
+    } else {
+      console.error('Unexpected error', error);
+      throw new Error('An unexpected error occurred');
+    }
   }
-  redirect('/dashboard/imunisasi');
+}
+
+export async function createBidan(formData: FormData) {
+  const data = { ...formData, role: 'bidan' };
+  const apiEndpoint = `${process.env.API_ENDPOINT_AZURE}/registbidan`;
+  // console.log('ini data', data);
+  try {
+    const response = await axios.post(apiEndpoint, data);
+    console.log(response.data.message);
+    revalidatePath('/dashboard/manajemen-akun');
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const errorMessage =
+        error.response?.data?.message || 'Failed to create bidan';
+      console.error(errorMessage);
+      throw new Error(errorMessage);
+    } else {
+      console.error('Unexpected error', error);
+      throw new Error('An unexpected error occurred');
+    }
+  }
 }
 
 export async function exportPatients(
