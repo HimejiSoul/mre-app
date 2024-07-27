@@ -32,7 +32,8 @@ export default function ImunisasiForm({ id, value }: ImunisasiFormProps) {
 
   const form = useForm<z.infer<typeof imunisasiFormSchema>>({
     resolver: zodResolver(imunisasiFormSchema),
-    defaultValues: value ? value : defaultValues,
+    defaultValues: value,
+    // defaultValues: value ? value : defaultValues,
   });
   // function onSubmit(data: z.infer<typeof kehamilanFormSchema>) {
   const pathname = usePathname();

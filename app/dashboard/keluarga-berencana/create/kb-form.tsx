@@ -30,7 +30,7 @@ export default function KBForm({ id, value }: KBFormProps) {
 
   const form = useForm<z.infer<typeof KBSchema>>({
     resolver: zodResolver(KBSchema),
-    defaultValues: value ? value : defaultValues,
+    defaultValues: value,
   });
 
   const pathname = usePathname();

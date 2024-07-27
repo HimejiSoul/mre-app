@@ -36,7 +36,8 @@ export default function KehamilanForm({ id, value }: KehamilanFormProps) {
 
   const form = useForm<z.infer<typeof kehamilanFormSchema>>({
     resolver: zodResolver(kehamilanFormSchema),
-    defaultValues: value ? value : defaultValues,
+    defaultValues: value,
+    // defaultValues: value ? value : defaultValues,
   });
 
   const pathname = usePathname();
