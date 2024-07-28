@@ -36,21 +36,16 @@ export default function KehamilanForm({ id, value }: KehamilanFormProps) {
 
   const form = useForm<z.infer<typeof kehamilanFormSchema>>({
     resolver: zodResolver(kehamilanFormSchema),
-    defaultValues: value,
-    // defaultValues: value ? value : defaultValues,
+    defaultValues: value ? value : defaultValues,
   });
 
   const pathname = usePathname();
   const manyPathname = pathname.split('/');
   const lastPathname = manyPathname[manyPathname.length - 1];
-  // console.log('Pathname', pathname);
-  // console.log('Many Pathname', manyPathname);
-  // console.log('Last pathname', lastPathname);
 
   async function onSubmit(data: any) {
     setIsLoading(true);
     const id_layanan = 1;
-    // await console.log(data);
     if (lastPathname == 'edit' && id) {
       try {
         await editPatient(data, id, id_layanan);

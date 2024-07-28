@@ -68,7 +68,6 @@ export function SoapKehamilanForm({ id, value }: SoapKehamilanFormProps) {
         className="flex w-full flex-col gap-8 rounded-xl bg-[#D0E4FF] px-4 py-6"
       >
         <section className="_TABLE_1 space-y-4">
-          <TitleSection title="Table 1" subtitle="Masukkan data pasien" />
           <FormWrapper>
             <h1 className="text-base font-medium">Register</h1>
             <Row>
@@ -292,8 +291,7 @@ export function SoapKehamilanForm({ id, value }: SoapKehamilanFormProps) {
                 name="table1.laboratorium.periksaHB.hasil"
                 form={form}
                 label="Periksa HB: Hasil"
-                placeholder="Hasil?"
-                type="checkbox"
+                placeholder="Hasil HB"
               />
               <InputField
                 name="table1.laboratorium.periksaHB.anemia"
@@ -457,7 +455,6 @@ export function SoapKehamilanForm({ id, value }: SoapKehamilanFormProps) {
           </FormWrapper>
         </section>
         <section className="_TABLE_2 space-y-4">
-          <TitleSection title="Table 2" subtitle="Masukkan data pasien" />
           <FormWrapper>
             <Row>
               <InputField
@@ -549,7 +546,10 @@ export function SoapKehamilanForm({ id, value }: SoapKehamilanFormProps) {
           </FormWrapper>
         </section>
         <section className="_SOAP_ANC space-y-4">
-          <TitleSection title="SOAP ANC" subtitle="Masukkan data pasien" />
+          <TitleSection
+            title="SOAP ANC"
+            subtitle="Masukkan data SOAP layanan kehamilan"
+          />
           <FormWrapper>
             <Row>
               <InputField

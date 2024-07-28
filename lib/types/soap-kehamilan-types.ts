@@ -136,7 +136,7 @@ export const soapKehamilanFormSchema = z.object({
     laboratorium: z.object({
       periksaHB: z.object({
         dilakukan: z.boolean(),
-        hasil: z.boolean(),
+        hasil: z.string().max(150).optional(),
         anemia: z.enum(ENUM_VALUES.table1.laboratorium.periksaHB.anemia),
       }),
       proteinUrin: z.enum(ENUM_VALUES.table1.laboratorium.proteinUrin),
@@ -231,7 +231,7 @@ export const defaultValues: Partial<z.infer<typeof soapKehamilanFormSchema>> = {
     laboratorium: {
       periksaHB: {
         dilakukan: false,
-        hasil: false,
+        hasil: '',
         anemia: '',
       },
       proteinUrin: '',

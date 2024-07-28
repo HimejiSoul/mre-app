@@ -9,7 +9,7 @@ import { ENUM_VALUES } from '../../../lib/types/periksa-kehamilan-types';
 export default function Section2({ form }: any) {
   return (
     <section className="_SECTION02 space-y-4">
-      <TitleSection title="Section 2" subtitle="Masukkan data pasien" />
+      {/* <TitleSection title="Section 2" subtitle="Masukkan data pasien" /> */}
       <FormWrapper>
         <Row>
           <InputField

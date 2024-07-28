@@ -1,33 +1,33 @@
-import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+// import {
+//   FormControl,
+//   FormDescription,
+//   FormField,
+//   FormItem,
+//   FormLabel,
+//   FormMessage,
+// } from '@/components/ui/form';
+// import { Input } from '@/components/ui/input';
 import {
   FormWrapper,
   InputField,
   Row,
   TitleSection,
 } from '@/components/form-content';
-import { useState } from 'react';
-import { calculateAge } from '@/lib/calculate-age';
+// import { useState } from 'react';
+// import { calculateAge } from '@/lib/calculate-age';
 
 // TODO: Fix any types
 export default function GeneralInformation({ form }: any) {
-  const [birthDate, setBirthDate] = useState<string>(
-    new Date().toISOString().slice(0, 10),
-  );
-  const age = calculateAge(birthDate);
+  // const [birthDate, setBirthDate] = useState<string>(
+  //   new Date().toISOString().slice(0, 10),
+  // );
+  // const age = calculateAge(birthDate);
 
   return (
     <section className="_GENERAL_INFORMATION space-y-4">
       <TitleSection
         title="General Information"
-        subtitle="Masukkan data pasien"
+        subtitle="Masukkan data pasien layanan periksa kehamilan"
       />
       <FormWrapper>
         <Row>

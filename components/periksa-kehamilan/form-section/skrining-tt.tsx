@@ -24,7 +24,7 @@ export default function SkriningTT({ form }: any) {
 
   return (
     <section className="_SKRINING_TT space-y-4">
-      <TitleSection title="Skrining TT" subtitle="Masukkan data pasien" />
+      <TitleSection title="Skrining TT" />
       <FormWrapper>
         <Table>
           <TableHeader>

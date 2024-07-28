@@ -27,7 +27,7 @@ export default function PemeriksaanPNC({ form }: any) {
 
   return (
     <section className="_PERSALINAN space-y-4">
-      <TitleSection title="Pemeriksaan PNC" subtitle="Masukkan data pasien" />
+      <TitleSection title="Pemeriksaan PNC" />
       <FormWrapper>
         <Table>
           <TableHeader className="whitespace-nowrap">

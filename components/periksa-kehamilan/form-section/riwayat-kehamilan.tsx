@@ -27,10 +27,7 @@ export default function RiwayatKehamilan({ form }: any) {
 
   return (
     <section className="_RIWAYAT_KEHAMILAN space-y-4">
-      <TitleSection
-        title="Riwayat Kehamilan Sebelumnya"
-        subtitle="Masukkan data pasien"
-      />
+      <TitleSection title="Riwayat Kehamilan Sebelumnya" />
       <FormWrapper>
         <Row>
           <InputField
