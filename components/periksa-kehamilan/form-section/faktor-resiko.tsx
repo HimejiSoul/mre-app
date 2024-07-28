@@ -103,10 +103,7 @@ const dataTable = [
 export default function FaktorResiko({ form }: any) {
   return (
     <section className="_FAKTOR_RESIKO space-y-4">
-      <TitleSection
-        title="Mendeteksi Faktor Resiko dan Resiko Tinggi"
-        subtitle="Masukkan data pasien"
-      />
+      <TitleSection title="Mendeteksi Faktor Resiko dan Resiko Tinggi" />
       <FormWrapper>
         <Table>
           <TableHeader>

@@ -29,7 +29,7 @@ import { useState } from 'react';
 
 type TitleSectionProps = {
   title: string;
-  subtitle: string;
+  subtitle?: string;
 };
 
 export function TitleSection({ title, subtitle }: TitleSectionProps) {

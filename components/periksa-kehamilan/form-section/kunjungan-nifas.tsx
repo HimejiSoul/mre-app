@@ -15,10 +15,7 @@ import {
 export default function KunjunganNifas({ form }: any) {
   return (
     <section className="_KUNJUNGAN_NIFAS space-y-4">
-      <TitleSection
-        title="Kunjungan Nifas (KF)"
-        subtitle="Masukkan data pasien"
-      />
+      <TitleSection title="Kunjungan Nifas (KF)" />
       <FormWrapper>
         <Table>
           <TableHeader>

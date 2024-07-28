@@ -170,8 +170,8 @@ export const KBSchema = z.object({
     pemeriksaan: z.object({
       keadaanUmum: z.enum(ENUM_VALUES.keadaaanUmum),
       beratBadan: z.coerce.number({ invalid_type_error: 'Required' }),
-      tekananDarah: z.coerce.number({ invalid_type_error: 'Required' }),
-      posisiRahim: z.enum(ENUM_VALUES.posisiRahim),
+      tekananDarah: z.string(),
+      posisiRahim: z.enum(ENUM_VALUES.posisiRahim).optional(),
       tandaRadang: z.enum(ENUM_VALUES.boolean),
       tumor: z.enum(ENUM_VALUES.boolean),
       tambahan: z.object({
@@ -196,7 +196,8 @@ export const KBSchema = z.object({
     tglDicabut: z
       .string()
       .or(z.date())
-      .transform((arg) => new Date(arg)),
+      .transform((arg) => new Date(arg))
+      .optional(),
   }),
   penapisanKB: z.object({
     TeV: z.enum(ENUM_VALUES.boolean),
@@ -268,7 +269,7 @@ export const defaultValues: Partial<z.infer<typeof KBSchema>> = {
     },
     pemeriksaan: {
       beratBadan: 0,
-      tekananDarah: 0,
+      tekananDarah: '',
       alatKontrasepsi: [],
       keadaanUmum: 'Baik',
       posisiRahim: 'Anterfleksi',

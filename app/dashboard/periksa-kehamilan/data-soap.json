@@ -35,7 +35,7 @@
       "laboratorium": {
         "periksaHB": {
           "dilakukan": true,
-          "hasil": false,
+          "hasil": "",
           "anemia": "+"
         },
         "proteinUrin": "-",

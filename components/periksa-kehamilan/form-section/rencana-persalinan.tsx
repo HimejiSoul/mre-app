@@ -28,10 +28,7 @@ export default function RencanaPersalinan({ form }: any) {
 
   return (
     <section className="_RENCANA_PERSALINAN space-y-4">
-      <TitleSection
-        title="Rencana Persalinan"
-        subtitle="Masukkan data pasien"
-      />
+      <TitleSection title="Rencana Persalinan" />
       <FormWrapper>
         <Table>
           <TableHeader>

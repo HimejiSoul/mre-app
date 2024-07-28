@@ -17,7 +17,7 @@ import { ENUM_VALUES } from '../../../lib/types/periksa-kehamilan-types';
 export default function Persalinan({ form }: any) {
   return (
     <section className="_PERSALINAN space-y-4">
-      <TitleSection title="Persalinan" subtitle="Masukkan data pasien" />
+      <TitleSection title="Persalinan" />
       <FormWrapper>
         <Table>
           <TableHeader>
