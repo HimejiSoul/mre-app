@@ -42,12 +42,12 @@ export default function GeneralInformation({ form }: any) {
             placeholder="Nama Bidan"
             label="Bidan"
           />
-          <InputField
+          {/* <InputField
             name="generalInformation.nomorBayi"
             form={form}
             placeholder="00/00/00"
             label="No. Bayi"
-          />
+          /> */}
           <InputField
             name="generalInformation.namaBayi"
             form={form}

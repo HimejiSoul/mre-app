@@ -8,8 +8,8 @@ export const soapKBSchema = z.object({
   s: z.string().optional(),
   o: z.object({
     td: z.string().optional(),
-    pb: z.string().optional(),
-    lk: z.string().optional(),
+    bb: z.string().optional(),
+    hpht: z.string().optional(),
     lain2: z.string().optional(),
   }),
   a: z.string().optional(),
@@ -21,8 +21,8 @@ export const defaultValues: Partial<z.infer<typeof soapKBSchema>> = {
   s: 'Lorem Ipsum',
   o: {
     td: 'Lorem Ipsum',
-    pb: 'Lorem Ipsum',
-    lk: 'Lorem Ipsum',
+    bb: 'Lorem Ipsum',
+    hpht: 'Lorem Ipsum',
     lain2: 'Lorem Ipsum',
   },
   a: 'Lorem Ipsum',

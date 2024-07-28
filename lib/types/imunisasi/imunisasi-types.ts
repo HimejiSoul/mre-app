@@ -9,7 +9,7 @@ export const ENUM_VALUES = {
   detailBayi: {
     jenisPersalinan: ['', 'Normal', 'SC'],
     jenisKelamin: ['', 'Laki-Laki', 'Perempuan'],
-    golDarah: ['', 'A', 'B', 'AB', 'O'],
+    golDarah: ['', 'A', 'B', 'AB', 'O', 'Tidak diketahui'],
     keadaanLahir: ['', 'Hidup', 'Mati'],
     bukuKIA: ['', 'Memiliki', 'Tidak Memiliki'],
     resisutasi: ['', 'Ya', 'Tidak'],
@@ -178,7 +178,7 @@ export const imunisasiFormSchema = z.object({
       .string()
       .or(z.date())
       .transform((arg) => new Date(arg)),
-    nomorBayi: z.string(),
+    // nomorBayi: z.string(),
     namaBayi: z.string(),
     namaIbu: z.string(),
     usiaIbu: z.coerce.number({ invalid_type_error: 'Required' }),
@@ -189,7 +189,7 @@ export const imunisasiFormSchema = z.object({
     kecamatan: z.string(),
     kabupaten: z.string(),
     provinsi: z.string(),
-    noHP: z.coerce.number({ invalid_type_error: 'Required' }),
+    noHP: z.coerce.number({ invalid_type_error: 'Required' }).optional(),
   }),
   detailBayi: z.object({
     tglLahir: z
@@ -199,11 +199,11 @@ export const imunisasiFormSchema = z.object({
     tempatLahir: z.string().optional(),
     jenisPersalinan: z.enum(['', 'Normal', 'SC']),
     jenisKelamin: z.enum(['', 'Laki-Laki', 'Perempuan']),
-    golDarah: z.enum(['', 'A', 'B', 'AB', 'O']),
+    golDarah: z.enum(['', 'A', 'B', 'AB', 'O', 'Tidak diketahui']),
     beratBayi: z.coerce.number({ invalid_type_error: 'Required' }),
     panjangBayi: z.coerce.number({ invalid_type_error: 'Required' }),
     lingkarKepala: z.coerce.number({ invalid_type_error: 'Required' }),
-    anakKe: z.coerce.number({ invalid_type_error: 'Required' }),
+    // anakKe: z.coerce.number({ invalid_type_error: 'Required' }),
     keadaanLahir: z.enum(['', 'Hidup', 'Mati']),
     bukuKIA: z.enum(['', 'Memiliki', 'Tidak Memiliki']),
     komplikasi: z.array(z.string()).optional(),
@@ -311,7 +311,7 @@ export const defaultValues: Partial<z.infer<typeof imunisasiFormSchema>> = {
     puskesmas: 'Sehat Selalu',
     bidan: 'Ibu Nina',
     tglDatang: new Date(),
-    nomorBayi: '123456',
+    // nomorBayi: '123456',
     namaBayi: 'Tarek',
     namaIbu: 'Istri Zaidan',
     usiaIbu: 20,
@@ -332,7 +332,7 @@ export const defaultValues: Partial<z.infer<typeof imunisasiFormSchema>> = {
     golDarah: 'A',
     beratBayi: 21,
     lingkarKepala: 10,
-    anakKe: 2,
+    // anakKe: 2,
     panjangBayi: 120,
     keadaanLahir: 'Hidup',
     bukuKIA: 'Memiliki',

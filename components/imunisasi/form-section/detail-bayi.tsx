@@ -91,7 +91,7 @@ export default function DetailBayi({ form }: any) {
             label="Berat Bayi"
             placeholder="Berat Bayi"
             type="number"
-            suffix="Kg"
+            suffix="g"
             className="arrow-hide"
           />
           <InputField
@@ -114,13 +114,13 @@ export default function DetailBayi({ form }: any) {
           />
         </Row>
         <Row>
-          <InputField
+          {/* <InputField
             name="detailBayi.anakKe"
             placeholder="Anak Ke-"
             label="Anak Ke-"
             form={form}
             type="number"
-          />
+          /> */}
           <InputField
             name="detailBayi.keadaanLahir"
             form={form}

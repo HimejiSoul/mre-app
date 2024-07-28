@@ -261,8 +261,7 @@ export default function Skrining({ form }: any) {
             name="skrining.pemeriksaan.tekananDarah"
             form={form}
             label="Tekanan Darah"
-            placeholder="0"
-            type="number"
+            placeholder="Tekanan darah"
           />
           <InputField
             name="skrining.pemeriksaan.beratBadan"

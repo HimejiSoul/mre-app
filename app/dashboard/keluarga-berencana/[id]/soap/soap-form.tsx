@@ -91,28 +91,18 @@ export function SoapKBForm({ params }: { params: { id: string } }) {
             </Row>
             <p className="text-xs font-medium">O (Objective)</p>
             <Row>
+              <InputField name="o.td" placeholder="TD" label="TD" form={form} />
+              <InputField name="o.bb" placeholder="BB" label="BB" form={form} />
               <InputField
-                name="o.td"
-                placeholder="TD"
-                label="Isi TD"
-                form={form}
-              />
-              <InputField
-                name="o.pb"
-                placeholder="PB"
-                label="Isi PB"
-                form={form}
-              />
-              <InputField
-                name="o.lk"
-                placeholder="LK"
-                label="Isi LK"
+                name="o.hpht"
+                placeholder="HPHT"
+                label="HPHT"
                 form={form}
               />
               <InputField
                 name="o.lain2"
                 placeholder="Lain-Lain"
-                label="Isi Lain-Lain"
+                label="Lain-Lain"
                 form={form}
               />
             </Row>

@@ -77,7 +77,7 @@ export default function PemeriksaanNeonatus({ form }: any) {
               <TableHead>Infeksi</TableHead>
               <TableHead>Diare</TableHead>
               <TableHead>Hematologi</TableHead>
-              <TableHead>Lain - lain</TableHead>
+              {/* <TableHead>Lain - lain</TableHead> */}
               <TableHead>Klasifikasi MTBM</TableHead>
               <TableHead>Keadaan Pulang</TableHead>
               <TableHead>Dirujuk Ke</TableHead>
