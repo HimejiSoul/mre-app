@@ -12,20 +12,17 @@ import {
   PaginationState,
 } from '@tanstack/react-table';
 import {
-  Bell,
   ChevronDown,
-  ChevronUp,
   PencilIcon,
   ArrowUpDown,
+  ChevronRight,
 } from 'lucide-react';
 import Link from 'next/link';
 import { Fragment, useState } from 'react';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -60,27 +57,26 @@ type TableProps<TData> = {
   getRowCanExpand: (row: Row<TData>) => boolean;
 };
 
-// const dataPatients: Patient[] = pasienData.data;
-// console.log(dataPatients);
-
 const columns: ColumnDef<Patient>[] = [
   {
     id: 'expander',
     header: () => null,
     cell: ({ row }) => {
       return row.getCanExpand() ? (
-        <button
+        <Button
+          variant="outline"
+          size="icon"
           {...{
             onClick: row.getToggleExpandedHandler(),
             style: { cursor: 'pointer' },
           }}
         >
           {row.getIsExpanded() ? (
-            <ChevronUp size={18} />
-          ) : (
             <ChevronDown size={18} />
+          ) : (
+            <ChevronRight size={18} />
           )}
-        </button>
+        </Button>
       ) : (
         '🔵'
       );
@@ -91,11 +87,13 @@ const columns: ColumnDef<Patient>[] = [
     header: ({ column }) => {
       return (
         <Button
+          className="-ml-3"
           variant="ghost"
+          size={'sm'}
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           KOHRT
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown size={14} className="ml-2" />
         </Button>
       );
     },
@@ -106,11 +104,13 @@ const columns: ColumnDef<Patient>[] = [
     header: ({ column }) => {
       return (
         <Button
+          className="-ml-3"
           variant="ghost"
+          size={'sm'}
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Nama Pasien
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown size={14} className="ml-2" />
         </Button>
       );
     },
@@ -122,11 +122,13 @@ const columns: ColumnDef<Patient>[] = [
     header: ({ column }) => {
       return (
         <Button
+          className="-ml-3"
           variant="ghost"
+          size={'sm'}
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Usia
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown size={14} className="ml-2" />
         </Button>
       );
     },
@@ -137,6 +139,7 @@ const columns: ColumnDef<Patient>[] = [
     header: ({ column }) => {
       return (
         <Button
+          className="-ml-3"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
@@ -150,7 +153,19 @@ const columns: ColumnDef<Patient>[] = [
   },
   {
     accessorKey: 'namaSuami',
-    header: () => 'Nama Suami',
+    header: ({ column }) => {
+      return (
+        <Button
+          className="-ml-3"
+          variant="ghost"
+          size={'sm'}
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Nama Suami
+          <ArrowUpDown size={14} className="ml-2" />
+        </Button>
+      );
+    },
     footer: (props) => props.column.id,
   },
   {
@@ -192,16 +207,12 @@ const columns: ColumnDef<Patient>[] = [
 export default function KehamilanTable({ dataPatient }: { dataPatient: any }) {
   const dataPatients = dataPatient;
   return (
-    <div className="mt-6 flow-root">
-      <div className="w-full align-middle">
-        <TableComponent
-          data={dataPatients}
-          columns={columns}
-          getRowCanExpand={() => true}
-          renderSubComponent={renderSubComponent}
-        />
-      </div>
-    </div>
+    <TableComponent
+      data={dataPatients}
+      columns={columns}
+      getRowCanExpand={() => true}
+      renderSubComponent={renderSubComponent}
+    />
   );
 }
 function TableComponent({
@@ -229,59 +240,54 @@ function TableComponent({
     },
   });
 
-  const currentPage = table.getState().pagination.pageIndex;
-  const totalPages = table.getPageCount();
-  const getPaginationGroup = () => {
-    if (totalPages <= 5) {
-      return Array.from({ length: totalPages }, (_, i) => i + 1);
-    }
+  // const currentPage = table.getState().pagination.pageIndex;
+  // const totalPages = table.getPageCount();
+  // const getPaginationGroup = () => {
+  //   if (totalPages <= 5) {
+  //     return Array.from({ length: totalPages }, (_, i) => i + 1);
+  //   }
 
-    if (currentPage <= 2) {
-      return [1, 2, 3, '...', totalPages];
-    }
+  //   if (currentPage <= 2) {
+  //     return [1, 2, 3, '...', totalPages];
+  //   }
 
-    if (currentPage >= totalPages - 1) {
-      return [1, '...', totalPages - 2, totalPages - 1, totalPages];
-    }
+  //   if (currentPage >= totalPages - 1) {
+  //     return [1, '...', totalPages - 2, totalPages - 1, totalPages];
+  //   }
 
-    return [1, '...', currentPage, '...', totalPages];
-  };
+  //   return [1, '...', currentPage, '...', totalPages];
+  // };
 
-  const paginationGroup = getPaginationGroup();
+  // const paginationGroup = getPaginationGroup();
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="hidden min-w-full rounded-lg bg-gray-50 p-4 text-gray-900 md:table">
-        <table className="w-full">
-          <thead className="rounded-lg text-left text-sm font-normal">
+    <div className="mt-6 space-y-4">
+      <div className="overflow-auto rounded-lg bg-white p-4">
+        <table className="w-full min-w-full max-w-full p-4 text-gray-900">
+          <thead className="text-left text-sm font-normal">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <th
-                      className="px-3 py-5 font-semibold"
-                      key={header.id}
-                      colSpan={header.colSpan}
-                    >
-                      {header.isPlaceholder ? null : (
-                        <div>
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                        </div>
+                {headerGroup.headers.map((header) => (
+                  <th
+                    className="p-3 font-semibold"
+                    key={header.id}
+                    colSpan={header.colSpan}
+                  >
+                    {!header.isPlaceholder &&
+                      flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
                       )}
-                    </th>
-                  );
-                })}
+                  </th>
+                ))}
               </tr>
             ))}
           </thead>
-          <tbody className="bg-white">
+          <tbody>
             {table.getRowModel().rows.length === 0 ? (
-              <tr className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
-                <td colSpan={7} className="bg-[#F1F4F8] p-6 text-center">
-                  <p>No patient data</p>
+              <tr className="w-full bg-[#F1F4F8] text-center text-sm">
+                <td colSpan={7} className="p-6">
+                  No patient data
                 </td>
               </tr>
             ) : (
@@ -305,7 +311,6 @@ function TableComponent({
                       <tr>
                         {/* 2nd row is a custom 1 cell row */}
                         <td colSpan={row.getVisibleCells().length}>
-                          {/* <p>{row.getVisibleCells().length}</p> */}
                           {renderSubComponent({ row })}
                         </td>
                       </tr>
@@ -317,6 +322,7 @@ function TableComponent({
           </tbody>
         </table>
       </div>
+
       <Pagination table={table} />
     </div>
   );
