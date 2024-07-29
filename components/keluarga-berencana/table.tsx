@@ -339,8 +339,8 @@ function renderSubComponent({ row }: { row: Row<Patient> }) {
             <TableHead>Tanggal</TableHead>
             <TableHead>S</TableHead>
             <TableHead>TD</TableHead>
-            <TableHead>LK</TableHead>
-            <TableHead>PB</TableHead>
+            <TableHead>BB</TableHead>
+            <TableHead>HPHT</TableHead>
             <TableHead>Lain-Lain</TableHead>
             <TableHead>A</TableHead>
             <TableHead>P</TableHead>
@@ -353,8 +353,8 @@ function renderSubComponent({ row }: { row: Row<Patient> }) {
                 <TableCell>{d.tglDatang}</TableCell>
                 <TableCell>{d.s}</TableCell>
                 <TableCell>{d.o.td}</TableCell>
-                <TableCell>{d.o.lk}</TableCell>
-                <TableCell>{d.o.pb}</TableCell>
+                <TableCell>{d.o.bb}</TableCell>
+                <TableCell>{d.o.hpht}</TableCell>
                 <TableCell>{d.o.lain2}</TableCell>
                 <TableCell>{d.a}</TableCell>
                 <TableCell>{d.p}</TableCell>
